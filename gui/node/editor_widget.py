@@ -30,7 +30,7 @@ class NodeEditorWidget(QWidget):
         self.scene = Scene()
         # self.grScene = self.scene.grScene
 
-        self.addNodes()
+        # self.addNodes()
 
         # create graphics view
         self.view = QDMGraphicsView(self.scene.grScene, self)

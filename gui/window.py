@@ -5,12 +5,29 @@ from PyQt5.QtCore import *
 
 from gui.node.editor_widget import NodeEditorWidget
 from core.config import *
+from core import actions
+
+
+class NewLeafDialog(QWidget):
+
+    def __init__(self, parent=None):
+        super(NewLeafDialog, self).__init__(parent)
+
+        self.setWindowTitle(f"{NAME} - 새 잎 만들기")
+
+        layout = QFormLayout()
+
+        self.name = QLineEdit()
+        self.type = QComboBox()
+
+        layout.addRow(self.name, self.type)
 
 
 class Editor(QMainWindow):
 
     def __init__(self):
         super().__init__()
+        actions.initialize(self)
 
         self.editor = NodeEditorWidget(self)
 
@@ -23,6 +40,7 @@ class Editor(QMainWindow):
 
         self.setWindowTitle(NAME)
 
+        self.showMaximized()
         self.show()
 
     def renewal(self):
