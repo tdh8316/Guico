@@ -4,7 +4,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 
 
-from gui.node_socket import *
+from gui.node.socket import *
 
 
 EDGE_CP_ROUNDNESS = 100

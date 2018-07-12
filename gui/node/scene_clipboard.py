@@ -1,7 +1,7 @@
 from collections import OrderedDict
-from gui.node_graphics_edge import QDMGraphicsEdge
-from gui.node_node import Node
-from gui.node_edge import Edge
+from gui.node.graphics_edge import QDMGraphicsEdge
+from gui.node.node import Node
+from gui.node.edge import Edge
 
 
 DEBUG = False

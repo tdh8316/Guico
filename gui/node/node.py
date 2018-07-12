@@ -1,6 +1,8 @@
-from gui.node_graphics_node import QDMGraphicsNode
-from gui.node_content_widget import QDMNodeContentWidget
-from gui.node_socket import *
+from collections import OrderedDict
+from gui.node.serializable import Serializable
+from gui.node.graphics_node import QDMGraphicsNode
+from gui.node.content_widget import QDMNodeContentWidget
+from gui.node.socket import *
 
 DEBUG = False
 
@@ -40,14 +42,13 @@ class Node(Serializable):
 
     @property
     def pos(self):
-        return self.grNode.pos()  # QPointF
+        return self.grNode.pos()        # QPointF
 
     def setPos(self, x, y):
         self.grNode.setPos(x, y)
 
     @property
-    def title(self):
-        return self._title
+    def title(self): return self._title
 
     @title.setter
     def title(self, value):
@@ -60,21 +61,23 @@ class Node(Serializable):
         if position in (LEFT_BOTTOM, RIGHT_BOTTOM):
             # start from bottom
             y = self.grNode.height - self.grNode.edge_size - self.grNode._padding - index * self.socket_spacing
-        else:
+        else :
             # start from top
             y = self.grNode.title_height + self.grNode._padding + self.grNode.edge_size + index * self.socket_spacing
 
         return [x, y]
+
 
     def updateConnectedEdges(self):
         for socket in self.inputs + self.outputs:
             if socket.hasEdge():
                 socket.edge.updatePositions()
 
+
     def remove(self):
         if DEBUG: print("> Removing Node", self)
         if DEBUG: print(" - remove all edges from sockets")
-        for socket in (self.inputs + self.outputs):
+        for socket in (self.inputs+self.outputs):
             if socket.hasEdge():
                 if DEBUG: print("    - removing from socket:", socket, "edge:", socket.edge)
                 socket.edge.remove()
@@ -106,8 +109,8 @@ class Node(Serializable):
         self.setPos(data['pos_x'], data['pos_y'])
         self.title = data['title']
 
-        data['inputs'].sort(key=lambda socket: socket['index'] + socket['position'] * 10000)
-        data['outputs'].sort(key=lambda socket: socket['index'] + socket['position'] * 10000)
+        data['inputs'].sort(key=lambda socket: socket['index'] + socket['position'] * 10000 )
+        data['outputs'].sort(key=lambda socket: socket['index'] + socket['position'] * 10000 )
 
         self.inputs = []
         for socket_data in data['inputs']:
@@ -122,5 +125,6 @@ class Node(Serializable):
                                 socket_type=socket_data['socket_type'])
             new_socket.deserialize(socket_data, hashmap, restore_id)
             self.outputs.append(new_socket)
+
 
         return True

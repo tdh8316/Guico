@@ -1,6 +1,6 @@
 from collections import OrderedDict
-from gui.node_serializable import Serializable
-from gui.node_graphics_edge import *
+from gui.node.serializable import Serializable
+from gui.node.graphics_edge import *
 
 
 EDGE_TYPE_DIRECT = 1

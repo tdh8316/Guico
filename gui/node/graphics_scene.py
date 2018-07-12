@@ -25,11 +25,6 @@ class QDMGraphicsScene(QGraphicsScene):
 
         self.setBackgroundBrush(self._color_background)
 
-    def mouseReleaseEvent(self, QGraphicsSceneMouseEvent):
-        if QGraphicsSceneMouseEvent.button() == Qt.RightButton:
-            menu = QMenu()
-            menu.addSeparator()
-            menu.show()
 
     def setGrScene(self, width, height):
         self.setSceneRect(-width // 2, -height // 2, width, height)
@@ -49,16 +44,13 @@ class QDMGraphicsScene(QGraphicsScene):
         # compute all lines to be drawn
         lines_light, lines_dark = [], []
         for x in range(first_left, right, self.gridSize):
-            if x % (self.gridSize * self.gridSquares) != 0:
-                lines_light.append(QLine(x, top, x, bottom))
-            else:
-                lines_dark.append(QLine(x, top, x, bottom))
+            if (x % (self.gridSize*self.gridSquares) != 0): lines_light.append(QLine(x, top, x, bottom))
+            else: lines_dark.append(QLine(x, top, x, bottom))
 
         for y in range(first_top, bottom, self.gridSize):
-            if y % (self.gridSize * self.gridSquares) != 0:
-                lines_light.append(QLine(left, y, right, y))
-            else:
-                lines_dark.append(QLine(left, y, right, y))
+            if (y % (self.gridSize*self.gridSquares) != 0): lines_light.append(QLine(left, y, right, y))
+            else: lines_dark.append(QLine(left, y, right, y))
+
 
         # draw the lines
         painter.setPen(self._pen_light)

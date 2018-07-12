@@ -1,4 +1,4 @@
-from gui.node_graphics_edge import QDMGraphicsEdge
+from gui.node.graphics_edge import QDMGraphicsEdge
 
 
 DEBUG = False
