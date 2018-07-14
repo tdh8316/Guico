@@ -16,7 +16,7 @@ MODE_EDGE_CUT = 3
 
 EDGE_DRAG_START_THRESHOLD = 10
 
-DEBUG = True
+DEBUG = False
 
 
 class QDMGraphicsView(QGraphicsView):
@@ -122,7 +122,8 @@ class QDMGraphicsView(QGraphicsView):
 
         if self.mode == MODE_EDGE_DRAG:
             res = self.edgeDragEnd(item)
-            if res: return
+            if res:
+                return
 
         if item is None:
             if event.modifiers() & Qt.ControlModifier:
@@ -241,7 +242,7 @@ class QDMGraphicsView(QGraphicsView):
             for edge in self.grScene.scene.edges:
                 if edge.grEdge.intersectsWith(p1, p2):
                     edge.remove()
-        self.grScene.scene.history.storeHistory("Delete cutted edges", setModified=True)
+        self.grScene.scene.history.storeHistory("Delete cut edges", setModified=True)
 
     def deleteSelected(self):
         for item in self.grScene.selectedItems():
@@ -253,9 +254,12 @@ class QDMGraphicsView(QGraphicsView):
 
     def debug_modifiers(self, event):
         out = "MODS: "
-        if event.modifiers() & Qt.ShiftModifier: out += "SHIFT "
-        if event.modifiers() & Qt.ControlModifier: out += "CTRL "
-        if event.modifiers() & Qt.AltModifier: out += "ALT "
+        if event.modifiers() & Qt.ShiftModifier:
+            out += "SHIFT "
+        if event.modifiers() & Qt.ControlModifier:
+            out += "CTRL "
+        if event.modifiers() & Qt.AltModifier:
+            out += "ALT "
         return out
 
     def getItemAtClick(self, event):
@@ -282,7 +286,8 @@ class QDMGraphicsView(QGraphicsView):
                 if item.socket.hasEdge():
                     item.socket.edge.remove()
                 if DEBUG: print('View::edgeDragEnd ~   assign End Socket', item.socket)
-                if self.previousEdge is not None: self.previousEdge.remove()
+                if self.previousEdge is not None:
+                    self.previousEdge.remove()
                 if DEBUG: print('View::edgeDragEnd ~  previous edge removed')
                 self.dragEdge.start_socket = self.last_start_socket
                 self.dragEdge.end_socket = item.socket
@@ -323,8 +328,10 @@ class QDMGraphicsView(QGraphicsView):
             self.zoom -= self.zoomStep
 
         clamped = False
-        if self.zoom < self.zoomRange[0]: self.zoom, clamped = self.zoomRange[0], True
-        if self.zoom > self.zoomRange[1]: self.zoom, clamped = self.zoomRange[1], True
+        if self.zoom < self.zoomRange[0]:
+            self.zoom, clamped = self.zoomRange[0], True
+        if self.zoom > self.zoomRange[1]:
+            self.zoom, clamped = self.zoomRange[1], True
 
         # set scene scale
         if not clamped or self.zoomClamp is False:

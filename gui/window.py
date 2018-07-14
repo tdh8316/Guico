@@ -16,8 +16,7 @@ class Editor(QMainWindow):
         self.statusBar().addPermanentWidget(self.status_mouse_pos)
 
         self.editor = NodeEditorWidget(self)
-        self.editor.scene.addHasBeenModifiedListener(lambda:
-                                                     self.setWindowTitle(f"{NAME} - {CONF['FILE_NAME']}*"))
+        self.editor.scene.addHasBeenModifiedListener(lambda: self.signal_change_editor())
         self.editor.view.scenePosChanged.connect(actions.on_scene_pos_changed)
 
         self.dock_editor = QDockWidget("편집 환경", self)
@@ -50,8 +49,17 @@ class Editor(QMainWindow):
         menu_help.addAction(actions.license_dialog())
         # menu_edit.addAction(actions.new_leaf())
 
+    def signal_change_editor(self):
+        CONF["MODIFIED"] = True
+        self.renewal()
+
     def renewal(self):
-        self.setWindowTitle(f"{NAME} - {CONF['FILE_NAME']}")
+        if not CONF["MODIFIED"]:
+            self.setWindowTitle(f"{NAME} - {CONF['FILE_NAME']}") if CONF['FILE_NAME'] is not None else \
+                self.setWindowTitle("{NAME} - 제목 없음")
+        else:
+            self.setWindowTitle(f"{NAME} - {CONF['FILE_NAME']}(수정됨)") if \
+                CONF['FILE_NAME'] is not None else self.setWindowTitle(f"{NAME} - 제목 없음(수정됨)")
 
     def is_modified(self):
         return self.centralWidget().scene.has_been_modified

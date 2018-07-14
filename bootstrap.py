@@ -10,8 +10,9 @@ from gui.window import Editor
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     QFontDatabase().addApplicationFont(r"gui\resources\NanumBarunpenR.ttf")
-    app.setFont(QFont("나눔바른펜"))
+
     app.setStyleSheet(qdarkstyle.load_stylesheet())
+    app.setFont(QFont("나눔바른펜"))
 
     root = Editor()
     root.show()

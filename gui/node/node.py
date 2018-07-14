@@ -8,11 +8,15 @@ DEBUG = False
 
 
 class Node(Serializable):
-    def __init__(self, scene, title="Undefined Node", inputs=[], outputs=[], type=""):
+    def __init__(self, scene, title="Undefined Node", inputs=[], outputs=[], types="EmptyLeaf"):
         super().__init__()
+        if types == "Branch":
+            title = "조건문"
+        elif types == "Print":
+            title = "출력"
         self._title = title
         self.scene = scene
-        self.type = type
+        self.type = types
 
         self.content = QDMNodeContentWidget(self, self.type)
         self.grNode = QDMGraphicsNode(self)
@@ -21,14 +25,14 @@ class Node(Serializable):
         self.scene.addNode(self)
         self.scene.grScene.addItem(self.grNode)
 
-        self.socket_spacing = 22
+        self.socket_spacing = 25
 
         # create socket for inputs and outputs
         self.inputs = []
         self.outputs = []
         counter = 0
         for item in inputs:
-            socket = Socket(node=self, index=counter, position=LEFT_BOTTOM, socket_type=item)
+            socket = Socket(node=self, index=counter, position=LEFT_TOP, socket_type=item)
             counter += 1
             self.inputs.append(socket)
 
@@ -90,8 +94,10 @@ class Node(Serializable):
 
     def serialize(self):
         inputs, outputs = [], []
-        for socket in self.inputs: inputs.append(socket.serialize())
-        for socket in self.outputs: outputs.append(socket.serialize())
+        for socket in self.inputs:
+            inputs.append(socket.serialize())
+        for socket in self.outputs:
+            outputs.append(socket.serialize())
         return OrderedDict([
             ('id', self.id),
             ('title', self.title),

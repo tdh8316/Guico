@@ -4,6 +4,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 
 from gui.node.node import Node as CreateNode
+from gui.node.graphics_node import QDMGraphicsNode
 from gui.dialogs import OpenSourceLicense
 from core.config import *
 
@@ -143,7 +144,9 @@ def on_new_leaf(x, y):
     if not _:
         return False
     #                         ↓TODO: Show(print)s the icon of its function.
-    CreateNode(editor.scene, " ", inputs=[0, 0, 0], outputs=[1], type=str_1).setPos(x, y)
+
+    CreateNode(editor.scene, " ", inputs=[0,], outputs=[1], types=str_1).setPos(x, y)
+    parent.signal_change_editor()
 
 
 def create_editor_menu(p, QContextMenuEvent):

@@ -39,7 +39,6 @@ class Scene(Serializable):
 
         self._has_been_modified = value
 
-
     def addHasBeenModifiedListener(self, callback):
         self._has_been_modified_listeners.append(callback)
 
@@ -53,13 +52,11 @@ class Scene(Serializable):
     def addEdge(self, edge):
         self.edges.append(edge)
 
-
     def removeNode(self, node):
         self.nodes.remove(node)
 
     def removeEdge(self, edge):
         self.edges.remove(edge)
-
 
     def clear(self):
         while len(self.nodes) > 0:
@@ -67,11 +64,10 @@ class Scene(Serializable):
 
         self.has_been_modified = False
 
-
     def saveToFile(self, filename):
         with open(filename, "w") as file:
-            file.write( json.dumps( self.serialize(), indent=4 ) )
-            print("saving to", filename, "was successfull.")
+            file.write(json.dumps(self.serialize(), indent=4))
+            print("saving to", filename, "was successful.")
 
             self.has_been_modified = False
 
@@ -82,7 +78,6 @@ class Scene(Serializable):
             self.deserialize(data)
 
             self.has_been_modified = False
-
 
     def serialize(self):
         nodes, edges = [], []
