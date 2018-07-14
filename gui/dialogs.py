@@ -13,6 +13,7 @@ class OpenSourceLicense(QDialog):
         layout = QFormLayout(self)
         textbox = QPlainTextEdit()
         textbox.setPlainText(OPEN_SOURCE_LICENSE)
+        textbox.setReadOnly(True)
         textbox.setFixedWidth(720)
         textbox.setFixedHeight(640)
         layout.addRow(textbox)
