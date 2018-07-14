@@ -1,0 +1,44 @@
+{
+    "id": 86423664,
+    "scene_width": 64000,
+    "scene_height": 64000,
+    "nodes": [
+        {
+            "id": 86554544,
+            "title": " ",
+            "type": "If",
+            "pos_x": -232.0,
+            "pos_y": -196.0,
+            "inputs": [
+                {
+                    "id": 86585968,
+                    "index": 0,
+                    "position": 2,
+                    "socket_type": 0
+                },
+                {
+                    "id": 86586000,
+                    "index": 1,
+                    "position": 2,
+                    "socket_type": 0
+                },
+                {
+                    "id": 86586032,
+                    "index": 2,
+                    "position": 2,
+                    "socket_type": 0
+                }
+            ],
+            "outputs": [
+                {
+                    "id": 86586064,
+                    "index": 0,
+                    "position": 3,
+                    "socket_type": 1
+                }
+            ],
+            "content": {}
+        }
+    ],
+    "edges": []
+}

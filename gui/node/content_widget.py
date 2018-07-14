@@ -4,8 +4,9 @@ from PyQt5.QtWidgets import *
 
 
 class QDMNodeContentWidget(QWidget, Serializable):
-    def __init__(self, node, parent=None):
+    def __init__(self, node, title, parent=None):
         self.node = node
+        self.title = title
         super().__init__(parent)
 
         self.initUI()
@@ -15,9 +16,9 @@ class QDMNodeContentWidget(QWidget, Serializable):
         self.layout.setContentsMargins(0,0,0,0)
         self.setLayout(self.layout)
 
-        self.wdg_label = QLabel("Some Title")
+        self.wdg_label = QLabel(self.title)
         self.layout.addWidget(self.wdg_label)
-        self.layout.addWidget(QDMTextEdit("foo"))
+        self.layout.addWidget(QDMTextEdit("Hello, World!"))
 
     def setEditingFlag(self, value):
         self.node.scene.grScene.views()[0].editingFlag = value

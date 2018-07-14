@@ -7,7 +7,8 @@ from gui.node.graphics_edge import QDMGraphicsEdge
 from gui.node.edge import Edge, EDGE_TYPE_BEZIER
 from gui.node.graphics_cutline import QDMCutLine
 
-from core.actions import new_leaf
+from core.actions import create_editor_menu
+from core.config import *
 
 MODE_NOOP = 1
 MODE_EDGE_DRAG = 2
@@ -44,15 +45,12 @@ class QDMGraphicsView(QGraphicsView):
         self.grScene.addItem(self.cutline)
 
     def contextMenuEvent(self, QContextMenuEvent):
-        menu = QMenu(self)
-        menu.addAction(QAction("새 잎 만들기", self, shortcut="Ctrl+l",
-                               triggered=lambda: new_leaf(int(QPoint(QContextMenuEvent.globalPos()).x())-600,
-                                                          int(QPoint(QContextMenuEvent.globalPos()).y())-600)))
-        menu.exec_(QContextMenuEvent.globalPos())
+        create_editor_menu(self, QContextMenuEvent)
 
     def initUI(self):
         self.setRenderHints(
-            QPainter.Antialiasing | QPainter.HighQualityAntialiasing | QPainter.TextAntialiasing | QPainter.SmoothPixmapTransform)
+            QPainter.Antialiasing | QPainter.HighQualityAntialiasing | QPainter.TextAntialiasing |
+            QPainter.SmoothPixmapTransform)
 
         self.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
 
