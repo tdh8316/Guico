@@ -8,4 +8,4 @@ def interpreter(target):
     for i in range(len(tokenize)):
         print(tokenize[i])
 
-    scr = Parse(tokenize)
+    # scr = Parse(tokenize)

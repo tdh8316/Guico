@@ -16,7 +16,6 @@ class Lexer:
 
         with open(os.path.join(target), "r") as _s:
             self.token = json.loads(_s.read(), encoding='utf-8')
-
         for node_data in self.token['nodes']:
             self.res.append(node_data)
 
