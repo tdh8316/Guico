@@ -3,7 +3,6 @@ from gui.node.graphics_edge import QDMGraphicsEdge
 from gui.node.node import Node
 from gui.node.edge import Edge
 
-
 DEBUG = False
 
 
@@ -25,13 +24,11 @@ class SceneClipboard():
             elif isinstance(item, QDMGraphicsEdge):
                 sel_edges.append(item.edge)
 
-
         # debug
         if DEBUG:
             print("  NODES\n      ", sel_nodes)
             print("  EDGES\n      ", sel_edges)
             print("  SOCKETS\n     ", sel_sockets)
-
 
         # remove all edges which are not connected to a node in our list
         edges_to_remove = []
@@ -52,12 +49,10 @@ class SceneClipboard():
 
         if DEBUG: print("our final edge list:", edges_final)
 
-
         data = OrderedDict([
             ('nodes', sel_nodes),
             ('edges', edges_final),
         ])
-
 
         # if CUT (aka delete) remove selected items
         if delete:
@@ -76,7 +71,7 @@ class SceneClipboard():
         mouse_scene_pos = view.last_scene_mouse_position
 
         # calculate selected objects bbox and center
-        minx, maxx, miny, maxy = 0,0,0,0
+        minx, maxx, miny, maxy = 0, 0, 0, 0
         for node_data in data['nodes']:
             x, y = node_data['pos_x'], node_data['pos_y']
             if x < minx: minx = x

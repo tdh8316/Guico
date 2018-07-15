@@ -10,7 +10,7 @@ class QDMGraphicsNode(QGraphicsItem):
         self.content = self.node.content
 
         self._title_color = Qt.white
-        self._title_font = QFont("나눔바른펜")
+        self._title_font = QFont("나눔바른펜", 15)
 
         self.width = 180
         self.height = 180

@@ -18,7 +18,7 @@ def content_if(self):
 
     self.layout.setContentsMargins(0, 0, 0, 0)
     self.setLayout(self.layout)
-    # self.layout.addWidget(self.wdg_label)
+    # self.layout.addWidget(self.wdg_label)=
 
 
 class QDMTextEdit(QPlainTextEdit):

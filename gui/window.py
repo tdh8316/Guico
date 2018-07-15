@@ -24,7 +24,7 @@ class Editor(QMainWindow):
 
         self.addDockWidget(Qt.LeftDockWidgetArea, self.dock_editor)
 
-        self.setWindowTitle(NAME)
+        self.setWindowTitle(f"{TEAM} {NAME} {VERSION}")
 
         self.showMaximized()
         self.show()
@@ -45,21 +45,26 @@ class Editor(QMainWindow):
         menu_edit.addAction(actions.paste())
         menu_edit.addAction(actions.delete())
         menu_edit.addSeparator()
+        menu_run = menu_bar.addMenu("실행(&R)")
+        menu_run.addAction(actions.run())
         menu_help = menu_bar.addMenu("도움말(&H)")
         menu_help.addAction(actions.license_dialog())
         # menu_edit.addAction(actions.new_leaf())
 
-    def signal_change_editor(self):
-        CONF["MODIFIED"] = True
+    def signal_change_editor(self, true=True):
+        # print(self.focusWidget())
+        CONF["MODIFIED"] = True if true else False
         self.renewal()
 
     def renewal(self):
         if not CONF["MODIFIED"]:
-            self.setWindowTitle(f"{NAME} - {CONF['FILE_NAME']}") if CONF['FILE_NAME'] is not None else \
-                self.setWindowTitle("{NAME} - 제목 없음")
-        else:
-            self.setWindowTitle(f"{NAME} - {CONF['FILE_NAME']}(수정됨)") if \
-                CONF['FILE_NAME'] is not None else self.setWindowTitle(f"{NAME} - 제목 없음(수정됨)")
+            self.setWindowTitle(f"{TEAM} {NAME} {VERSION} - {CONF['FILE_NAME']}"
+                                if CONF['FILE_NAME'] is not None
+                                else f"{TEAM} {NAME} {VERSION} - 빈 파일")
+        elif CONF["MODIFIED"]:
+            self.setWindowTitle(f"{TEAM} {NAME} {VERSION} - {CONF['FILE_NAME']}*"
+                                if CONF['FILE_NAME'] is not None
+                                else f"{TEAM} {NAME} {VERSION} - 제목 없음*")
 
     def is_modified(self):
         return self.centralWidget().scene.has_been_modified

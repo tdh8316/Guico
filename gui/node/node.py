@@ -10,16 +10,19 @@ DEBUG = False
 class Node(Serializable):
     def __init__(self, scene, title="Undefined Node", inputs=[], outputs=[], types="EmptyLeaf"):
         super().__init__()
-        if types == "Branch":
-            title = "조건문"
-        elif types == "Print":
-            title = "출력"
+
         self._title = title
         self.scene = scene
+        # self.type = types
+        # print(self.type)
         self.type = types
+        if self.type == "Branch":
+            title, bg = "조건문", "#01579B"
+        elif self.type == "Print":
+            title, bg = "출력", "#E65100"
 
-        self.content = QDMNodeContentWidget(self, self.type)
-        self.grNode = QDMGraphicsNode(self)
+        self.content: QDMNodeContentWidget = QDMNodeContentWidget(self, self.type)
+        self.grNode = QDMGraphicsNode(self, title_background=bg)
         self.title = title
 
         self.scene.addNode(self)
@@ -116,6 +119,8 @@ class Node(Serializable):
 
         self.setPos(data['pos_x'], data['pos_y'])
         self.title = data['title']
+
+        self.content.deserialize(data["content"])
 
         data['inputs'].sort(key=lambda socket: socket['index'] + socket['position'] * 10000)
         data['outputs'].sort(key=lambda socket: socket['index'] + socket['position'] * 10000)

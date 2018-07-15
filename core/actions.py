@@ -1,4 +1,6 @@
 import json
+import os
+
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
@@ -6,16 +8,19 @@ from PyQt5.QtGui import *
 from gui.node.node import Node as CreateNode
 from gui.node.graphics_node import QDMGraphicsNode
 from gui.dialogs import OpenSourceLicense
+
+from core.executer import interpreter as _run
 from core.config import *
 
 parent: QInputDialog = None
 editor = None
+leaf_count = 0
 
 
 def initialize(self):
     global parent
     parent = self
-    print(parent)
+    # print(parent)
 
 
 def set_editor(_):
@@ -25,12 +30,13 @@ def set_editor(_):
 
 def on_file_save():
     if CONF["FILE_NAME"] is None:
-        _name, _filter = QFileDialog.getSaveFileName(parent, f'{NAME} - 저장')
+        _name, _filter = QFileDialog.getSaveFileName(parent, f'{NAME} - 저장', '', FILE_TYPES)
         if _name == '':
             return False
         CONF["FILE_NAME"] = _name
     parent.editor.scene.saveToFile(CONF["FILE_NAME"])
     parent.statusBar().showMessage("Successfully saved %s" % CONF["FILE_NAME"])
+    parent.signal_change_editor(true=False)
     parent.renewal()
     return True
 
@@ -41,19 +47,28 @@ def file_new():
 
 
 def file_open():
+    def _file_open():
+        _name, _filter = QFileDialog.getOpenFileName(parent, f'{NAME} - 열기', '', FILE_TYPES)
+        if _name == '':
+            return
+        if os.path.isfile(_name):
+            parent.editor.scene.loadFromFile(_name)
+            CONF["FILE_NAME"] = _name
+            parent.renewal()
     return QAction("열기 (&O)", parent, shortcut="Ctrl+O", triggered=lambda:
-    print("File open"))
+    _file_open())
 
 
 def file_save():
     def _file_save():
         if CONF["FILE_NAME"] is None:
-            _name, _filter = QFileDialog.getSaveFileName(parent, f'{NAME} - 저장')
+            _name, _filter = QFileDialog.getSaveFileName(parent, f'{NAME} - 저장', '', FILE_TYPES)
             if _name == '':
                 return False
             CONF["FILE_NAME"] = _name
         parent.editor.scene.saveToFile(CONF["FILE_NAME"])
         parent.statusBar().showMessage("Successfully saved %s" % CONF["FILE_NAME"])
+        parent.signal_change_editor(true=False)
         parent.renewal()
         return True
 
@@ -63,12 +78,13 @@ def file_save():
 
 def file_save_as():
     def _file_save_as():
-        _name, _filter = QFileDialog.getSaveFileName(parent, f'{NAME} - 다른 이름으로 저장')
+        _name, _filter = QFileDialog.getSaveFileName(parent, f'{NAME} - 다른 이름으로 저장', '', FILE_TYPES)
         if _name == '':
             return False
         CONF["FILE_NAME"] = _name
         parent.editor.scene.saveToFile(CONF["FILE_NAME"])
         parent.statusBar().showMessage("Successfully saved %s" % CONF["FILE_NAME"])
+        parent.signal_change_editor(true=False)
         parent.renewal()
         return True
 
@@ -128,6 +144,22 @@ def delete():
     parent.editor.scene.grScene.views()[0].deleteSelected())
 
 
+def run():
+    return QAction("R&un", parent, shortcut="Shift+F5", triggered=lambda:
+    _run(CONF["FILE_NAME"]))
+
+
+'''def build_and_run():
+    return QAction("R&un", parent, shortcut="Shift+F5", triggered=lambda:
+    parent.editor.scene.grScene.views()[0].deleteSelected())'''
+
+
+def compile_and_run():
+    """Convert .py to .exe and run"""
+    return QAction("컴파일 후 실행 (&C)", parent, shortcut="F5", triggered=lambda:
+    print())
+
+
 def license_dialog():
     return QAction("오픈 소스 라이선스...", parent, shortcut="", triggered=lambda:
     OpenSourceLicense(parent))
@@ -139,13 +171,16 @@ def on_scene_pos_changed(x, y):
 
 
 def on_new_leaf(x, y):
+    global leaf_count
+    leaf_count += 1
     str_1, _ = QInputDialog.getItem(parent, " ", "Set this type of leaf:", CONF["LEAF_TYPES"], 0, False,
                                     Qt.FramelessWindowHint)
     if not _:
         return False
-    #                         ↓TODO: Show(print)s the icon of its function.
+    #                         ↓TODO: Show(s) the icon of its function.
 
-    CreateNode(editor.scene, " ", inputs=[0,], outputs=[1], types=str_1).setPos(x, y)
+    exec(f'Leaf{leaf_count} = CreateNode(editor.scene, " ", inputs=[0, ], outputs=[1], types=str_1)')
+    exec(f'Leaf{leaf_count}.setPos(x, y)')
     parent.signal_change_editor()
 
 
