@@ -3,18 +3,20 @@ import os
 
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
-from PyQt5.QtGui import *
 
 from gui.node.node import Node as CreateNode
 from gui.node.graphics_node import QDMGraphicsNode
 from gui.dialogs import OpenSourceLicense
 
-from core.executer import interpreter as _run
+from core.code.executer import interpreter as _run
 from core.config import *
 
 parent: QInputDialog = None
 editor = None
 leaf_count = 0
+
+CreateNode
+QDMGraphicsNode
 
 
 def initialize(self):
@@ -145,8 +147,12 @@ def delete():
 
 
 def run():
+    def _save_and_run(f):
+        on_file_save()
+        _run(f)
+
     return QAction("R&un", parent, shortcut="Shift+F5", triggered=lambda:
-    _run(CONF["FILE_NAME"]))
+    _save_and_run(CONF["FILE_NAME"]))
 
 
 '''def build_and_run():
