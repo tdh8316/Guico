@@ -1,16 +1,21 @@
 import sys
 
+import qdarkstyle
 from PyQt5.QtGui import QFontDatabase, QFont, QIcon
 from PyQt5.QtWidgets import QApplication
-import qdarkstyle
 
+from core.code.executer import interpreter
 from gui.window import Editor
-# from gui import theme
+
+if False:
+    interpreter("helloworld.gvs")
+    sys.exit()
+
 
 if __name__ == "__main__":
-    app = QApplication(sys.argv)
+    app = QApplication([])
     QFontDatabase().addApplicationFont(r"gui\resources\NanumBarunpenR.ttf")
-    QFontDatabase().addApplicationFont(r"gui\resources\GodoM.ttf")
+    QFontDatabase().addApplicationFont(r"gui\resources\godoRounded L.ttf")
 
     app.setStyleSheet(qdarkstyle.load_stylesheet())
     app.setFont(QFont("나눔바른펜", 11))
