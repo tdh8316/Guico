@@ -7,12 +7,6 @@ from PyQt5.QtWidgets import QApplication
 from core.code.executer import interpreter
 from gui.window import Editor as MainWindow
 
-_TEST = False
-
-if _TEST:
-    interpreter("helloworld.gvs")
-    sys.exit()
-
 
 if __name__ == "__main__":
     app = QApplication([])
