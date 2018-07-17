@@ -8,8 +8,13 @@ DEBUG = False
 
 
 class Node(Serializable):
-    def __init__(self, scene, title="Undefined Node", inputs=[], outputs=[], types="EmptyLeaf"):
+    def __init__(self, scene, title="Undefined Node", inputs=None, outputs=None, types="Undefined Type"):
         super().__init__()
+
+        if outputs is None:
+            outputs = []
+        if inputs is None:
+            inputs = []
 
         self._title = title
         self.scene = scene
@@ -37,7 +42,7 @@ class Node(Serializable):
         self.scene.addNode(self)
         self.scene.grScene.addItem(self.grNode)
 
-        self.socket_spacing = 25
+        self.socket_spacing = 50
 
         # create socket for inputs and outputs
         self.inputs = []

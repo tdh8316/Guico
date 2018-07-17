@@ -56,6 +56,7 @@ def file_open():
         if os.path.isfile(_name):
             parent.editor.scene.loadFromFile(_name)
             CONF["FILE_NAME"] = _name
+            parent.signal_change_editor(False)
             parent.renewal()
 
     return QAction("열기 (&O)", parent, shortcut="Ctrl+O", triggered=lambda:

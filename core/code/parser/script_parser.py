@@ -8,7 +8,7 @@ class Parse:
 
         self.parsed_token: list = []
         # Index: [TYPE, {CONTENT}, (INPUT-OUTPUT)]
-        print(self.target)
+        # print(self.target)
         for i in range(self.leaves):
             self.parsed_token.append(
                 [

@@ -5,7 +5,7 @@ from PyQt5.QtGui import QFontDatabase, QFont, QIcon
 from PyQt5.QtWidgets import QApplication
 
 from core.code.executer import interpreter
-from gui.window import Editor
+from gui.window import Editor as MainWindow
 
 _TEST = False
 
@@ -23,7 +23,7 @@ if __name__ == "__main__":
     app.setFont(QFont("나눔바른펜", 11))
     app.setWindowIcon(QIcon(r"gui\resources\icon.ico"))
 
-    root = Editor()
+    root = MainWindow()
     root.show()
 
     sys.exit(app.exec_())

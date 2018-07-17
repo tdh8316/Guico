@@ -20,7 +20,7 @@ class PromptlyExecute:
 
         for code in self.code:
             if code[0] == "Print":
-                self.print(code[1]["str"])
+                self. print(code[1]["str"])
 
         print(f"\n{'=' * 50}\n{CONF['FILE_NAME']} Completed successfully.\n{'=' * 50}\n")
 
@@ -49,6 +49,6 @@ def interpreter(target):
     else:
         array = parser.get_token()[0]
 
-    print(array)
+    # print(array)
 
     PromptlyExecute(array)

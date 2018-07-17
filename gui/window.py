@@ -69,14 +69,16 @@ class Editor(QMainWindow):
                                 else f"{TEAM} {NAME} {VERSION} - 제목 없음*")
 
     def is_modified(self):
-        return self.centralWidget().scene.has_been_modified
+        return self.editor.scene.has_been_modified
 
     def maybe_save(self):
         if not self.is_modified():
             return True
 
         res = QMessageBox.warning(None, "About to loose your work?",
-                                  f"현재 파일 [{CONF['FILE_NAME']}]이 수정되었습니다.\n"
+                                  f"현재 파일 ["
+                                  f"{CONF['FILE_NAME'] if CONF['FILE_NAME'] is not None else '제목 없음'}"
+                                  f"]이 수정되었습니다.\n"
                                   f"Do you want to save your changes?",
                                   QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel
                                   )
@@ -89,4 +91,7 @@ class Editor(QMainWindow):
         return True
 
     def closeEvent(self, event):
-        event.accept()
+        if self.maybe_save():
+            event.accept()
+        else:
+            event.ignore()
