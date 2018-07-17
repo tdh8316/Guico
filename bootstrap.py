@@ -7,7 +7,9 @@ from PyQt5.QtWidgets import QApplication
 from core.code.executer import interpreter
 from gui.window import Editor
 
-if False:
+_TEST = False
+
+if _TEST:
     interpreter("helloworld.gvs")
     sys.exit()
 
@@ -17,7 +19,7 @@ if __name__ == "__main__":
     QFontDatabase().addApplicationFont(r"gui\resources\NanumBarunpenR.ttf")
     QFontDatabase().addApplicationFont(r"gui\resources\godoRounded L.ttf")
 
-    app.setStyleSheet(qdarkstyle.load_stylesheet())
+    app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
     app.setFont(QFont("나눔바른펜", 11))
     app.setWindowIcon(QIcon(r"gui\resources\icon.ico"))
 

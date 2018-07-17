@@ -16,13 +16,22 @@ class Node(Serializable):
         # self.type = types
         # print(self.type)
         self.type = types
+
+        self.bg = "#212121"
+        self.width = 180
+        self.height = 120
+
         if self.type == "Branch":
-            title, bg = "조건문", "#01579B"
+            title, self.bg = "조건문", "#01579B"
         elif self.type == "Print":
-            title, bg = "출력", "#E65100"
+            title, self.bg = "출력", "#F57C00"
+        elif self.type == "Entry":
+            title, self.bg = "EntryPoint", "#4CAF50"
+            self.width, self.height = 180, 61
+            inputs = []
 
         self.content: QDMNodeContentWidget = QDMNodeContentWidget(self, self.type)
-        self.grNode = QDMGraphicsNode(self, title_background=bg)
+        self.grNode = QDMGraphicsNode(self, title_background=self.bg, w=self.width, h=self.height)
         self.title = title
 
         self.scene.addNode(self)

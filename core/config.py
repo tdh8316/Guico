@@ -11,5 +11,5 @@ CONF = {"FILE_NAME": None,
         "MODIFIED": False,
         "MOUSE_X": int,
         "MOUSE_Y": int,
-        "LEAF_TYPES": ("Branch", "Print"),
+        "LEAF_TYPES": ("Print", "Entry"),  #("Branch", "Print"),
         }

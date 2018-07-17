@@ -57,6 +57,7 @@ def file_open():
             parent.editor.scene.loadFromFile(_name)
             CONF["FILE_NAME"] = _name
             parent.renewal()
+
     return QAction("열기 (&O)", parent, shortcut="Ctrl+O", triggered=lambda:
     _file_open())
 
@@ -149,7 +150,7 @@ def delete():
 def run():
     def _save_and_run(f):
         on_file_save()
-        _run(f)
+        _run(f if f is not None else CONF["FILE_NAME"])
 
     return QAction("R&un", parent, shortcut="Shift+F5", triggered=lambda:
     _save_and_run(CONF["FILE_NAME"]))
@@ -190,8 +191,13 @@ def on_new_leaf(x, y):
     parent.signal_change_editor()
 
 
+def new_leaf():
+    return QAction("새 잎 만들기", parent, shortcut="Ctrl+L",
+                   triggered=lambda: on_new_leaf(CONF["MOUSE_X"], CONF["MOUSE_Y"]))
+
+
 def create_editor_menu(p, QContextMenuEvent):
     menu = QMenu(p)
-    menu.addAction(QAction("새 잎 만들기", p, shortcut="Ctrl+l",
+    menu.addAction(QAction("새 잎 만들기", p, shortcut="Ctrl+L",
                            triggered=lambda: on_new_leaf(CONF["MOUSE_X"], CONF["MOUSE_Y"])))
     menu.exec_(QContextMenuEvent.globalPos())

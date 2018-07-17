@@ -6,6 +6,7 @@ class Combiner:
         self.starts: list = []
         self.ends: list = []
         self.res: list = []
+        # print(conn)
 
         for x in range(len(code)):
             leaf_io_id = code[x][2]

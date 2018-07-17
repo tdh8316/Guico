@@ -8,12 +8,16 @@ class Parse:
 
         self.parsed_token: list = []
         # Index: [TYPE, {CONTENT}, (INPUT-OUTPUT)]
+        print(self.target)
         for i in range(self.leaves):
             self.parsed_token.append(
                 [
                     self.target[i]["type"],
                     self.target[i]["content"],
-                    (self.target[i]["inputs"][0]["id"], self.target[i]["outputs"][0]["id"]),
+                    (self.target[i]["inputs"][0]["id"]
+                     if self.target[i]["type"] != "Entry"
+                     else 0,
+                     self.target[i]["outputs"][0]["id"]),
                 ]
             )
 

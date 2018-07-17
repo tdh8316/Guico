@@ -27,6 +27,7 @@ class NodeEditorWidget(QWidget):
         # self.grScene = self.scene.grScene
 
         # self.addNodes()
+        self.add_default_node()
 
         # create graphics view
         self.view = QDMGraphicsView(self.scene.grScene, self)
@@ -42,6 +43,9 @@ class NodeEditorWidget(QWidget):
 
         edge1 = Edge(self.scene, node1.outputs[0], node2.inputs[0], edge_type=EDGE_TYPE_BEZIER)
         edge2 = Edge(self.scene, node2.outputs[0], node3.inputs[0], edge_type=EDGE_TYPE_BEZIER)
+
+    def add_default_node(self):
+        Node(self.scene, "진입점", inputs=[], outputs=[1], types="Entry")
 
     def addDebugContent(self):
         greenBrush = QBrush(Qt.green)

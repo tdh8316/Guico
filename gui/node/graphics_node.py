@@ -4,7 +4,7 @@ from PyQt5.QtGui import *
 
 
 class QDMGraphicsNode(QGraphicsItem):
-    def __init__(self, node, parent=None, title_background="#424242"):
+    def __init__(self, node, parent=None, title_background="#424242", w=180, h=180):
         super().__init__(parent)
         self.node = node
         self.content = self.node.content
@@ -12,11 +12,11 @@ class QDMGraphicsNode(QGraphicsItem):
         self._title_color = Qt.white
         self._title_font = QFont("나눔바른펜", 15)
 
-        self.width = 180
-        self.height = 180
+        self.width = w
+        self.height = h
         self.edge_size = 6.9
         self.title_height = 30
-        self._padding = 4.0
+        self._padding = 5.0
 
         self._pen_default = QPen(QColor("#FFFFFF"))  # 테두리
         self._pen_selected = QPen(QColor("#D81B60"))
@@ -80,10 +80,7 @@ class QDMGraphicsNode(QGraphicsItem):
         self.title_item.setDefaultTextColor(self._title_color)
         self.title_item.setFont(self._title_font)
         self.title_item.setPos(self._padding, 0)
-        self.title_item.setTextWidth(
-            self.width
-            - 2 * self._padding
-        )
+        self.title_item.setTextWidth(self.width * self._padding)
 
     def initContent(self):
         self.grContent = QGraphicsProxyWidget(self)
