@@ -1,0 +1,4 @@
+*.gvs
+*.exe
+.idea/
+node_modules/
