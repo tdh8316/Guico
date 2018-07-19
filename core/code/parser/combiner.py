@@ -1,4 +1,4 @@
-class Combiner:
+class _Combiner:
 
     def __init__(self, code, conn):
         self.code: dict = {"STARTS": [],
@@ -29,4 +29,49 @@ class Combiner:
         [self.res.append(_) for _ in self.code if _ not in self.res]
 
     def combine(self):
+        print(self.res)
         return self.res
+
+
+# NOTE: UTC+9, 대한민국 표준시 기준, 2018년 7월 19일 오후 7시 01분 성공함!!!!!!
+
+class Combiner:
+
+    def __init__(self, src, connect):
+        self.src = src
+        self.connect = connect
+        self.replacing: list = []
+        self.result: list = []
+
+        # 엔트리 포인트 검색
+        for _ in self.src:
+            if _[0] == "Entry":
+                self.replacing.append(_)
+                break
+
+        # 엔트리 포인트에 연결된 노드 검색
+        for connect in self.connect:
+            if connect[0] == self.replacing[0][2][1]:
+                for code in self.src:
+                    if code[2][0] == connect[1]:
+                        self.replacing.append(code)
+
+        # 그 다음부터 끝까지..
+        for code in self.replacing:
+            if code[0] == "Entry":
+                continue
+            _socket_of_code = code[2]
+            for connect in self.connect:
+                # connect[0] : 인풋 잎 ID
+                if connect[0] == _socket_of_code[1]:
+                    for i in self.src:
+                        if connect[1] in i[2]:
+                            self.replacing.append(i)
+
+        # 결과 작성
+        for full_inf in self.replacing:
+            self.result.append([full_inf[0], full_inf[1]])
+
+    def combine(self):
+        print(self.result)
+        return self.result
