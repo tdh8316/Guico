@@ -1,5 +1,4 @@
 *.gvs
 *.exe
-*.json
 .idea/
 node_modules/
