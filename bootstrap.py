@@ -8,7 +8,9 @@ from code.executer import interpreter
 from gui.window import Editor as MainWindow
 from core.config import *
 
+
 COMPILE_TEST = False
+
 
 if COMPILE_TEST:
     interpreter('multinode.gvs')
