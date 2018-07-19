@@ -1,6 +1,6 @@
-# Guico
+# Overview
 Do you want to code easily but nicely?
-or else want to make a game?
+or else want to make a game easily?
 
 ## Acknowledgments
 Based on the original Pavel Křupala's  code sample.

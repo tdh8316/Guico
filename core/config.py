@@ -13,3 +13,5 @@ CONF = {"FILE_NAME": None,
         "MOUSE_Y": int,
         "LEAF_TYPES": ("Print", "Entry"),  #("Branch", "Print"),
         }
+
+RELEASE = True

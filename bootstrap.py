@@ -6,6 +6,7 @@ from PyQt5.QtWidgets import QApplication
 
 from code.executer import interpreter
 from gui.window import Editor as MainWindow
+from core.config import *
 
 COMPILE_TEST = False
 
@@ -18,6 +19,9 @@ def main():
     # see https://stackoverflow.com/questions/12827305/pyqt-application-close-with-error
     if COMPILE_TEST:
         return
+    if RELEASE:
+        sys.exit(0) \
+            if len(sys.argv) == 1 else None
     app = QApplication([])
     QFontDatabase().addApplicationFont(r"gui\resources\NanumBarunpenR.ttf")
     # QFontDatabase().addApplicationFont(r"gui\resources\godoRounded L.ttf")
@@ -33,4 +37,5 @@ def main():
 
 
 if __name__ == "__main__":
+    print(f"{NAME} {VERSION} [{TEAM} | {AUTHOR}]")
     main()
