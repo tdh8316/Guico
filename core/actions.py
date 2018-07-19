@@ -8,7 +8,7 @@ from gui.node.node import Node as CreateNode
 from gui.node.graphics_node import QDMGraphicsNode
 from gui.dialogs import OpenSourceLicense
 
-from core.code.executer import interpreter as _run
+from code.executer import interpreter as _run
 from core.config import *
 
 parent: QInputDialog = None
