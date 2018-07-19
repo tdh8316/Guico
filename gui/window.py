@@ -93,6 +93,7 @@ class Editor(QMainWindow):
 
     def closeEvent(self, event):
         if self.maybe_save():
+            self.deleteLater()
             event.accept()
         else:
             event.ignore()

@@ -1,7 +1,7 @@
 NAME = "Guico"
 AUTHOR = "tdh8316@naver.com"
 TEAM = "TakturStudio"
-VERSION = "Pre-Alpha 3"
+VERSION = "Pre-Alpha 4"
 OPEN_SOURCE_LICENSE = open(r"doc\LICENSE.txt", "r", encoding="utf-8").read()
 
 FILE_TYPES = f"{NAME} script files (*.gvs);;" \

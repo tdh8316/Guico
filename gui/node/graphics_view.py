@@ -184,9 +184,11 @@ class QDMGraphicsView(QGraphicsView):
             if item is None:
                 print('SCENE:')
                 print('  Nodes:')
-                for node in self.grScene.scene.nodes: print('    ', node)
+                for node in self.grScene.scene.nodes:
+                    print('    ', node)
                 print('  Edges:')
-                for edge in self.grScene.scene.edges: print('    ', edge)
+                for edge in self.grScene.scene.edges:
+                    print('    ', edge)
 
     def rightMouseButtonRelease(self, event):
         super().mouseReleaseEvent(event)

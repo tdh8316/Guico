@@ -8,8 +8,17 @@ from core.code.executer import interpreter
 from gui.window import Editor as MainWindow
 from gui.dialogs import ActivateKey
 
+COMPILE_TEST = False
+
+if COMPILE_TEST:
+    interpreter('multinode.gvs')
+
 
 def main():
+    # TODO: unstable exit with unknown error with 0xC0000409:
+    # see https://stackoverflow.com/questions/12827305/pyqt-application-close-with-error
+    if COMPILE_TEST:
+        return
     app = QApplication([])
     QFontDatabase().addApplicationFont(r"gui\resources\NanumBarunpenR.ttf")
     # QFontDatabase().addApplicationFont(r"gui\resources\godoRounded L.ttf")

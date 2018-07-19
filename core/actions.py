@@ -187,7 +187,7 @@ def on_new_leaf(x, y):
         return False
     #                         ↓TODO: Show(s) the icon of its function.
 
-    exec(f'Leaf{leaf_count} = CreateNode(editor.scene, " ", inputs=[0, ], outputs=[1], types=str_1)')
+    exec(f'Leaf{leaf_count} = CreateNode(editor.scene, " ", inputs=[0,], outputs=[1], types=str_1)')
     exec(f'Leaf{leaf_count}.setPos(x, y)')
     parent.signal_change_editor()
 

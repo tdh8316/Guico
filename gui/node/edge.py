@@ -97,8 +97,8 @@ class Edge(Serializable):
         if DEBUG: print(" - remove edge from scene")
         try:
             self.scene.removeEdge(self)
-        except ValueError:
-            pass
+        except ValueError as e:
+            print("GUI::NODE::EDGE >", e)
         if DEBUG: print(" - everything is done.")
 
 

@@ -42,7 +42,7 @@ class Node(Serializable):
         self.scene.addNode(self)
         self.scene.grScene.addItem(self.grNode)
 
-        self.socket_spacing = 50
+        self.socket_spacing = 30
 
         # create socket for inputs and outputs
         self.inputs = []
@@ -64,7 +64,7 @@ class Node(Serializable):
 
     @property
     def pos(self):
-        return self.grNode.pos()  # QPointF
+        return self.grNode.pos()  # QPoint
 
     def setPos(self, x, y):
         self.grNode.setPos(x, y)
