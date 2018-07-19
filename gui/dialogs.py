@@ -20,3 +20,20 @@ class OpenSourceLicense(QDialog):
 
         self.setLayout(layout)
         self.show()
+
+
+class ActivateKey(QDialog):
+
+    def __init__(self, parent=None):
+        super(ActivateKey, self).__init__(parent)
+
+        self.setWindowTitle(f"{NAME} 테스터 인증 키 입력")
+
+        layout = QFormLayout(self)
+        _input = QLineEdit()
+        # noinspection SpellCheckingInspection
+        _input.setInputMask(">0000-0000-AAAA-AAAA;_")
+        layout.addRow(_input)
+
+        self.setLayout(layout)
+        self.show()

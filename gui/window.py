@@ -27,10 +27,11 @@ class Editor(QMainWindow):
         self.setWindowTitle(f"{TEAM} {NAME} {VERSION}")
 
         self.showMaximized()
-        self.show()
+        # self.showFullScreen()
 
     def create_menu(self):
-        menu_bar = self.menuBar()
+        menu_bar:QMenu = self.menuBar()
+
         menu_file = menu_bar.addMenu("파일(&F)")
         menu_file.addAction(actions.file_new())
         menu_file.addAction(actions.file_open())
@@ -75,7 +76,7 @@ class Editor(QMainWindow):
         if not self.is_modified():
             return True
 
-        res = QMessageBox.warning(None, "About to loose your work?",
+        res = QMessageBox.warning(None, f"{NAME} - 현재 파일이 변경됨",
                                   f"현재 파일 ["
                                   f"{CONF['FILE_NAME'] if CONF['FILE_NAME'] is not None else '제목 없음'}"
                                   f"]이 수정되었습니다.\n"
