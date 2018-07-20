@@ -14,4 +14,4 @@ CONF = {"FILE_NAME": None,
         "LEAF_TYPES": ("Print", "Entry"),  #("Branch", "Print"),
         }
 
-RELEASE = True
+RELEASE = False
