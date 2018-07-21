@@ -1,7 +1,7 @@
 NAME = "Guico"
 AUTHOR = "tdh8316@naver.com"
 TEAM = "TakturStudio"
-VERSION = "Pre-Alpha 4"
+VERSION = "Pre-Alpha 5"
 OPEN_SOURCE_LICENSE = open(r"doc\LICENSE.txt", "r", encoding="utf-8").read()
 
 FILE_TYPES = f"{NAME} script files (*.gvs);;" \
@@ -17,7 +17,7 @@ CONF = {
 LEAF_TYPES = {
     "Entry": "Entry",
     "CONSOLE": ["Print", "Input"],
-    "WINDOW": ["New Window"]
+    "WINDOW": ["New Window", "Destroy Window"]
 }
 
 ALL_LEAF_TYPES = [
