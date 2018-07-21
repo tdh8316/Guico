@@ -26,6 +26,7 @@ class Node(Serializable):
         self.width = 180
         self.height = 120
 
+        # TODO: Move to self.typeSetter()
         if self.type == "Branch":
             title, self.bg = "조건문", "#01579B"
         elif self.type == "Print":

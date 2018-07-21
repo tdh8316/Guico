@@ -7,6 +7,7 @@ from PyQt5.QtWidgets import QApplication
 from code.executer import interpreter
 from gui.window import Editor as MainWindow
 from core.config import *
+from gui import theme
 
 
 COMPILE_TEST = False

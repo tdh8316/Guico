@@ -1,12 +1,13 @@
 import json
 import os
+import sys
 
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 
 from gui.node.node import Node as CreateNode
 from gui.node.graphics_node import QDMGraphicsNode
-from gui.dialogs import OpenSourceLicense
+from gui.dialogs import OpenSourceLicense, setLeafType
 
 from code.executer import interpreter as _run
 from core.config import *
@@ -181,15 +182,32 @@ def on_scene_pos_changed(x, y):
 def on_new_leaf(x, y):
     global leaf_count
     leaf_count += 1
-    str_1, _ = QInputDialog.getItem(parent, " ", "Set this type of leaf:", CONF["LEAF_TYPES"], 0, False,
-                                    Qt.FramelessWindowHint)
-    if not _:
-        return False
-    #                         ↓TODO: Show(s) the icon of its function.
+    x
+    y
+    # noinspection PyBroadException
+    try:
+        str_1, _make = setLeafType.get(parent)
+    except Exception as e:
+        QMessageBox.critical(None, f"{NAME} - 처리되지 않은 예외", f"{e}\n{sys.exc_info()}\n"
+                                                           f"잎 만들기를 실패했습니다.")
+        _make = False
 
+    if not _make:
+        return False
+
+    #                         ↓TODO: Show(s) the icon of its function.
     exec(f'Leaf{leaf_count} = CreateNode(editor.scene, " ", inputs=[0,], outputs=[1], types=str_1)')
     exec(f'Leaf{leaf_count}.setPos(x, y)')
     parent.signal_change_editor()
+
+
+def test_on_new_leaf():
+    if setLeafType(parent).exec_():
+        print("exec")
+    else:
+        print("else")
+    import sys
+    sys.exit()
 
 
 def new_leaf():
