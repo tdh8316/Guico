@@ -17,14 +17,15 @@ CONF = {
 LEAF_TYPES = {
     "Entry": "Entry",
     "CONSOLE": ["Print", "Input"],
-    "WINDOW": ["New Window", "Destroy Window"]
+    "WINDOW": ["New Window", "Destroy Window"],
 }
 
 ALL_LEAF_TYPES = [
     "Entry",
     "Print",
     "Input",
-    "New Window"
+    "New Window",
+    "Destroy Window"
 ]
 
 INDEX = None

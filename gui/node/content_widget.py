@@ -18,6 +18,8 @@ class QDMNodeContentWidget(QWidget, Serializable):
         self.title = title
         self.type = title
 
+        # print(f"QDMNodeContentWidget::title={title}")
+
         if self.type == "Branch":
             leaf_attribute.content_if(self)
         elif self.type == "Print":

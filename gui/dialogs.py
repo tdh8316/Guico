@@ -68,8 +68,6 @@ class setLeafType(QDialog):
 
         self.setLayout(self.base_layout)
 
-        INDEX = self.types.currentIndex()
-
     def create_widgets(self):
         # self.types = TreeComboBox(self)
         # self.types.resize(240, 30)
@@ -85,13 +83,10 @@ class setLeafType(QDialog):
         self.buttons.rejected.connect(self.reject)
 
     def selectedType(self):
-        try:
-            for ix in self.types.selectedIndexes():
-                text = ix.data(Qt.DisplayRole)  # or ix.data()
-                INDEX = text
+        for ix in self.types.selectedIndexes():
+            text = ix.data(Qt.DisplayRole)  # or ix.data()
+            INDEX = text
             return INDEX
-        except UnboundLocalError as e:
-            QMessageBox.critical(None, f"{NAME} - 처리되지 않은 예외", f"{e}\n{sys.exc_info()}")
 
     def change(self):
         if self.types.currentText() not in ALL_LEAF_TYPES:
@@ -104,3 +99,6 @@ class setLeafType(QDialog):
         data = _win.selectedType()
         if data in ALL_LEAF_TYPES:
             return data, result == QDialog.Accepted
+        else:
+            QMessageBox.critical(None, f"{NAME} - 처리되지 않은 예외",
+                                 f"선택한 잎[{data}] 은 정의되지 않았습니다.")

@@ -188,8 +188,7 @@ def on_new_leaf(x, y):
     try:
         str_1, _make = setLeafType.get(parent)
     except Exception as e:
-        QMessageBox.critical(None, f"{NAME} - 처리되지 않은 예외", f"{e}\n{sys.exc_info()}\n"
-                                                           f"잎 만들기를 실패했습니다.")
+        QMessageBox.critical(None, f"{NAME} - 처리되지 않은 예외", f"{e}\n{sys.exc_info()}")
         _make = False
 
     if not _make:

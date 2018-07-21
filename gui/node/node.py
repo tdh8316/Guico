@@ -35,6 +35,8 @@ class Node(Serializable):
             title, self.bg = "EntryPoint", "#4CAF50"
             self.width, self.height = 180, 61
             inputs = []
+        else:
+            title = self.type
 
         self.content: QDMNodeContentWidget = QDMNodeContentWidget(self, self.type)
         self.grNode = QDMGraphicsNode(self, title_background=self.bg, w=self.width, h=self.height)
