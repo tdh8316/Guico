@@ -23,7 +23,7 @@ class QDMNodeContentWidget(QWidget, Serializable):
 
         if self.type == IF:
             leaf_attribute.content_if(self)
-        elif self.type == PRINT:
+        elif self.type == PRINT or self.type == DRAW_TEXT:
             self.content_print()
         elif self.type == ENTRY_POINT:
             self.layout = QVBoxLayout()
@@ -50,7 +50,7 @@ class QDMNodeContentWidget(QWidget, Serializable):
 
     def serialize(self):
         # print("Content::serialize::type =", self.type)
-        if self.type == PRINT:
+        if self.type == PRINT or self.type == DRAW_TEXT:
             # print(self.textbox.toPlainText())
             return OrderedDict([
                 ("str", self.textbox.toPlainText())
@@ -61,5 +61,5 @@ class QDMNodeContentWidget(QWidget, Serializable):
         ])
 
     def deserialize(self, data, hashmap={}):
-        if self.type == PRINT:
+        if self.type == PRINT or self.type == DRAW_TEXT:
             self.textbox.setPlainText(data["str"])
