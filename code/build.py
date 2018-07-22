@@ -24,7 +24,7 @@ class BuildToPython:
 
     def refactoring_code(self):
         self.output = autopep8.fix_code("\n".join(self.output)).split("\n")
-        print(self.output)
+        # print(self.output)
 
         for _ in range(len(self.output)):
             if self.output[_] == "# define point":
