@@ -9,8 +9,11 @@ OPEN_SOURCE_LICENSE = open(r"doc\LICENSE.txt", "r", encoding="utf-8").read()
 FILE_TYPES = f"{NAME} script files (*.gvs);;" \
              "모든 파일 (*.*)"
 
+SOURCE_PATH = "./code/generator/sources/"
+
 CONF = {
     "FILE_NAME": None,
+    "SOURCE_PATH": None,
     "MODIFIED": False,
     "MOUSE_X": int,
     "MOUSE_Y": int
@@ -19,15 +22,15 @@ CONF = {
 LEAF_TYPES = {
     "Entry": ENTRY_POINT,
     "CONSOLE": [PRINT, INPUT],
-    "WINDOW": ["New Window", "Destroy Window"],
+    "WINDOW": [WINDOW_NEW, WINDOW_DESTROY],
 }
 
 ALL_LEAF_TYPES = [
     ENTRY_POINT,
     PRINT,
     INPUT,
-    "New Window",
-    "Destroy Window"
+    WINDOW_NEW,
+    WINDOW_DESTROY
 ]
 
 INDEX = None

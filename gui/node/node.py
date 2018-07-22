@@ -36,6 +36,8 @@ class Node(Serializable):
             title, self.bg = "EntryPoint", "#4CAF50"
             self.width, self.height = 180, 61
             inputs = []
+        elif self.type == WINDOW_NEW:
+            title = "Window Initializer"
         else:
             title = self.type
 

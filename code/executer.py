@@ -1,3 +1,6 @@
+import os
+import subprocess
+
 from code.parser.script_parser import Parse
 from code.parser.script_lexer import Lexer
 from code.parser.combiner import Combiner
@@ -74,3 +77,5 @@ def interpreter(target, mode=None):
             array = parser.get_token()[0]
 
         BuildToPython(code=array)
+        subprocess.Popen(["python", CONF["SOURCE_PATH"]], shell=True, start_new_session=True)
+        # os.system(f"start /B start cmd @cmd /k python {CONF['SOURCE_PATH']}")

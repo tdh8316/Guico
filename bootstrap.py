@@ -14,7 +14,8 @@ COMPILE_TEST = False
 
 
 if COMPILE_TEST:
-    interpreter('multinode.gvs')
+    interpreter('multinode.gvs', mode="py")
+    sys.exit(0)
 
 
 def main():
