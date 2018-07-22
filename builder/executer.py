@@ -1,13 +1,13 @@
 import os
 import subprocess
 
-from code.parser.script_parser import Parse
-from code.parser.script_lexer import Lexer
-from code.parser.combiner import Combiner
+from builder.parser.script_parser import Parse
+from builder.parser.script_lexer import Lexer
+from builder.parser.combiner import Combiner
 
 # from core.actions import on_file_save as save
 from core.config import *
-from code.build import BuildToPython
+from builder.build import BuildToPython
 
 
 class ConvertToC:

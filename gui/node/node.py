@@ -3,7 +3,7 @@ from gui.node.serializable import Serializable
 from gui.node.graphics_node import QDMGraphicsNode
 from gui.node.content_widget import QDMNodeContentWidget
 from gui.node.socket import *
-from code.default import *
+from builder.default import *
 
 DEBUG = False
 

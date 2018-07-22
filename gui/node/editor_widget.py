@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
-from code.default import ENTRY_POINT
+from builder.default import ENTRY_POINT
 from gui.node.scene import Scene
 from gui.node.node import Node
 from gui.node.edge import Edge, EDGE_TYPE_BEZIER

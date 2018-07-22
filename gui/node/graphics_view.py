@@ -279,7 +279,7 @@ class QDMGraphicsView(QGraphicsView):
         if DEBUG: print('View::edgeDragStart ~   dragEdge:', self.dragEdge)
 
     def edgeDragEnd(self, item):
-        """ return True if skip the rest of the code """
+        """ return True if skip the rest of the builder """
         self.mode = MODE_NOOP
 
         if type(item) is QDMGraphicsSocket:

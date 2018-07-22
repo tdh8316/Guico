@@ -2,7 +2,7 @@ from collections import OrderedDict
 
 from PyQt5.QtCore import Qt
 
-from code.default import *
+from builder.default import *
 from gui.node.leaf_attribute import QDMTextEdit
 from gui.node.serializable import Serializable
 from PyQt5.QtWidgets import *

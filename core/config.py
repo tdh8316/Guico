@@ -1,15 +1,15 @@
-from code.default import *
+from builder.default import *
 
 NAME = "Guico"
 AUTHOR = "tdh8316@naver.com"
 TEAM = "TakturStudio"
-VERSION = "Pre-Alpha 5"
+VERSION = "Pre-Alpha 6"
 OPEN_SOURCE_LICENSE = open(r"doc\LICENSE.txt", "r", encoding="utf-8").read()
 
 FILE_TYPES = f"{NAME} script files (*.gvs);;" \
              "모든 파일 (*.*)"
 
-SOURCE_PATH = "./code/generator/sources/"
+SOURCE_PATH = "./builder/generator/sources/"
 
 CONF = {
     "FILE_NAME": None,

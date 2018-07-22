@@ -1,5 +1,6 @@
 *.gvs
 *.exe
 *.json
+*.spec
 .idea/*
 node_modules/
