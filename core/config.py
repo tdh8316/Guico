@@ -1,3 +1,5 @@
+from code.default import *
+
 NAME = "Guico"
 AUTHOR = "tdh8316@naver.com"
 TEAM = "TakturStudio"
@@ -15,15 +17,15 @@ CONF = {
 }
 
 LEAF_TYPES = {
-    "Entry": "Entry",
-    "CONSOLE": ["Print", "Input"],
+    "Entry": ENTRY_POINT,
+    "CONSOLE": [PRINT, INPUT],
     "WINDOW": ["New Window", "Destroy Window"],
 }
 
 ALL_LEAF_TYPES = [
-    "Entry",
-    "Print",
-    "Input",
+    ENTRY_POINT,
+    PRINT,
+    INPUT,
     "New Window",
     "Destroy Window"
 ]

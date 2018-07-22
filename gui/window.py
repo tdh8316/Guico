@@ -49,6 +49,7 @@ class Editor(QMainWindow):
         menu_leaf = menu_bar.addMenu("스크립트(&L)")
         menu_leaf.addAction(actions.new_leaf())
         menu_run = menu_bar.addMenu("실행(&R)")
+        menu_run.addAction(actions.run_as_python())
         menu_run.addAction(actions.run())
         menu_help = menu_bar.addMenu("도움말(&H)")
         menu_help.addAction(actions.license_dialog())

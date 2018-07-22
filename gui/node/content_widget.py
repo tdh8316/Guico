@@ -2,6 +2,7 @@ from collections import OrderedDict
 
 from PyQt5.QtCore import Qt
 
+from code.default import *
 from gui.node.leaf_attribute import QDMTextEdit
 from gui.node.serializable import Serializable
 from PyQt5.QtWidgets import *
@@ -20,11 +21,11 @@ class QDMNodeContentWidget(QWidget, Serializable):
 
         # print(f"QDMNodeContentWidget::title={title}")
 
-        if self.type == "Branch":
+        if self.type == IF:
             leaf_attribute.content_if(self)
-        elif self.type == "Print":
+        elif self.type == PRINT:
             self.content_print()
-        elif self.type == "Entry":
+        elif self.type == ENTRY_POINT:
             self.layout = QVBoxLayout()
             self.wdg_label = QLabel("이 파일의 진입점 입니다.")  # 그거 종류 그 뭐냐 하여튼 그거
             self.wdg_label.setAlignment(Qt.AlignCenter)
@@ -49,7 +50,7 @@ class QDMNodeContentWidget(QWidget, Serializable):
 
     def serialize(self):
         # print("Content::serialize::type =", self.type)
-        if self.type == "Print":
+        if self.type == PRINT:
             # print(self.textbox.toPlainText())
             return OrderedDict([
                 ("str", self.textbox.toPlainText())
@@ -60,5 +61,5 @@ class QDMNodeContentWidget(QWidget, Serializable):
         ])
 
     def deserialize(self, data, hashmap={}):
-        if self.type == "Print":
+        if self.type == PRINT:
             self.textbox.setPlainText(data["str"])

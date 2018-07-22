@@ -154,7 +154,16 @@ def run():
         on_file_save()
         _run(f if f is not None else CONF["FILE_NAME"])
 
-    return QAction("R&un", parent, shortcut="Shift+F5", triggered=lambda:
+    return QAction("R&un_TEST", parent, shortcut="Shift+F5", triggered=lambda:
+    _save_and_run(CONF["FILE_NAME"]))
+
+
+def run_as_python():
+    def _save_and_run(f):
+        on_file_save()
+        _run(f if f is not None else CONF["FILE_NAME"], mode="py")
+
+    return QAction("시작하기", parent, shortcut="F5", triggered=lambda:
     _save_and_run(CONF["FILE_NAME"]))
 
 

@@ -3,6 +3,7 @@ from gui.node.serializable import Serializable
 from gui.node.graphics_node import QDMGraphicsNode
 from gui.node.content_widget import QDMNodeContentWidget
 from gui.node.socket import *
+from code.default import *
 
 DEBUG = False
 
@@ -27,11 +28,11 @@ class Node(Serializable):
         self.height = 120
 
         # TODO: Move to self.typeSetter()
-        if self.type == "Branch":
+        if self.type == IF:
             title, self.bg = "조건문", "#01579B"
-        elif self.type == "Print":
+        elif self.type == PRINT:
             title, self.bg = "출력", "#F57C00"
-        elif self.type == "Entry":
+        elif self.type == ENTRY_POINT:
             title, self.bg = "EntryPoint", "#4CAF50"
             self.width, self.height = 180, 61
             inputs = []

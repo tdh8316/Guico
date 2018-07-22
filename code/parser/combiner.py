@@ -1,3 +1,6 @@
+from code.default import *
+
+
 class _Combiner:
 
     def __init__(self, code, conn):
@@ -45,7 +48,7 @@ class Combiner:
 
         # 엔트리 포인트 검색
         for _ in self.src:
-            if _[0] == "Entry":
+            if _[0] == ENTRY_POINT:
                 self.replacing.append(_)
                 break
 
@@ -58,7 +61,7 @@ class Combiner:
 
         # 그 다음부터 끝까지..
         for code in self.replacing:
-            if code[0] == "Entry":
+            if code[0] == ENTRY_POINT:
                 continue
             _socket_of_code = code[2]
             for connect in self.connect:

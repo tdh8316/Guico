@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
+from code.default import ENTRY_POINT
 from gui.node.scene import Scene
 from gui.node.node import Node
 from gui.node.edge import Edge, EDGE_TYPE_BEZIER
@@ -45,7 +46,7 @@ class NodeEditorWidget(QWidget):
         edge2 = Edge(self.scene, node2.outputs[0], node3.inputs[0], edge_type=EDGE_TYPE_BEZIER)
 
     def add_default_node(self):
-        Node(self.scene, "진입점", inputs=[], outputs=[1], types="Entry")
+        Node(self.scene, "진입점", inputs=[], outputs=[1], types=ENTRY_POINT)
 
     def addDebugContent(self):
         greenBrush = QBrush(Qt.green)

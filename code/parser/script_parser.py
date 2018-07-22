@@ -1,3 +1,6 @@
+from code.default import *
+
+
 class Parse:
 
     def __init__(self, target: list, edges: list):
@@ -15,7 +18,7 @@ class Parse:
                     self.target[i]["type"],
                     self.target[i]["content"],
                     (self.target[i]["inputs"][0]["id"]
-                     if self.target[i]["type"] != "Entry"
+                     if self.target[i]["type"] != ENTRY_POINT
                      else 0,
                      self.target[i]["outputs"][0]["id"]),
                 ]
