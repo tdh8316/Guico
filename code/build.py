@@ -28,7 +28,7 @@ class BuildToPython:
 
         for _ in range(len(self.output)):
             if self.output[_] == "# define point":
-                self.output[_] = open(SOURCE_PATH+"pygame_label.py").read()
+                self.output[_] = open(SOURCE_PATH+"pygame_label.tgr").read()
 
     def generate_code(self):
         for _ in ["import pygame", "import sys", "from pygame.locals import *"]:
@@ -42,7 +42,7 @@ class BuildToPython:
             elif code_type == PRINT:
                 self.add_to_code(self.print(code_content["str"]))
             elif code_type == WINDOW_NEW:
-                self.add_to_code(open(SOURCE_PATH+"pygame_window.py").read())
+                self.add_to_code(open(SOURCE_PATH+"pygame_window.tgr").read())
             elif code_type == DRAW_TEXT:
                 self.add_to_code(f"{indent(2)}message_display(\"{code_content['str']}\")")
 
