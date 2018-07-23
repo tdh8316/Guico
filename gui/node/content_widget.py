@@ -3,7 +3,7 @@ from collections import OrderedDict
 from PyQt5.QtCore import Qt
 
 from compiler.default import *
-from gui.node.leaf_attribute import QDMTextEdit
+from gui.node.leaf_attribute import *
 from gui.node.serializable import Serializable
 from PyQt5.QtWidgets import *
 
@@ -23,17 +23,12 @@ class QDMNodeContentWidget(QWidget, Serializable):
 
         if self.type == IF:
             leaf_attribute.content_if(self)
-        elif self.type == PRINT or self.type == DRAW_TEXT:
+        elif self.type == PRINT:
             self.content_print()
+        elif self.type == DRAW_TEXT:
+            self.content_draw()
         elif self.type == ENTRY_POINT:
-            self.layout = QVBoxLayout()
-            self.wdg_label = QLabel("이 파일의 진입점 입니다.")  # 그거 종류 그 뭐냐 하여튼 그거
-            self.wdg_label.setAlignment(Qt.AlignCenter)
-
-            self.layout.setContentsMargins(0, 0, 0, 0)
-            self.layout.addWidget(self.wdg_label)
-            self.setLayout(self.layout)
-            # self.layout.addWidget(self.wdg_label)
+            contect_entry(self)
 
     def setEditingFlag(self, value):
         self.node.scene.grScene.views()[0].editingFlag = value
@@ -48,18 +43,27 @@ class QDMNodeContentWidget(QWidget, Serializable):
         # self.layout.addWidget(self.wdg_label)
         self.layout.addWidget(self.textbox)
 
+    def content_draw(self):
+        self.layout = QVBoxLayout()
+        self.textbox = QDMLineEdit("")  # 그 텍스트박스 그거임
+        # self.wdg_label = QLabel(self.title)  # 그거 종류 그 뭐냐 하여튼 그거
+
+        self.layout.setContentsMargins(0, 0, 0, 0)
+        self.setLayout(self.layout)
+        # self.layout.addWidget(self.wdg_label)
+        self.layout.addWidget(self.textbox)
+
     def serialize(self):
         # print("Content::serialize::type =", self.type)
-        if self.type == PRINT or self.type == DRAW_TEXT:
-            # print(self.textbox.toPlainText())
-            return OrderedDict([
-                ("str", self.textbox.toPlainText())
-            ])
+        if self.type == PRINT:
+            return OrderedDict([("str", self.textbox.toPlainText())])
+        elif self.type == DRAW_TEXT:
+            return OrderedDict([("str", self.textbox.text())])
 
-        return OrderedDict([
-
-        ])
+        return OrderedDict([])
 
     def deserialize(self, data, hashmap={}):
-        if self.type == PRINT or self.type == DRAW_TEXT:
+        if self.type == PRINT:
             self.textbox.setPlainText(data["str"])
+        elif self.type == DRAW_TEXT:
+            self.textbox.setText(data["str"])

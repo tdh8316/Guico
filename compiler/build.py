@@ -15,6 +15,8 @@ class BuildToPython:
         self.code = code
         self.output: list = []
 
+        self.used_label = False
+
         self.generate_code()
         self.refactoring_code()
 
@@ -27,12 +29,16 @@ class BuildToPython:
         self.output = autopep8.fix_code("\n".join(self.output)).split("\n")
         # print(self.output)
 
+        if not (self.used_label):
+            return True
+
         for _ in range(len(self.output)):
             if self.output[_] == "# define point":
-                self.output[_] = "# define point\n"+pygame.LABEL()
+                if self.used_label:
+                    self.output[_] = "# define point\n"+pygame.LABEL()
 
     def generate_code(self):
-        for _ in ["import pygame", "import sys", "from pygame.locals import *"]:
+        for _ in ["import pygame\nfrom pygame.locals import *", "import sys"]:
             self.output.append(_)
         for code in self.code:
             code_type = code[0]
@@ -45,6 +51,7 @@ class BuildToPython:
             elif code_type == WINDOW_NEW:
                 self.add_to_code(pygame.WINDOW())
             elif code_type == DRAW_TEXT:
+                self.used_label = True
                 self.add_to_code(f"{indent(2)}message_display(\"{code_content['str']}\")")
 
     def add_to_code(self, line):
