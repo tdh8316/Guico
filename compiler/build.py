@@ -8,6 +8,14 @@ def indent(level=1):
     return "    " * level
 
 
+parent = None
+
+
+def initialize(_parent):
+    global parent
+    parent = _parent
+
+
 class BuildToPython:
 
     def __init__(self, code):
@@ -35,7 +43,7 @@ class BuildToPython:
         for _ in range(len(self.output)):
             if self.output[_] == "# define point":
                 if self.used_label:
-                    self.output[_] = "# define point\n"+pygame.LABEL()
+                    self.output[_] = "# define point\n" + pygame.LABEL()
 
     def generate_code(self):
         for _ in ["import pygame\nfrom pygame.locals import *", "import sys"]:

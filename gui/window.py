@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 
 from gui.node.editor_widget import NodeEditorWidget
+import compiler
 from core.config import *
 from core import actions
 
@@ -17,6 +18,7 @@ class Editor(QMainWindow):
         self.dock_log.setWidget(self.log)
 
         actions.initialize(self)
+        compiler.initialize(self)
         self.create_menu()
         self.status_mouse_pos = QLabel("Mouse Pos(0, 0)")
         self.statusBar().addPermanentWidget(self.status_mouse_pos)
