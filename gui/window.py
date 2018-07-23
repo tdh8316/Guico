@@ -1,3 +1,4 @@
+from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 
@@ -10,6 +11,11 @@ class Editor(QMainWindow):
 
     def __init__(self):
         super().__init__()
+        self.log = QPlainTextEdit(self)
+        self.log.setReadOnly(True)
+        self.dock_log = QDockWidget("Log", self)
+        self.dock_log.setWidget(self.log)
+
         actions.initialize(self)
         self.create_menu()
         self.status_mouse_pos = QLabel("Mouse Pos(0, 0)")
@@ -23,6 +29,7 @@ class Editor(QMainWindow):
         self.dock_editor.setWidget(self.editor)
 
         self.addDockWidget(Qt.LeftDockWidgetArea, self.dock_editor)
+        self.addDockWidget(Qt.BottomDockWidgetArea, self.dock_log)
 
         self.setWindowTitle(f"{TEAM} {NAME} {VERSION}")
 
@@ -31,6 +38,7 @@ class Editor(QMainWindow):
 
     def create_menu(self):
         menu_bar:QMenu = self.menuBar()
+        # menu_bar.setFont(QFont("맑은 고딕", 9))
 
         menu_file = menu_bar.addMenu("파일(&F)")
         menu_file.addAction(actions.file_new())
@@ -46,11 +54,15 @@ class Editor(QMainWindow):
         menu_edit.addAction(actions.paste())
         menu_edit.addAction(actions.delete())
         menu_edit.addSeparator()
+        menu_view = menu_bar.addMenu("보기(&V)")
+        menu_view.addAction(QAction("출력 창 보기(&O)", self, shortcut="Alt+1", triggered=lambda: self.dock_log.show()))
+        menu_view.addAction(QAction(
+            "전체 화면으로 보기(&S)", self, shortcut="F11", triggered=self._showFullScreen, checkable=True))
         menu_leaf = menu_bar.addMenu("스크립트(&L)")
         menu_leaf.addAction(actions.new_leaf())
         menu_run = menu_bar.addMenu("실행(&R)")
         menu_run.addAction(actions.run_as_python())
-        menu_run.addAction(actions.run())
+        # menu_run.addAction(actions.run())
         menu_help = menu_bar.addMenu("도움말(&H)")
         menu_help.addAction(actions.license_dialog())
         # menu_edit.addAction(actions.new_leaf())
@@ -69,6 +81,12 @@ class Editor(QMainWindow):
             self.setWindowTitle(f"{TEAM} {NAME} {VERSION} - {CONF['FILE_NAME']}*"
                                 if CONF['FILE_NAME'] is not None
                                 else f"{TEAM} {NAME} {VERSION} - 제목 없음*")
+
+    def _showFullScreen(self, checked):
+        if checked:
+            self.showFullScreen()
+        else:
+            self.showNormal()
 
     def is_modified(self):
         return self.editor.scene.has_been_modified
