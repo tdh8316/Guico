@@ -1,8 +1,9 @@
 import datetime
 import os
 import subprocess
+import sys
 
-from PyQt5.QtWidgets import QPlainTextEdit
+from PyQt5.QtWidgets import QPlainTextEdit, QMessageBox
 
 from compiler.parser.script_parser import Parse
 from compiler.parser.script_lexer import Lexer
@@ -91,8 +92,9 @@ def interpreter(target, mode=None):
 
         # noinspection PyBroadException
         try:
-            BuildToPython(code=array).ㅁ
-        except:
+            BuildToPython(code=array)
+        except Exception as e:
+            QMessageBox.critical(None, f"{NAME} - 처리되지 않은 예외", f"{e}\n{sys.exc_info()}")
             parent.log.appendPlainText(f"{str(datetime.datetime.now()).split('.')[0]} 에 빌드 완료 [실패].")
         else:
             parent.log.appendPlainText(f"{str(datetime.datetime.now()).split('.')[0]} 에 빌드 완료 [성공].")

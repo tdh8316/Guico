@@ -28,7 +28,9 @@ class QDMNodeContentWidget(QWidget, Serializable):
         elif self.type == DRAW_TEXT:
             self.content_draw()
         elif self.type == ENTRY_POINT:
-            contect_entry(self)
+            content_entry(self)
+        elif self.type == WINDOW_NEW:
+            content_wininit(self)
 
     def setEditingFlag(self, value):
         self.node.scene.grScene.views()[0].editingFlag = value

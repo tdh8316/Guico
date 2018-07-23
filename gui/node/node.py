@@ -38,6 +38,7 @@ class Node(Serializable):
             inputs = []
         elif self.type == WINDOW_NEW:
             title = "Window Initializer"
+            self.width, self.height = 240, 120
         elif self.type == DRAW_TEXT:
             title = self.type
             self.width, self.height = 180, 74
