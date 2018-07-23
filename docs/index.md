@@ -1,4 +1,4 @@
-# Overview
+# What is Guico?
 **G**uico is **U**nique and **I**nteresting **C**oding **O**ne
 
 Guico 를 이용하면 코딩에 전문적인 지식이 없더라도
