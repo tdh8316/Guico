@@ -29,7 +29,7 @@ class BuildToPython:
 
         for _ in range(len(self.output)):
             if self.output[_] == "# define point":
-                self.output[_] = pygame.LABEL()
+                self.output[_] = "# define point\n"+pygame.LABEL()
 
     def generate_code(self):
         for _ in ["import pygame", "import sys", "from pygame.locals import *"]:
