@@ -1,4 +1,4 @@
-from builder.default import *
+from compiler.default import *
 
 NAME = "Guico"
 AUTHOR = "tdh8316@naver.com"

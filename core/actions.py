@@ -9,7 +9,7 @@ from gui.node.node import Node as CreateNode
 from gui.node.graphics_node import QDMGraphicsNode
 from gui.dialogs import OpenSourceLicense, setLeafType
 
-from builder.executer import interpreter as _run
+from compiler.executer import interpreter as _run
 from core.config import *
 
 parent: QInputDialog = None

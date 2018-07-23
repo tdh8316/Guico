@@ -4,7 +4,7 @@ import qdarkstyle
 from PyQt5.QtGui import QFontDatabase, QFont, QIcon
 from PyQt5.QtWidgets import QApplication
 
-from builder.executer import interpreter
+from compiler.executer import interpreter
 from gui.window import Editor as MainWindow
 from core.config import *
 from gui import theme

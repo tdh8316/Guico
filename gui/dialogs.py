@@ -5,7 +5,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 
 # from gui.widgets.tree_combobox import TreeComboBox
-from builder.leaf_types import getLeafTypeModel
+from compiler.leaf_types import getLeafTypeModel
 from gui import theme
 from core.config import *
 

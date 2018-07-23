@@ -1,6 +1,6 @@
 import autopep8
 
-from builder.generator import pygame
+from compiler.generator import pygame
 from core.config import *
 
 
@@ -11,7 +11,7 @@ def indent(level=1):
 class BuildToPython:
 
     def __init__(self, code):
-        # print(f"{NAME}Build::Python:{builder}")
+        # print(f"{NAME}Build::Python:{compiler}")
         self.code = code
         self.output: list = []
 
