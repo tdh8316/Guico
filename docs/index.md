@@ -16,7 +16,7 @@ Guico 를 통해 체계적 추론, 논리적으로 생각하는 능력과
 협업을 할 수 있는데, 이런 협동 작업 능력은 21세기를 살아가는데 필수적이죠.
 
 게다가, Guico 스크립트는 Python 환경에서 실행됩니다.
-따라서 부품 조립을 통해서 만든 프로그램을 Guico Integrated Development Environment 에서 뿐만 아니라
+따라서 만든 프로그램을 Guico Integrated Development Environment 에서 뿐만 아니라
 PC 에서 실행할 수 있는 실행 파일로 컴파일이 가능합니다.
 
 
