@@ -9,8 +9,6 @@ OPEN_SOURCE_LICENSE = open(r".\core\LICENSE.txt", "r", encoding="utf-8").read()
 FILE_TYPES = f"{NAME} script files (*.gvs);;" \
              "모든 파일 (*.*)"
 
-SOURCE_PATH = "./builder/generator/sources/"
-
 CONF = {
     "FILE_NAME": None,
     "SOURCE_PATH": None,
