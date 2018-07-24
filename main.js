@@ -9,7 +9,7 @@ app.on('ready', () =>{
             height: 500,
             minHeight: 450,
             show: false,
-            icon: __dirname + '/resources/installer/Icon.ico',
+            icon: __dirname + './gui/resources/icon.ico',
             webPreferences :{
                 defaultFontSize : 14
                 }

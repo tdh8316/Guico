@@ -3,6 +3,8 @@
 ## Get started
 [ReadTheDocs](https://guico.readthedocs.io)
 
+[Sample Video](https://youtu.be/ZhbTVylEdys)
+
 
 
 # Acknowledgments
