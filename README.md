@@ -6,7 +6,7 @@
 [Sample Video](https://youtu.be/ZhbTVylEdys)
 
 
-[Download latest release](https://drive.google.com/open?id=1kz5vjv5Tg42_9icbqvK_JK4NXFsP0Quq)
+[Download latest release]() > Not available
 > Licensed under the GNU PUBLIC LICENSE
 
 
