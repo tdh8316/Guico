@@ -26,8 +26,4 @@ Guico 는 TakTurStudio 에서 개발 중인 프로젝트입니다.
 
 Get started
 -----------
-
-.. toctree::
-    :maxdepth: 1
-
-    tutorial
+- [tutorial](tutorial.md)
