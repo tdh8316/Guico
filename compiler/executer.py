@@ -103,8 +103,8 @@ def interpreter(target, mode=None):
                 (CONF["FILE_NAME"].split("/")[-1].split(".")[0] + ".py"))
             with open(CONF["SOURCE_PATH"], "w", encoding="utf-8") as _source:
                 _source.write("\n".join(python_code))
-            os.system(f"copy NanumBarunpenR.ttf " + "\\".join(
-                list(CONF["FILE_NAME"].split("/")[:-1]))) \
+            os.system(f"copy NanumBarunpenR.ttf " + "\"" + "\\".join(
+                list(CONF["FILE_NAME"].split("/")[:-1])) + "\"") \
                 if not os.path.isfile("\\".join(list(CONF["FILE_NAME"].split("/")[:-1]))+r'\NanumBarunpenR.ttf') \
                 else None
         except Exception as e:
@@ -113,5 +113,5 @@ def interpreter(target, mode=None):
         else:
             parent.log.appendPlainText(f"{str(datetime.datetime.now()).split('.')[0]} 에 빌드 완료 [성공].")
             # sys.path.append("\\".join(list(CONF["FILE_NAME"].split("/")[:-1])))
-            subprocess.Popen([r".\python\python.exe", CONF["SOURCE_PATH"]], shell=True, start_new_session=True)
+            subprocess.Popen(f".\\python\\python.exe \"{CONF['SOURCE_PATH']}\"", shell=True, start_new_session=True)
         # os.system(f"start /B start cmd @cmd /k python {CONF['SOURCE_PATH']}")
