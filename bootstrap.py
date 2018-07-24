@@ -31,7 +31,7 @@ def main():
         sys.exit(0) \
             if len(sys.argv) == 1 else None
     app = QApplication([])
-    QFontDatabase().addApplicationFont(r"gui\resources\NanumBarunpenR.ttf")
+    QFontDatabase().addApplicationFont(r"NanumBarunpenR.ttf")
     # QFontDatabase().addApplicationFont(r"gui\resources\godoRounded L.ttf")
 
     app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())

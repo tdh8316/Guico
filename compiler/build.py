@@ -39,10 +39,10 @@ class BuildToPython:
         self.generate_code()
         self.refactoring_code()
 
-        print(f"{NAME}Build::Python:Completed", )
-        CONF["SOURCE_PATH"] = str(CONF["FILE_NAME"]).split("/")[-1].split(".")[0] + ".py"
-        with open(CONF["SOURCE_PATH"], "w", encoding="utf-8") as _source:
-            _source.write("\n".join(self.output))
+        # print(f"{NAME}Build::Python:Completed", )
+
+    def get_code(self):
+        return self.output
 
     def refactoring_code(self):
         self.output = autopep8.fix_code("\n".join(self.output)).split("\n")
