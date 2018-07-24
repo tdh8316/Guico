@@ -1,4 +1,5 @@
 import autopep8
+from PyQt5.QtWidgets import QPlainTextEdit
 
 from compiler.generator import pygame
 from core.config import *
@@ -16,6 +17,15 @@ def initialize(_parent):
     parent = _parent
 
 
+class GuicoBuildError(Exception):
+
+    def __init__(self, value):
+        self.value = value
+
+    def __str__(self):
+        return self.value
+
+
 class BuildToPython:
 
     def __init__(self, code):
@@ -24,6 +34,7 @@ class BuildToPython:
         self.output: list = []
 
         self.used_label = False
+        self.is_window_init = False
 
         self.generate_code()
         self.refactoring_code()
@@ -39,6 +50,13 @@ class BuildToPython:
 
         if not (self.used_label):
             return True
+        else:
+            e = ""
+            if not self.is_window_init:
+                e = "오류 : pygame window 가 초기화되지 않았습니다."
+                parent.log: QPlainTextEdit
+                parent.log.appendPlainText(e)
+                raise GuicoBuildError(e)
 
         for _ in range(len(self.output)):
             if self.output[_] == "# define point":
@@ -57,6 +75,7 @@ class BuildToPython:
             elif code_type == PRINT:
                 self.add_to_code(self.print(code_content["str"]))
             elif code_type == WINDOW_NEW:
+                self.is_window_init = True
                 self.add_to_code(pygame.WINDOW())
             elif code_type == DRAW_TEXT:
                 self.used_label = True

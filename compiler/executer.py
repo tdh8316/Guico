@@ -12,6 +12,7 @@ from compiler.parser.combiner import Combiner
 # from core.actions import on_file_save as save
 from core.config import *
 from compiler.build import BuildToPython
+from compiler import build
 
 parent = None
 
@@ -19,6 +20,7 @@ parent = None
 def initialize(_parent):
     global parent
     parent = _parent
+    build.initialize(parent)
 
 
 class ConvertToC:
@@ -71,7 +73,7 @@ def interpreter(target, mode=None):
         PromptlyExecute(array)
 
     elif mode == "py":
-        parent.log.appendPlainText(f"{str(datetime.datetime.now()).split('.')[0]} 에 빌드 시작.")
+        parent.log.appendPlainText(f"\n{str(datetime.datetime.now()).split('.')[0]} 에 빌드 시작.")
         try:
             lexer = Lexer(target)
         except IOError:

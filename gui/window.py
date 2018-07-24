@@ -1,3 +1,5 @@
+import datetime
+
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
@@ -36,6 +38,7 @@ class Editor(QMainWindow):
         self.setWindowTitle(f"{TEAM} {NAME} {VERSION}")
 
         self.showMaximized()
+        self.log.appendPlainText(f"{str(datetime.datetime.now()).split('.')[0]} 에 {NAME} 위젯 초기화 성공")
         # self.showFullScreen()
 
     def create_menu(self):
