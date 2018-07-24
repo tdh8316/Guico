@@ -100,5 +100,5 @@ def interpreter(target, mode=None):
             parent.log.appendPlainText(f"{str(datetime.datetime.now()).split('.')[0]} 에 빌드 완료 [실패].")
         else:
             parent.log.appendPlainText(f"{str(datetime.datetime.now()).split('.')[0]} 에 빌드 완료 [성공].")
-            subprocess.Popen(["python", CONF["SOURCE_PATH"]], shell=True, start_new_session=True)
+            subprocess.Popen(["./python/python.exe", CONF["SOURCE_PATH"]], shell=True, start_new_session=True)
         # os.system(f"start /B start cmd @cmd /k python {CONF['SOURCE_PATH']}")
