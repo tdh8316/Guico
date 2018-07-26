@@ -1,4 +1,5 @@
 # Guico
+**No one CANNOT use any resources of this repository. PROHIBITED.**
 
 ## Get started
 [ReadTheDocs](https://guico.readthedocs.io)
