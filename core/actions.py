@@ -161,21 +161,24 @@ def run():
 def run_as_python():
     def _save_and_run(f):
         on_file_save()
-        _run(f if f is not None else CONF["FILE_NAME"], mode="py")
+        _run(f if f is not None else CONF["FILE_NAME"], mode="py", run=True)
 
-    return QAction("시작하기", parent, shortcut="F5", triggered=lambda:
+    return QAction("컴파일 후 실행(&U)", parent, shortcut="F5", triggered=lambda:
+    _save_and_run(CONF["FILE_NAME"]))
+
+
+def compile_to_python():
+    def _save_and_run(f):
+        on_file_save()
+        _run(f if f is not None else CONF["FILE_NAME"], mode="py",)
+
+    return QAction("Python Code 생성", parent, shortcut="Shift+F5", triggered=lambda:
     _save_and_run(CONF["FILE_NAME"]))
 
 
 '''def build_and_run():
     return QAction("R&un", parent, shortcut="Shift+F5", triggered=lambda:
     parent.editor.scene.grScene.views()[0].deleteSelected())'''
-
-
-def compile_and_run():
-    """Convert .py to .exe and run"""
-    return QAction("컴파일 후 실행 (&C)", parent, shortcut="F5", triggered=lambda:
-    print())
 
 
 def license_dialog():

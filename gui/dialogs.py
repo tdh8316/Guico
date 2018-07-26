@@ -103,6 +103,5 @@ class setLeafType(QDialog):
             QMessageBox.critical(None, f"{NAME} - 처리되지 않은 예외",
                                  f"선택한 잎[{data}] 은 정의되지 않았습니다."
                                  if data is "None"
-                                 else "선택된 잎이 없습니다!\n"
-                                      "이런경우에는 어떻게 처리하면 좋을지 알려주세여ㅜ")
+                                 else "선택된 잎이 없습니다!")
             return False

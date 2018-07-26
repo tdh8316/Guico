@@ -18,11 +18,13 @@ class Editor(QMainWindow):
         self.log.setReadOnly(True)
         self.dock_log = QDockWidget("Log", self)
         self.dock_log.setWidget(self.log)
+        self.dock_log.hide()
 
         actions.initialize(self)
         compiler.initialize(self)
+
         self.create_menu()
-        self.status_mouse_pos = QLabel("Mouse Pos(0, 0)")
+        self.status_mouse_pos = QLabel("Unknown Mouse Pos")
         self.statusBar().addPermanentWidget(self.status_mouse_pos)
 
         self.editor = NodeEditorWidget(self)
@@ -67,7 +69,7 @@ class Editor(QMainWindow):
         menu_leaf.addAction(actions.new_leaf())
         menu_run = menu_bar.addMenu("실행(&R)")
         menu_run.addAction(actions.run_as_python())
-        # menu_run.addAction(actions.run())
+        menu_run.addAction(actions.compile_to_python())
         menu_help = menu_bar.addMenu("도움말(&H)")
         menu_help.addAction(actions.license_dialog())
         # menu_edit.addAction(actions.new_leaf())

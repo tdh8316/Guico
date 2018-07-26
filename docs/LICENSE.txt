@@ -1,4 +1,4 @@
-﻿오픈소스 라이선스
+﻿OPEN SOURCES LICENSE.
 
 네이버 나눔글꼴
 Copyright (c) 2010, NAVER Corporation (http://www.nhncorp.com),
