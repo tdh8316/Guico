@@ -1,6 +1,8 @@
 # Guico
 **No one CANNOT use any resources of this repository. PROHIBITED.**
 
+Please contact `tdh8316@naver.com`
+
 ## Get started
 [ReadTheDocs](https://guico.readthedocs.io)
 
