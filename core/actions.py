@@ -9,7 +9,7 @@ from gui.node.node import Node as CreateNode
 from gui.node.graphics_node import QDMGraphicsNode
 from gui.dialogs import OpenSourceLicense, setLeafType
 
-from compiler.executer import interpreter as _run
+from compiler.executer import interpreter as build
 from core.config import *
 
 parent: QInputDialog = None
@@ -32,13 +32,13 @@ def set_editor(_):
 
 
 def on_file_save():
-    if CONF["FILE_NAME"] is None:
+    if CONF["FILE_PATH"] is None:
         _name, _filter = QFileDialog.getSaveFileName(parent, f'{NAME} - 저장', '', FILE_TYPES)
         if _name == '':
             return False
-        CONF["FILE_NAME"] = _name
-    parent.editor.scene.saveToFile(CONF["FILE_NAME"])
-    parent.statusBar().showMessage("Successfully saved %s" % CONF["FILE_NAME"])
+        CONF["FILE_PATH"] = _name
+    parent.editor.scene.saveToFile(CONF["FILE_PATH"])
+    parent.statusBar().showMessage("Successfully saved %s" % CONF["FILE_PATH"])
     parent.signal_change_editor(true=False)
     parent.renewal()
     return True
@@ -56,7 +56,7 @@ def file_open():
             return
         if os.path.isfile(_name):
             parent.editor.scene.loadFromFile(_name)
-            CONF["FILE_NAME"] = _name
+            CONF["FILE_PATH"] = _name
             parent.signal_change_editor(False)
             parent.renewal()
 
@@ -66,13 +66,13 @@ def file_open():
 
 def file_save():
     def _file_save():
-        if CONF["FILE_NAME"] is None:
+        if CONF["FILE_PATH"] is None:
             _name, _filter = QFileDialog.getSaveFileName(parent, f'{NAME} - 저장', '', FILE_TYPES)
             if _name == '':
                 return False
-            CONF["FILE_NAME"] = _name
-        parent.editor.scene.saveToFile(CONF["FILE_NAME"])
-        parent.statusBar().showMessage("Successfully saved %s" % CONF["FILE_NAME"])
+            CONF["FILE_PATH"] = _name
+        parent.editor.scene.saveToFile(CONF["FILE_PATH"])
+        parent.statusBar().showMessage("Successfully saved %s" % CONF["FILE_PATH"])
         parent.signal_change_editor(true=False)
         parent.renewal()
         return True
@@ -86,9 +86,9 @@ def file_save_as():
         _name, _filter = QFileDialog.getSaveFileName(parent, f'{NAME} - 다른 이름으로 저장', '', FILE_TYPES)
         if _name == '':
             return False
-        CONF["FILE_NAME"] = _name
-        parent.editor.scene.saveToFile(CONF["FILE_NAME"])
-        parent.statusBar().showMessage("Successfully saved %s" % CONF["FILE_NAME"])
+        CONF["FILE_PATH"] = _name
+        parent.editor.scene.saveToFile(CONF["FILE_PATH"])
+        parent.statusBar().showMessage("Successfully saved %s" % CONF["FILE_PATH"])
         parent.signal_change_editor(true=False)
         parent.renewal()
         return True
@@ -152,28 +152,28 @@ def delete():
 def run():
     def _save_and_run(f):
         on_file_save()
-        _run(f if f is not None else CONF["FILE_NAME"])
+        build(f if f is not None else CONF["FILE_PATH"])
 
     return QAction("R&un_TEST", parent, shortcut="Shift+F5", triggered=lambda:
-    _save_and_run(CONF["FILE_NAME"]))
+    _save_and_run(CONF["FILE_PATH"]))
 
 
 def run_as_python():
     def _save_and_run(f):
         on_file_save()
-        _run(f if f is not None else CONF["FILE_NAME"], mode="py", run=True)
+        build(f if f is not None else CONF["FILE_PATH"], mode="py", run=True)
 
     return QAction("컴파일 후 실행(&U)", parent, shortcut="F5", triggered=lambda:
-    _save_and_run(CONF["FILE_NAME"]))
+    _save_and_run(CONF["FILE_PATH"]))
 
 
 def compile_to_python():
     def _save_and_run(f):
         on_file_save()
-        _run(f if f is not None else CONF["FILE_NAME"], mode="py",)
+        build(f if f is not None else CONF["FILE_PATH"], mode="py",)
 
     return QAction("Python Code 생성", parent, shortcut="Shift+F5", triggered=lambda:
-    _save_and_run(CONF["FILE_NAME"]))
+    _save_and_run(CONF["FILE_PATH"]))
 
 
 '''def build_and_run():

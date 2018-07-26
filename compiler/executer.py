@@ -32,14 +32,14 @@ class ConvertToC:
 class PromptlyExecute:
 
     def __init__(self, code):
-        print(f"\n{'=' * 50}\n{CONF['FILE_NAME']} Has started.\n{'=' * 50}")
+        print(f"\n{'=' * 50}\n{CONF['FILE_PATH']} Has started.\n{'=' * 50}")
         self.code = code
 
         for code in self.code:
             if code[0] == PRINT:
                 self.print(code[1]["str"])
 
-        print(f"\n{'=' * 50}\n{CONF['FILE_NAME']} Completed successfully.\n{'=' * 50}\n")
+        print(f"\n{'=' * 50}\n{CONF['FILE_PATH']} Completed successfully.\n{'=' * 50}\n")
 
     @staticmethod
     def print(str_1: str, *args):
@@ -100,13 +100,13 @@ def interpreter(target, mode=None, run=False, test=False):
                 "SOURCE_PATH"
             ] = os.path.join(
                 "/".join(
-                    list(CONF["FILE_NAME"].split("/")[:-1])),
-                (CONF["FILE_NAME"].split("/")[-1].split(".")[0] + ".py"))
+                    list(CONF["FILE_PATH"].split("/")[:-1])),
+                (CONF["FILE_PATH"].split("/")[-1].split(".")[0] + ".py"))
             with open(CONF["SOURCE_PATH"], "w", encoding="utf-8") as _source:
                 _source.write("\n".join(python_code))
             os.system(f"copy NanumBarunpenR.ttf " + "\"" + "\\".join(
-                list(CONF["FILE_NAME"].split("/")[:-1])) + "\"") \
-                if not os.path.isfile("\\".join(list(CONF["FILE_NAME"].split("/")[:-1]))+r'\NanumBarunpenR.ttf') \
+                list(CONF["FILE_PATH"].split("/")[:-1])) + "\"") \
+                if not os.path.isfile("\\".join(list(CONF["FILE_PATH"].split("/")[:-1]))+r'\NanumBarunpenR.ttf') \
                 else None
         except Exception as e:
             QMessageBox.critical(None, f"{NAME} - 처리되지 않은 예외", f"{e}\n{sys.exc_info()}")
@@ -115,7 +115,7 @@ def interpreter(target, mode=None, run=False, test=False):
         else:
             if not test:
                 parent.log.appendPlainText(f"{str(datetime.datetime.now()).split('.')[0]} 에 빌드 완료 [성공].")
-            # sys.path.append("\\".join(list(CONF["FILE_NAME"].split("/")[:-1])))
+            # sys.path.append("\\".join(list(CONF["FILE_PATH"].split("/")[:-1])))
             if run:
                 subprocess.Popen(f".\\python\\python.exe \"{CONF['SOURCE_PATH']}\"", shell=True, start_new_session=True)
         # os.system(f"start /B start cmd @cmd /k python {CONF['SOURCE_PATH']}")

@@ -81,12 +81,12 @@ class Editor(QMainWindow):
 
     def renewal(self):
         if not CONF["MODIFIED"]:
-            self.setWindowTitle(f"{TEAM} {NAME} {VERSION} - {CONF['FILE_NAME']}"
-                                if CONF['FILE_NAME'] is not None
+            self.setWindowTitle(f"{TEAM} {NAME} {VERSION} - {CONF['FILE_PATH']}"
+                                if CONF['FILE_PATH'] is not None
                                 else f"{TEAM} {NAME} {VERSION} - 빈 파일")
         elif CONF["MODIFIED"]:
-            self.setWindowTitle(f"{TEAM} {NAME} {VERSION} - {CONF['FILE_NAME']}*"
-                                if CONF['FILE_NAME'] is not None
+            self.setWindowTitle(f"{TEAM} {NAME} {VERSION} - {CONF['FILE_PATH']}*"
+                                if CONF['FILE_PATH'] is not None
                                 else f"{TEAM} {NAME} {VERSION} - 제목 없음*")
 
     def _showFullScreen(self, checked):
@@ -104,7 +104,7 @@ class Editor(QMainWindow):
 
         res = QMessageBox.warning(None, f"{NAME} - 현재 파일이 변경됨",
                                   f"현재 파일 ["
-                                  f"{CONF['FILE_NAME'] if CONF['FILE_NAME'] is not None else '제목 없음'}"
+                                  f"{CONF['FILE_PATH'] if CONF['FILE_PATH'] is not None else '제목 없음'}"
                                   f"]이 수정되었습니다.\n"
                                   f"Do you want to save your changes?",
                                   QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel

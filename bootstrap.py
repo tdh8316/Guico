@@ -36,7 +36,7 @@ def launch_window():
     root = MainWindow()
     root.show()
 
-    sys.exit(app.exec_())
+    return app.exec_()
 
 
 def main():
@@ -51,9 +51,9 @@ def main():
     if not os.path.isfile(".\\python\\python.exe"):
         sys.exit("PYTHON NOT FOUND.")
 
-    launch_window()
+    return launch_window()
 
 
 if __name__ == "__main__":
     print(f"{NAME} {VERSION} [{TEAM} | {AUTHOR}]")
-    main()
+    sys.exit(main())

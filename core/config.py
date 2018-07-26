@@ -10,7 +10,7 @@ FILE_TYPES = f"{NAME} script files (*.gvs);;" \
              "모든 파일 (*.*)"
 
 CONF = {
-    "FILE_NAME": None,
+    "FILE_PATH": None,
     "SOURCE_PATH": None,
     "MODIFIED": False,
     "MOUSE_X": int,
