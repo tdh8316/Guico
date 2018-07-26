@@ -1,13 +1,11 @@
 from collections import OrderedDict
 
-from PyQt5.QtCore import Qt
-
-from compiler.default import *
+from code_content.default import *
 from gui.node.leaf_attribute import *
 from gui.node.serializable import Serializable
 from PyQt5.QtWidgets import *
 
-from gui.node import leaf_attribute, scene
+from gui.node import leaf_attribute
 
 
 class QDMNodeContentWidget(QWidget, Serializable):

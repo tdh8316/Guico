@@ -1,9 +1,7 @@
-from collections import OrderedDict
-from gui.node.serializable import Serializable
 from gui.node.graphics_node import QDMGraphicsNode
 from gui.node.content_widget import QDMNodeContentWidget
 from gui.node.socket import *
-from compiler.default import *
+from code_content.default import *
 
 DEBUG = False
 

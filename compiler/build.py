@@ -57,6 +57,8 @@ class BuildToPython:
                 parent.log: QPlainTextEdit
                 parent.log.appendPlainText(e)
                 raise GuicoBuildError(e)
+            else:
+                self.output.append(f"{indent()}pygame.display.update()\n{indent()}fps.tick(60)")
 
         for _ in range(len(self.output)):
             if self.output[_] == "# define point":
@@ -79,7 +81,7 @@ class BuildToPython:
                 self.add_to_code(pygame.WINDOW())
             elif code_type == DRAW_TEXT:
                 self.used_label = True
-                self.add_to_code(f"{indent(2)}message_display(\"{code_content['str']}\")")
+                self.add_to_code(f"{indent(1)}message_display(\"{code_content['str']}\")")
 
     def add_to_code(self, line):
         self.output.append(line)

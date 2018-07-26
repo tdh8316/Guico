@@ -1,4 +1,4 @@
-from compiler.default import *
+from code_content.default import *
 
 NAME = "Guico"
 AUTHOR = "tdh8316@naver.com"

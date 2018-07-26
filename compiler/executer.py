@@ -46,7 +46,7 @@ class PromptlyExecute:
         print(str_1.replace("\\n", "\n"), end=str())
 
 
-def interpreter(target, mode=None, run=False):
+def interpreter(target, mode=None, run=False, test=False):
     parent.log: QPlainTextEdit
 
     if mode is None:
@@ -73,7 +73,8 @@ def interpreter(target, mode=None, run=False):
         PromptlyExecute(array)
 
     elif mode == "py":
-        parent.log.appendPlainText(f"\n{str(datetime.datetime.now()).split('.')[0]} 에 빌드 시작.")
+        if not test:
+            parent.log.appendPlainText(f"\n{str(datetime.datetime.now()).split('.')[0]} 에 빌드 시작.")
         try:
             lexer = Lexer(target)
         except IOError:
@@ -109,9 +110,11 @@ def interpreter(target, mode=None, run=False):
                 else None
         except Exception as e:
             QMessageBox.critical(None, f"{NAME} - 처리되지 않은 예외", f"{e}\n{sys.exc_info()}")
-            parent.log.appendPlainText(f"{str(datetime.datetime.now()).split('.')[0]} 에 빌드 완료 [실패].")
+            if not test:
+                parent.log.appendPlainText(f"{str(datetime.datetime.now()).split('.')[0]} 에 빌드 완료 [실패].")
         else:
-            parent.log.appendPlainText(f"{str(datetime.datetime.now()).split('.')[0]} 에 빌드 완료 [성공].")
+            if not test:
+                parent.log.appendPlainText(f"{str(datetime.datetime.now()).split('.')[0]} 에 빌드 완료 [성공].")
             # sys.path.append("\\".join(list(CONF["FILE_NAME"].split("/")[:-1])))
             if run:
                 subprocess.Popen(f".\\python\\python.exe \"{CONF['SOURCE_PATH']}\"", shell=True, start_new_session=True)

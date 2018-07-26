@@ -2,10 +2,9 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
-from compiler.default import *
+from code_content.default import *
 from gui.node.scene import Scene
 from gui.node.node import Node
-from gui.node.edge import Edge, EDGE_TYPE_BEZIER
 from gui.node.graphics_view import QDMGraphicsView
 
 from core import actions
