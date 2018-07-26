@@ -39,7 +39,7 @@ class Node(Serializable):
             self.width, self.height = 240, 120
         elif self.type == DRAW_TEXT:
             title = self.type
-            self.width, self.height = 180, 74
+            # self.width, self.height = 180, 74
         else:
             title = self.type
 

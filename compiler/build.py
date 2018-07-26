@@ -81,7 +81,9 @@ class BuildToPython:
                 self.add_to_code(pygame.WINDOW())
             elif code_type == DRAW_TEXT:
                 self.used_label = True
-                self.add_to_code(f"{indent(1)}message_display(\"{code_content['str']}\")")
+                self.add_to_code(f"{indent(1)}message_display(\"{code_content['str']}\", "
+                                 f"{int(code_content['pos'].split(',')[0])}, "
+                                 f"{int(code_content['pos'].split(',')[1])})")
 
     def add_to_code(self, line):
         self.output.append(line)
