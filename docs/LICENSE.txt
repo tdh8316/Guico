@@ -14,7 +14,7 @@ SIL OPEN FONT LICENSE
 
 Version 1.1 - 26 February 2007
 
-Node
+Node Editor UI
 https://gitlab.com/pavel.krupala/pyqt-node-editor-tutorials
 
 PyQt5
