@@ -30,10 +30,20 @@ class QDMNodeContentWidget(QWidget, Serializable):
         elif self.type == ENTRY_POINT:
             content_entry(self)
         elif self.type == WINDOW_NEW:
-            content_wininit(self)
+            self.content_wininit()
 
-    def setEditingFlag(self, value):
-        self.node.scene.grScene.views()[0].editingFlag = value
+    def content_wininit(self):
+        self.layout = QGridLayout()
+        self.wdg_label = QLabel("윈도우를 초기화하는 함수입니다.")  # 그거 종류 그 뭐냐 하여튼 그거
+        self.wdg_label.setAlignment(Qt.AlignCenter)
+
+        self._win_size = QDMLineEdit("800,600")
+
+        self.layout.setContentsMargins(0, 0, 0, 0)
+        self.layout.addWidget(self.wdg_label, 0, 0, 1, 0)
+        self.layout.addWidget(self._win_size, 1, 1)
+        self.layout.addWidget(QLabel("창 크기(w,h)"), 1, 0)
+        self.setLayout(self.layout)
 
     def content_print(self):
         self.layout = QVBoxLayout()
@@ -67,6 +77,10 @@ class QDMNodeContentWidget(QWidget, Serializable):
             return OrderedDict([
                 ("str", self.textbox.text()),
                 ("pos", self.position.text())])
+        elif self.type == WINDOW_NEW:
+            return OrderedDict([
+                # ("str", self.textbox.text()),
+                ("size", self._win_size.text())])
 
         return OrderedDict([])
 
@@ -74,5 +88,10 @@ class QDMNodeContentWidget(QWidget, Serializable):
         if self.type == PRINT:
             self.textbox.setPlainText(data["str"])
         elif self.type == DRAW_TEXT:
-            self.textbox. setText(data["str"])
+            self.textbox.setText(data["str"])
             self.position.setText(data["pos"])
+        elif self.type == WINDOW_NEW:
+            self._win_size.setText(data["size"])
+
+    def setEditingFlag(self, value):
+        self.node.scene.grScene.views()[0].editingFlag = value

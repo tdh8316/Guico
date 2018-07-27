@@ -78,7 +78,8 @@ class BuildToPython:
                 self.add_to_code(self.print(code_content["str"]))
             elif code_type == WINDOW_NEW:
                 self.is_window_init = True
-                self.add_to_code(pygame.WINDOW())
+                self.add_to_code(pygame.WINDOW(display_width=code_content["size"].split(',')[0],
+                                               display_height=code_content["size"].split(',')[1]))
             elif code_type == DRAW_TEXT:
                 self.used_label = True
                 self.add_to_code(f"{indent(1)}message_display(\"{code_content['str']}\", "
