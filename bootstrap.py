@@ -13,9 +13,7 @@ from gui import theme
 
 COMPILE_TEST = False
 
-# TODO: 잎 확장하기 | pygame 입력 이벤트 구현하기
-# TODO: Window initializer 잎 세부 설정 구현하기
-# TODO: Label Position setter
+# TODO: pygame 입력 이벤트 구현하기
 # TODO: 프로젝트 기능 구현하기
 
 
