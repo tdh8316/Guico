@@ -19,11 +19,6 @@ COMPILE_TEST = False
 # TODO: 프로젝트 기능 구현하기
 
 
-if COMPILE_TEST:
-    interpreter('docs/example_pygame.gvs', mode="py", run=True, test=True)
-    sys.exit(0)
-
-
 def launch_window():
     app = QApplication([])
     QFontDatabase().addApplicationFont(r"NanumBarunpenR.ttf")
@@ -35,6 +30,11 @@ def launch_window():
 
     root = MainWindow()
     root.show()
+
+    if COMPILE_TEST:
+        root.hide()
+        interpreter('docs/example_pygame.gvs', mode="py", run=True, test=True)
+        sys.exit(0)
 
     return app.exec_()
 
