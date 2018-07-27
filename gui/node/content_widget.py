@@ -3,11 +3,9 @@ from collections import OrderedDict
 from PyQt5.QtGui import QFont
 
 from code_content.default import *
-from gui.node.leaf_attribute import *
+from gui.widgets.customized import *
 from gui.node.serializable import Serializable
 from PyQt5.QtWidgets import *
-
-from gui.node import leaf_attribute
 
 
 class QDMNodeContentWidget(QWidget, Serializable):
@@ -22,7 +20,7 @@ class QDMNodeContentWidget(QWidget, Serializable):
         # print(f"QDMNodeContentWidget::title={title}")
 
         if self.type == IF:
-            leaf_attribute.content_if(self)
+            pass
         elif self.type == PRINT:
             self.content_print()
         elif self.type == DRAW_TEXT:
