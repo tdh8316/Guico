@@ -48,17 +48,14 @@ class BuildToPython:
         self.output = autopep8.fix_code("\n".join(self.output)).split("\n")
         # print(self.output)
 
-        if not (self.used_label):
-            return True
-        else:
-            e = ""
-            if not self.is_window_init:
+        if not self.is_window_init:
+            if self.used_label:
                 e = "오류 : pygame window 가 초기화되지 않았습니다."
                 parent.log: QPlainTextEdit
                 parent.log.appendPlainText(e)
                 raise GuicoBuildError(e)
-            else:
-                self.output.append(f"{indent()}pygame.display.update()\n{indent()}fps.tick(60)")
+        else:
+            self.output.append(f"{indent()}pygame.display.update()\n{indent()}fps.tick(60)")
 
         for _ in range(len(self.output)):
             if self.output[_] == "# define point":
