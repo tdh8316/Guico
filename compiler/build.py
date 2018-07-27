@@ -86,6 +86,7 @@ class BuildToPython:
     def add_to_code(self, line):
         self.output.append(line)
 
+    # noinspection PyMethodMayBeStatic
     def print(self, str_1: str, option=str()):
         try:
             int(eval(str_1))
