@@ -117,5 +117,5 @@ def interpreter(target, mode=None, run=False, test=False):
                 parent.log.appendPlainText(f"{str(datetime.datetime.now()).split('.')[0]} 에 빌드 완료 [성공].")
             # sys.path.append("\\".join(list(CONF["FILE_PATH"].split("/")[:-1])))
             if run:
-                subprocess.Popen(f".\\python\\python.exe \"{CONF['SOURCE_PATH']}\"", shell=True, start_new_session=True)
+                subprocess.Popen(f"{os.environ['PYTHON']} \"{CONF['SOURCE_PATH']}\"", shell=True, start_new_session=True)
         # os.system(f"start /B start cmd @cmd /k python {CONF['SOURCE_PATH']}")

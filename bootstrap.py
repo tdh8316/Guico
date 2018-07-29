@@ -42,16 +42,14 @@ def main():
     # see https://stackoverflow.com/questions/12827305/pyqt-application-close-with-error
     if COMPILE_TEST:
         return
-    if RELEASE:
-        sys.exit(0) \
-            if len(sys.argv) == 1 else None
 
-    if not os.path.isfile(".\\python\\python.exe"):
+    if not os.path.isfile(os.environ['PYTHON']):
         sys.exit("PYTHON NOT FOUND.")
 
     return launch_window()
 
 
 if __name__ == "__main__":
+    os.environ['PYTHON'] = ".\\python.exe"
     print(f"{NAME} {VERSION} [{TEAM} | {AUTHOR}]")
     sys.exit(main())
