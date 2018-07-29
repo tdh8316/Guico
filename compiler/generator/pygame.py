@@ -1,5 +1,3 @@
-import pygame
-
 
 def WINDOW(TITLE="Guico Display (pygame)", display_width=800, display_height=600):
     return f"""
