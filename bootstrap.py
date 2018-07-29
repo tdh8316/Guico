@@ -50,6 +50,6 @@ def main():
 
 
 if __name__ == "__main__":
-    os.environ['PYTHON'] = ".\\python.exe"
+    os.environ['PYTHON'] = ".\\python\\python.exe"
     print(f"{NAME} {VERSION} [{TEAM} | {AUTHOR}]")
     sys.exit(main())
