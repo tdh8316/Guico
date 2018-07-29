@@ -3,7 +3,7 @@ from code_content.default import *
 NAME = "Guico"
 AUTHOR = "tdh8316@naver.com"
 TEAM = "TakturStudio"
-VERSION = "Pre-Alpha 8"
+VERSION = "Pre-Alpha (EMBEDDED-PYTHON)"
 OPEN_SOURCE_LICENSE = open(r".\docs\LICENSE.txt", "r", encoding="utf-8").read()
 
 FILE_TYPES = f"{NAME} script files (*.gvs);;" \
