@@ -1,3 +1,6 @@
+from build_tools.executer import interpreter
+from core.config import *
 
-def packaging_windows(source_file):
-    print(f"{source_file} 에 대한 패키징 시작...")
+
+def packaging_windows():
+    print(f"{CONF['SOURCE_PATH']} 에 대한 패키징 시작...")

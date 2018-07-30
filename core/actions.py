@@ -150,6 +150,11 @@ def delete():
     parent.editor.scene.grScene.views()[0].deleteSelected())
 
 
+def save_to_py(f):
+    on_file_save()
+    build(f if f is not None else CONF["FILE_PATH"], mode="py", )
+
+
 def run():
     def _save_and_run(f):
         on_file_save()
@@ -169,17 +174,16 @@ def run_as_python():
 
 
 def compile_to_python():
-    def _save_and_run(f):
-        on_file_save()
-        build(f if f is not None else CONF["FILE_PATH"], mode="py", )
-
     return QAction("Python Code 생성", parent, shortcut="Shift+F5", triggered=lambda:
-    _save_and_run(CONF["FILE_PATH"]))
+    save_to_py(CONF["FILE_PATH"]))
 
 
 def packaging():
+    def _():
+        save_to_py(CONF["FILE_PATH"])
+        packaging_windows()
     return QAction("Windows 에 대한 패키징 시작", parent, shortcut="", triggered=lambda:
-    packaging_windows(CONF["SOURCE_PATH"]))
+    _())
 
 
 '''def build_and_run():
