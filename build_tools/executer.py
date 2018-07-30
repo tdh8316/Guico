@@ -5,14 +5,14 @@ import sys
 
 from PyQt5.QtWidgets import QPlainTextEdit, QMessageBox
 
-from compiler.parser.script_parser import Parse
-from compiler.parser.script_lexer import Lexer
-from compiler.parser.combiner import Combiner
+from build_tools.parser.script_parser import Parse
+from build_tools.parser.script_lexer import Lexer
+from build_tools.parser.combiner import Combiner
 
 # from core.actions import on_file_save as save
 from core.config import *
-from compiler.build import BuildToPython
-from compiler import build
+from build_tools.build import BuildToPython
+from build_tools import build
 
 parent = None
 

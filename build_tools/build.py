@@ -1,7 +1,7 @@
 import autopep8
 from PyQt5.QtWidgets import QPlainTextEdit
 
-from compiler.generator import pygame
+from build_tools.generator import pygame
 from core.config import *
 
 
@@ -29,7 +29,7 @@ class GuicoBuildError(Exception):
 class BuildToPython:
 
     def __init__(self, code):
-        # print(f"{NAME}Build::Python:{compiler}")
+        # print(f"{NAME}Build::Python:{build_tools}")
         self.code = code
         self.output: list = []
 

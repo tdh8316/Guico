@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 
 from gui.node.editor_widget import NodeEditorWidget
-import compiler
+import build_tools
 from core.config import *
 from core import actions
 
@@ -21,7 +21,7 @@ class Editor(QMainWindow):
         self.dock_log.hide()
 
         actions.initialize(self)
-        compiler.initialize(self)
+        build_tools.initialize(self)
 
         self.create_menu()
         self.status_mouse_pos = QLabel("Unknown Mouse Pos")
@@ -70,6 +70,8 @@ class Editor(QMainWindow):
         menu_run = menu_bar.addMenu("실행(&R)")
         menu_run.addAction(actions.run_as_python())
         menu_run.addAction(actions.compile_to_python())
+        menu_run.addSeparator()
+        menu_run.addAction(actions.packaging())
         menu_help = menu_bar.addMenu("도움말(&H)")
         menu_help.addAction(actions.license_dialog())
         # menu_edit.addAction(actions.new_leaf())

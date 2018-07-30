@@ -9,7 +9,8 @@ from gui.node.node import Node as CreateNode
 from gui.node.graphics_node import QDMGraphicsNode
 from gui.dialogs import OpenSourceLicense, setLeafType
 
-from compiler.executer import interpreter as build
+from build_tools.executer import interpreter as build
+from build_tools.packager import *
 from core.config import *
 
 parent: QInputDialog = None
@@ -170,10 +171,15 @@ def run_as_python():
 def compile_to_python():
     def _save_and_run(f):
         on_file_save()
-        build(f if f is not None else CONF["FILE_PATH"], mode="py",)
+        build(f if f is not None else CONF["FILE_PATH"], mode="py", )
 
     return QAction("Python Code 생성", parent, shortcut="Shift+F5", triggered=lambda:
     _save_and_run(CONF["FILE_PATH"]))
+
+
+def packaging():
+    return QAction("Windows 에 대한 패키징 시작", parent, shortcut="", triggered=lambda:
+    packaging_windows(CONF["SOURCE_PATH"]))
 
 
 '''def build_and_run():
