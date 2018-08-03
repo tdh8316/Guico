@@ -26,7 +26,7 @@ class GuicoBuildError(Exception):
         return self.value
 
 
-class BuildToPython:
+class MakeTokenIntoPyCode:
 
     def __init__(self, code):
         # print(f"{NAME}Build::Python:{build_tools}")

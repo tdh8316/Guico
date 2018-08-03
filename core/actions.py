@@ -9,7 +9,7 @@ from gui.node.node import Node as CreateNode
 from gui.node.graphics_node import QDMGraphicsNode
 from gui.dialogs import OpenSourceLicense, setLeafType
 
-from build_tools.executer import interpreter as build
+from build_tools.compiler import build
 from build_tools.packager import *
 from core.config import *
 

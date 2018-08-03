@@ -1,4 +1,3 @@
-from build_tools.executer import interpreter
 from core.config import *
 
 

@@ -1,5 +1,5 @@
-import build_tools.executer
+import build_tools.compiler
 
 
 def initialize(_parent):
-    build_tools.executer.initialize(_parent)
+    build_tools.compiler.initialize(_parent)

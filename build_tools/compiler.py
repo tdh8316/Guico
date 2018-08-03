@@ -11,8 +11,8 @@ from build_tools.parser.combiner import Combiner
 
 # from core.actions import on_file_save as save
 from core.config import *
-from build_tools.build import BuildToPython
-from build_tools import build
+from build_tools.make import MakeTokenIntoPyCode
+from build_tools import make
 
 parent = None
 
@@ -20,7 +20,7 @@ parent = None
 def initialize(_parent):
     global parent
     parent = _parent
-    build.initialize(parent)
+    make.initialize(parent)
 
 
 class ConvertToC:
@@ -46,7 +46,7 @@ class PromptlyExecute:
         print(str_1.replace("\\n", "\n"), end=str())
 
 
-def interpreter(target, mode=None, run=False, test=False):
+def build(target, mode=None, run=False, test=False):
     parent.log: QPlainTextEdit
 
     if mode is None:
@@ -95,7 +95,7 @@ def interpreter(target, mode=None, run=False, test=False):
 
         # noinspection PyBroadException
         try:
-            python_code = BuildToPython(code=array).get_code()
+            python_code = MakeTokenIntoPyCode(array).get_code()
             CONF[
                 "SOURCE_PATH"
             ] = os.path.join(
