@@ -186,7 +186,7 @@ def packaging():
                                                                os.path.expanduser("~"),
                                                                QFileDialog.ShowDirsOnly))
 
-    return QAction("Windows 에 대한 패키징 시작", parent, shortcut="", triggered=lambda:
+    return QAction("패키징(&P)...", parent, shortcut="", triggered=lambda:
     _())
 
 
@@ -196,7 +196,7 @@ def packaging():
 
 
 def license_dialog():
-    return QAction("오픈 소스 라이선스...", parent, shortcut="", triggered=lambda:
+    return QAction("라이선스", parent, shortcut="", triggered=lambda:
     OpenSourceLicense(parent))
 
 

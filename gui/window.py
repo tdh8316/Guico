@@ -52,6 +52,8 @@ class MainForm(QMainWindow):
         menu_file.addAction(actions.file_open())
         menu_file.addAction(actions.file_save())
         menu_file.addAction(actions.file_save_as())
+        menu_file.addSeparator()
+        menu_file.addAction(QAction(f"{NAME} 종료(&X)", self, shortcut="Alt+F4", triggered=lambda:self.close()))
         menu_edit = menu_bar.addMenu("편집(&E)")
         menu_edit.addAction(actions.undo())
         menu_edit.addAction(actions.redo())
