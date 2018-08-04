@@ -3,7 +3,7 @@ from code_content.default import *
 NAME = "Guico"
 AUTHOR = "tdh8316@naver.com"
 TEAM = "TakturStudio"
-VERSION = "0.2a1"
+VERSION = "0.4fa31 빌드 128"
 OPEN_SOURCE_LICENSE = open(r".\docs\LICENSE.txt", "r", encoding="utf-8").read()
 
 FILE_TYPES = f"{NAME} script files (*.gvs);;" \
