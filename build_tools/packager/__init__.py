@@ -26,3 +26,4 @@ def packaging_windows(bsd):
                      os.path.join(CONF['SOURCE_PATH'].replace("/", "\\").split('\\')[-1].split('.')[0]))
     QMessageBox.information(None, "패키징 완료",
                             f"{CONF['FILE_PATH']} 의 Windows 에 대한 패키징을 완료했습니다!")
+    os.system(f"explorer {bsd}")
