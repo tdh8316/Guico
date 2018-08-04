@@ -97,11 +97,11 @@ class MainForm(QMainWindow):
         else:
             self.showNormal()
 
-    def is_modified(self):
+    def is_modified(self) -> bool:
         return self.editor.scene.has_been_modified
 
     def maybe_save(self):
-        if not self.is_modified():
+        if not (self.is_modified() or CONF["MODIFIED"]):
             return True
 
         res = QMessageBox.warning(None, f"{NAME} - 현재 파일이 변경됨",

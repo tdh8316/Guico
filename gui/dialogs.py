@@ -3,6 +3,7 @@ from PyQt5.QtCore import *
 
 # from gui.widgets.tree_combobox import TreeComboBox
 from code_content.leaf_types import getLeafTypeModel
+from gui.widgets.tree_selector import QBasedTreeSelector
 from core.config import *
 
 
@@ -44,8 +45,12 @@ class ActivateKey(QDialog):
 class setLeafType(QDialog):
 
     def __init__(self, parent):
+        global isDoubleClicked
         QDialog.__init__(self, parent)
 
+        isDoubleClicked = False
+
+        self.types = QBasedTreeSelector()
         self.setWindowTitle(f"{NAME} - 새 잎 만들기")
         # self.setWindowFlags(Qt.FramelessWindowHint)
         self.resize(480, 240)
@@ -69,8 +74,8 @@ class setLeafType(QDialog):
         # self.types.resize(240, 30)
         # self.types.currentIndexChanged.connect(self.change)
         # self.types.setFont(QFont("맑은 고딕", 9))
-        self.types = QTreeView()
         self.types.setModel(getLeafTypeModel())
+        self.types.doubleClicked.connect(self.doubleClickEvent)
 
         self.buttons = QDialogButtonBox(
             QDialogButtonBox.Ok | QDialogButtonBox.Cancel,
@@ -84,20 +89,25 @@ class setLeafType(QDialog):
             INDEX = text
             return INDEX
 
+    def doubleClickEvent(self):
+        global isDoubleClicked
+        isDoubleClicked = True
+        if self.selectedType() in ALL_LEAF_TYPES:
+            self.accept()
+
     def change(self):
         if self.types.currentText() not in ALL_LEAF_TYPES:
             self.types.showPopup()
 
     @staticmethod
     def get(parent=None):
+        global isDoubleClicked
         _win = setLeafType(parent)
         result = _win.exec_()
         data = _win.selectedType()
         if data in ALL_LEAF_TYPES:
             return data, result == QDialog.Accepted
         else:
-            QMessageBox.critical(None, f"{NAME} - 처리되지 않은 예외",
-                                 f"선택한 잎[{data}] 은 정의되지 않았습니다."
-                                 if data is "None"
-                                 else "선택된 잎이 없습니다!")
-            return False
+            if isDoubleClicked:
+                return None, False
+            return "CANCELED", False

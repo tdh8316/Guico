@@ -185,6 +185,7 @@ def packaging():
                                                                        f"패키징 폴더 지정",
                                                                os.path.expanduser("~"),
                                                                QFileDialog.ShowDirsOnly))
+
     return QAction("Windows 에 대한 패키징 시작", parent, shortcut="", triggered=lambda:
     _())
 
@@ -210,14 +211,17 @@ def on_new_leaf(x, y):
     x
     y
     # noinspection PyBroadException
-    try:
-        str_1, _make = setLeafType.get(parent)
-    except Exception as e:
-        QMessageBox.critical(None, f"{NAME} - 처리되지 않은 예외", f"{e}\n{sys.exc_info()}")
-        _make = False
+    # try:
+    while True:
+        str_1, _make = setLeafType.get(parent=parent)
 
-    if not _make:
-        return False
+        if not _make:
+            if str_1 is not None:
+                return False
+            elif str_1 == "CANCELED":
+                return False
+        else:
+            break
 
     #                         ↓TODO: Show(s) the icon of its function.
     exec(f'Leaf{leaf_count} = CreateNode(editor.scene, " ", inputs=[0,], outputs=[1], types=str_1)')
