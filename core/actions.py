@@ -181,7 +181,10 @@ def compile_to_python():
 def packaging():
     def _():
         save_to_py(CONF["FILE_PATH"])
-        packaging_windows()
+        packaging_windows(bsd=QFileDialog.getExistingDirectory(parent, f"{NAME} - "
+                                                                       f"패키징 폴더 지정",
+                                                               os.path.expanduser("~"),
+                                                               QFileDialog.ShowDirsOnly))
     return QAction("Windows 에 대한 패키징 시작", parent, shortcut="", triggered=lambda:
     _())
 
