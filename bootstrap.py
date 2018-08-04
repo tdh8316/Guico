@@ -6,7 +6,7 @@ from PyQt5.QtGui import QFontDatabase, QFont, QIcon
 from PyQt5.QtWidgets import QApplication
 
 # from build_tools.compiler import interpreter
-from gui.window import Editor as MainWindow
+from gui.window import MainForm
 from core.config import *
 from gui import theme
 
@@ -26,12 +26,12 @@ def launch_window():
     app.setFont(QFont("나눔바른펜", 11))
     app.setWindowIcon(QIcon(r"gui\resources\icon.ico"))
 
-    root = MainWindow()
+    root = MainForm()
     root.show()
 
     if COMPILE_TEST:
         root.hide()
-        interpreter('docs/example_pygame.gvs', mode="py", run=True, test=True)
+        # interpreter('docs/example_pygame.gvs', mode="py", run=True, test=True)
         sys.exit(0)
 
     return app.exec_()

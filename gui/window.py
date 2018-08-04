@@ -10,7 +10,7 @@ from core.config import *
 from core import actions
 
 
-class Editor(QMainWindow):
+class MainForm(QMainWindow):
 
     def __init__(self):
         super().__init__()
