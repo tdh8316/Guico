@@ -4,10 +4,11 @@ import time
 
 import qdarkstyle
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QFontDatabase, QFont, QIcon, QPixmap
+from PyQt5.QtGui import QFontDatabase, QFont, QIcon, QPixmap, QMovie
 from PyQt5.QtWidgets import QApplication, QSplashScreen, QProgressBar
 
 # from build_tools.compiler import interpreter
+from gui.widgets.gif import MovieSplashScreen
 from gui.window import MainForm
 from core.config import *
 from gui import theme
@@ -22,36 +23,34 @@ COMPILE_TEST = False
 def launch_window():
     app = QApplication([])
     QFontDatabase().addApplicationFont(r"NanumBarunpenR.ttf")
-    app.setFont(QFont("나눔바른펜", 11))
     # QFontDatabase().addApplicationFont(r"gui\resources\godoRounded L.ttf")
 
-    splash_pm = QPixmap("gui/resources/splash.png")
-    splash = QSplashScreen(splash_pm, Qt.WindowStaysOnTopHint)
+    splash = MovieSplashScreen(QMovie("gui/resources/splash.gif"))  # QSplashScreen(QPixmap("gui/resources/loading1.gif"), Qt.WindowStaysOnTopHint)
     splash.setWindowFlags(Qt.WindowStaysOnTopHint | Qt.FramelessWindowHint)
     splash.setEnabled(False)
-    progressBar = QProgressBar(splash)
-    progressBar.setMaximum(100)
-    progressBar.setGeometry(0, splash_pm.height() - 25, splash_pm.width() + 50, 100)
+
     splash.setFont(QFont("나눔바른펜", 17))
     splash.setWindowTitle(" ".join([NAME, VERSION]))
-    splash.showMessage(f"{AUTHOR}'s {NAME} {VERSION}", Qt.AlignTop | Qt.AlignCenter, Qt.white)
+    # splash.showMessage(f"{AUTHOR}'s {NAME} {VERSION}", alignment=Qt.AlignTop | Qt.AlignCenter, color=Qt.white)
+
+    splash.setWindowIcon(QIcon(r"gui\resources\icon.ico"))
+
     splash.show()
 
-    for i in range(90):
-        progressBar.setValue(i)
+    for i in range(31):
         t = time.time()
-        while time.time() < t + 0.025:
+        while time.time() < t + 0.1:
             app.processEvents()
 
         # Simulate something that takes time
-    time.sleep(1.25)
 
     app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
+    app.setFont(QFont("나눔바른펜", 11))
     app.setWindowIcon(QIcon(r"gui\resources\icon.ico"))
 
     root = MainForm()
-    root.show()
     splash.finish(root)
+    root.show()
 
     if COMPILE_TEST:
         root.hide()
