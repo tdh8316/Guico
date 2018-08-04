@@ -3,6 +3,8 @@ import platform
 
 from os import environ, path
 
+from core.config import CONF
+
 
 class MakePyEnv:
 
@@ -14,7 +16,9 @@ class MakePyEnv:
             self.make_linux()
 
     def make_win(self):
-        shutil.copytree(environ["PYTHON"], path.join(self.base_dir, "python"))
+        shutil.copytree("/".join(environ["PYTHON"].split("\\")[0:-1]), path.join(self.base_dir, "Binaries"))
+        shutil.copy(CONF["SOURCE_PATH"], path.join(self.base_dir, "Binaries",
+                                                   CONF["SOURCE_PATH"].split("\\")[-1].split(".")[0]))
 
     def make_linux(self):
         pass

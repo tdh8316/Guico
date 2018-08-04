@@ -12,7 +12,7 @@ from build_tools.parser.combiner import Combiner
 # from core.actions import on_file_save as save
 from core.config import *
 from build_tools.make import MakeTokenIntoPyCode
-from build_tools import make
+from build_tools import make, packager
 
 parent = None
 
@@ -21,6 +21,7 @@ def initialize(_parent):
     global parent
     parent = _parent
     make.initialize(parent)
+    packager.initialize(parent)
 
 
 class ConvertToC:
