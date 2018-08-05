@@ -119,4 +119,5 @@ def build(target, mode=None, run=False, test=False):
             # sys.path.append("\\".join(list(CONF["FILE_PATH"].split("/")[:-1])))
             if run:
                 subprocess.Popen(f"{os.environ['PYTHON']} \"{CONF['SOURCE_PATH']}\"", shell=True, start_new_session=True)
+                print(f"{os.environ['PYTHON']} \"{CONF['SOURCE_PATH']}\"")
         # os.system(f"start /B start cmd @cmd /k python {CONF['SOURCE_PATH']}")
