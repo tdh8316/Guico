@@ -24,7 +24,7 @@ class QDMNodeContentWidget(QWidget, Serializable):
         elif self.type == PRINT:
             self.content_print()
         elif self.type == DRAW_TEXT:
-            self.content_draw()
+            self.content_drawtext()
         elif self.type == ENTRY_POINT:
             content_entry(self)
         elif self.type == WINDOW_NEW:
@@ -53,7 +53,7 @@ class QDMNodeContentWidget(QWidget, Serializable):
         # self.layout.addWidget(self.wdg_label)
         self.layout.addWidget(self.textbox)
 
-    def content_draw(self):
+    def content_drawtext(self):
         self.layout = QGridLayout()
         self.textbox = QDMLineEdit("")  # 그 텍스트박스 그거임
         self.position = QDMLineEdit("0,0")  # 그 텍스트박스 그거임

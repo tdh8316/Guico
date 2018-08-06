@@ -3,7 +3,7 @@ from code_content.default import *
 NAME = "Guico"
 AUTHOR = "tdh8316@naver.com"
 TEAM = "TakturStudio"
-VERSION = "0.4fa31 빌드 131"
+VERSION = "0.4fa31 빌드 132"
 OPEN_SOURCE_LICENSE = open(r".\docs\LICENSE.txt", "r", encoding="utf-8").read()
 
 FILE_TYPES = f"{NAME} script files (*.gvs);;" \
@@ -19,14 +19,14 @@ CONF = {
 
 LEAF_TYPES = {
     "Entry": ENTRY_POINT,
-    "CONSOLE": [PRINT, INPUT],
+    "CONSOLE": [PRINT, ],
     "WINDOW": [WINDOW_NEW, DRAW_TEXT],
 }
 
 ALL_LEAF_TYPES = [
     ENTRY_POINT,
     PRINT,
-    INPUT,
+    # INPUT,
     WINDOW_NEW,
     # WINDOW_DESTROY,
     DRAW_TEXT,

@@ -18,8 +18,8 @@ def getLeafTypeModel():
     console_parent.setEditable(False)
 
     window_parent = QStandardItem("Window")
-    for console_item in LEAF_TYPES["WINDOW"]:
-        item = QStandardItem(console_item)
+    for window_item in LEAF_TYPES["WINDOW"]:
+        item = QStandardItem(window_item)
         item.setEditable(False)
         window_parent.appendRow(QStandardItem(item))
     window_parent.setEditable(False)
