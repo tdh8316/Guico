@@ -17,9 +17,9 @@ class QDMGraphicsScene(QGraphicsScene):
         '''self._color_background = QColor("#EEEEEE")
         self._color_light = QColor("#FAFAFA")
         self._color_dark = QColor("#F5F5F5")'''
-        self._color_background = QColor("#31363B")
-        self._color_light = QColor("#282B2D")
-        self._color_dark = QColor("#282B2D")
+        self._color_background = QColor("#262626")
+        self._color_light = QColor("#323232")
+        self._color_dark = QColor("#323232")
 
         self._pen_light = QPen(self._color_light)
         self._pen_light.setWidth(1)
