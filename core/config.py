@@ -13,8 +13,8 @@ CONF = {
     "FILE_PATH": None,
     "SOURCE_PATH": None,
     "MODIFIED": False,
-    "MOUSE_X": int,
-    "MOUSE_Y": int
+    "MOUSE_X": int(),
+    "MOUSE_Y": int()
 }
 
 LEAF_TYPES = {

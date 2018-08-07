@@ -3,6 +3,7 @@ from collections import OrderedDict
 from PyQt5.QtGui import QFont
 
 from code_content.default import *
+from core.config import *
 from gui.widgets.customized import *
 from gui.node.serializable import Serializable
 from PyQt5.QtWidgets import *
@@ -37,6 +38,7 @@ class QDMNodeContentWidget(QWidget, Serializable):
 
         self._win_size = QDMLineEdit("800,600")
         self._win_size.setMaximumWidth(100)
+        self._win_size.setFont(QFont("맑은 고딕", 9))
 
         self.layout.setContentsMargins(0, 0, 0, 0)
         self.layout.addWidget(self.wdg_label, 0, 0, 1, 0)
@@ -57,6 +59,7 @@ class QDMNodeContentWidget(QWidget, Serializable):
     def content_drawtext(self):
         self.layout = QGridLayout()
         self.textbox = QDMLineEdit("")  # 그 텍스트박스 그거임
+        self.textbox.setFont(QFont("맑은 고딕", 9))
         self.position = QDMLineEdit("0,0")  # 그 텍스트박스 그거임
         # self.position.setMaxLength(3)
         self.position.setFont(QFont("맑은 고딕", 9))
