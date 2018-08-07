@@ -8,8 +8,8 @@ class QDMGraphicsSocket(QGraphicsItem):
         self.socket = socket
         super().__init__(socket.node.grNode)
 
-        self.radius = 6.0
-        self.outline_width = 1.0
+        self.radius = 6.9
+        self.outline_width = 1.5
         self._colors = [
             QColor("#FFFFFF"),  # INPUT
             QColor("#FFFFFF"),  # OUTPUT
