@@ -21,7 +21,7 @@ class Node(Serializable):
         # print(self.type)
         self.type = types
 
-        self.bg = "#212121"
+        self.bg = "#498DEB"
         self.width = 180
         self.height = 120
 

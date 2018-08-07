@@ -14,7 +14,7 @@ class QDMGraphicsEdge(QGraphicsPathItem):
 
         self.edge = edge
 
-        self._color = QColor("#001000")
+        self._color = QColor("#5C5C5C")
         self._color_selected = QColor("#00ff00")
         self._pen = QPen(self._color)
         self._pen_selected = QPen(self._color_selected)

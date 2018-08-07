@@ -4,7 +4,7 @@ from PyQt5.QtGui import *
 
 
 class QDMGraphicsNode(QGraphicsItem):
-    def __init__(self, node, parent=None, title_background="#424242", w=180, h=180):
+    def __init__(self, node, parent=None, title_background="#498DEB", w=180, h=180):
         super().__init__(parent)
         self.node = node
         self.content = self.node.content
