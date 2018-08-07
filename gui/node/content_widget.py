@@ -36,6 +36,7 @@ class QDMNodeContentWidget(QWidget, Serializable):
         self.wdg_label.setAlignment(Qt.AlignCenter)
 
         self._win_size = QDMLineEdit("800,600")
+        self._win_size.setMaximumWidth(100)
 
         self.layout.setContentsMargins(0, 0, 0, 0)
         self.layout.addWidget(self.wdg_label, 0, 0, 1, 0)
