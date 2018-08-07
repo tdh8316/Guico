@@ -8,6 +8,7 @@ from gui.node.editor_widget import NodeEditorWidget
 import build_tools
 from core.config import *
 from core import actions
+from gui.widgets.script_widget import ScriptWidget
 
 
 class MainForm(QMainWindow):
@@ -31,11 +32,19 @@ class MainForm(QMainWindow):
         self.editor.scene.addHasBeenModifiedListener(lambda: self.signal_change_editor())
         self.editor.view.scenePosChanged.connect(actions.on_scene_pos_changed)
 
-        self.dock_editor = QDockWidget("편집 환경", self)
-        self.dock_editor.setWidget(self.editor)
+        # self.dock_editor = QDockWidget("편집 환경", self)
+        # self.dock_editor.setWidget(self.editor)
+        self.setCentralWidget(self.editor)
 
-        self.addDockWidget(Qt.LeftDockWidgetArea, self.dock_editor)
+        self.leaf_widget = ScriptWidget(self)
+        self.leaf_widget.setMaximumWidth(250)
+
+        self.dock_leaf = QDockWidget("스크립트", self)
+        self.dock_leaf.setWidget(self.leaf_widget)
+
+        # self.addDockWidget(Qt.RightDockWidgetArea, self.dock_editor)
         self.addDockWidget(Qt.BottomDockWidgetArea, self.dock_log)
+        self.addDockWidget(Qt.LeftDockWidgetArea, self.dock_leaf)
 
         self.setWindowTitle(f"{TEAM} {NAME} {VERSION}")
 

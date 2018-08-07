@@ -205,28 +205,34 @@ def on_scene_pos_changed(x, y):
     CONF["MOUSE_X"], CONF["MOUSE_Y"] = x, y
 
 
-def on_new_leaf(x, y):
+def on_new_leaf(x, y, defined=False):
     global leaf_count
     leaf_count += 1
     x
     y
     # noinspection PyBroadException
     # try:
-    while True:
-        str_1, _make = setLeafType.get(parent=parent)
+    if not defined:
+        while True:
+            str_1, _make = setLeafType.get(parent=parent)
 
-        if not _make:
-            if str_1 is not None:
-                return False
-            elif str_1 == "CANCELED":
-                return False
-        else:
-            break
+            if not _make:
+                if str_1 is not None:
+                    return False
+                elif str_1 == "CANCELED":
+                    return False
+            else:
+                break
+        #                         ↓TODO: Show(s) the icon of its function.
+        exec(f'Leaf{leaf_count} = CreateNode(editor.scene, " ", inputs=[0,], outputs=[1], types=str_1)')
+        exec(f'Leaf{leaf_count}.setPos(x, y)')
+        parent.signal_change_editor()
 
-    #                         ↓TODO: Show(s) the icon of its function.
-    exec(f'Leaf{leaf_count} = CreateNode(editor.scene, " ", inputs=[0,], outputs=[1], types=str_1)')
-    exec(f'Leaf{leaf_count}.setPos(x, y)')
-    parent.signal_change_editor()
+    elif type(defined) == str:
+        #                         ↓TODO: Show(s) the icon of its function.
+        exec(f'Leaf{leaf_count} = CreateNode(editor.scene, " ", inputs=[0,], outputs=[1], types=defined)')
+        exec(f'Leaf{leaf_count}.setPos(x, y)')
+        parent.signal_change_editor()
 
 
 def test_on_new_leaf():

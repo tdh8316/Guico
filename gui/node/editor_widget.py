@@ -42,7 +42,8 @@ class NodeEditorWidget(QWidget):
         node3.setPos(200, -150)
 
     def add_default_node(self):
-        Node(self.scene, "진입점", inputs=[], outputs=[1], types=ENTRY_POINT)
+        self.entryNode = Node(self.scene, "진입점", inputs=[], outputs=[1], types=ENTRY_POINT)
+        self.entryNode.setPos(-250,-250)
 
     def addDebugContent(self):
         greenBrush = QBrush(Qt.green)

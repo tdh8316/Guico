@@ -25,7 +25,7 @@ def launch_window():
     QFontDatabase().addApplicationFont(r"NanumBarunpenR.ttf")
     # QFontDatabase().addApplicationFont(r"gui\resources\godoRounded L.ttf")
 
-    splash = MovieSplashScreen(QMovie("gui/resources/splash.gif"))  # QSplashScreen(QPixmap("gui/resources/loading1.gif"), Qt.WindowStaysOnTopHint)
+    '''splash = MovieSplashScreen(QMovie("gui/resources/splash.gif"))  # QSplashScreen(QPixmap("gui/resources/loading1.gif"), Qt.WindowStaysOnTopHint)
     splash.setWindowFlags(Qt.WindowStaysOnTopHint | Qt.FramelessWindowHint)
     splash.setEnabled(False)
 
@@ -42,14 +42,14 @@ def launch_window():
         while time.time() < t + 0.1:
             app.processEvents()
 
-        # Simulate something that takes time
+        # Simulate something that takes time'''
 
     app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
     app.setFont(QFont("나눔바른펜", 11))
     app.setWindowIcon(QIcon(r"gui\resources\icon.ico"))
 
     root = MainForm()
-    splash.finish(root)
+    # splash.finish(root)
     root.show()
 
     if COMPILE_TEST:
