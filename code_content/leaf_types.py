@@ -57,3 +57,16 @@ def getEtcLeafTypeModel():
     type_model.setHeaderData(0, Qt.Horizontal, "더블클릭해서 배치할 수 있습니다.", Qt.DisplayRole)
 
     return type_model
+
+
+def getConsoleLeafTypeModel():
+    type_model = QStandardItemModel()
+
+    for console_item in LEAF_TYPES["CONSOLE"]:
+        console_item = QStandardItem(console_item)
+        console_item.setEditable(False)
+        type_model.appendRow(QStandardItem(console_item))
+
+    type_model.setHeaderData(0, Qt.Horizontal, "더블클릭해서 배치할 수 있습니다.", Qt.DisplayRole)
+
+    return type_model

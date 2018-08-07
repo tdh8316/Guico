@@ -37,7 +37,7 @@ class MainForm(QMainWindow):
         self.setCentralWidget(self.editor)
 
         self.leaf_widget = TabScriptWidget(self)
-        # self.leaf_widget.setMaximumWidth(250)
+        self.leaf_widget.setMaximumWidth(250)
 
         self.dock_leaf = QDockWidget("스크립트", self)
         self.dock_leaf.setWidget(self.leaf_widget)

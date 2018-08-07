@@ -1,8 +1,11 @@
+import random
+
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 
 # from gui.widgets.tree_combobox import TreeComboBox
-from code_content.leaf_types import getLeafTypeModel, getWindowLeafTypeModel, getEtcLeafTypeModel
+from code_content.leaf_types import getLeafTypeModel, getWindowLeafTypeModel, getEtcLeafTypeModel, \
+    getConsoleLeafTypeModel
 from core.actions import on_new_leaf
 from gui.widgets.tree_selector import QBasedTreeSelector
 from core.config import *
@@ -61,7 +64,7 @@ class ScriptWidget(QWidget):
                 self.x_count = 1
             elif self.y_count > 7:
                 self.y_count = 1
-            on_new_leaf(x=self.x_count*150, y=self.y_count*50, defined=str(self.selectedType()))
+            on_new_leaf(x=self.x_count * 150, y=self.y_count * 50, defined=str(self.selectedType()))
 
             self.x_count += 1
             self.y_count += 1
@@ -75,9 +78,9 @@ class TabScriptWidget(QWidget):
 
     def __init__(self, parent=None):
         super(TabScriptWidget, self).__init__(parent=parent)
-        self.x_count = 5
-        self.y_count = -3
-        self.first = True
+
+        self.latest_pos: dict = {"X": int,
+                                 "Y": int}
 
         self.tab = QTabWidget(self)
         self.tab_window = QWidget()
@@ -88,12 +91,17 @@ class TabScriptWidget(QWidget):
         self.widget_tab_window = QBasedTreeSelector()
         self.widget_tab_window.setMinimumHeight(500)
         self.widget_tab_window.setModel(getWindowLeafTypeModel())
-        self.widget_tab_window.doubleClicked.connect(self.widget_tab_window_doubleClickEvent)
+        self.widget_tab_window.doubleClicked.connect(self.itemDoubleClickEvent)
 
         self.widget_tab_etc = QBasedTreeSelector()
         self.widget_tab_etc.setMinimumHeight(500)
         self.widget_tab_etc.setModel(getEtcLeafTypeModel())
-        self.widget_tab_etc.doubleClicked.connect(self.widget_tab_etc_doubleClickEvent)
+        self.widget_tab_etc.doubleClicked.connect(self.itemDoubleClickEvent)
+
+        self.widget_tab_console = QBasedTreeSelector()
+        self.widget_tab_console.setMinimumHeight(500)
+        self.widget_tab_console.setModel(getConsoleLeafTypeModel())
+        self.widget_tab_console.doubleClicked.connect(self.itemDoubleClickEvent)
 
         self.initialize_widgets()
 
@@ -112,45 +120,24 @@ class TabScriptWidget(QWidget):
         lay_tab_etc = QFormLayout()
         lay_tab_etc.addWidget(self.widget_tab_etc)
 
+        lay_tab_console = QFormLayout()
+        lay_tab_console.addWidget(self.widget_tab_console)
+
         self.tab_window.setLayout(lay_tab_window)
         self.tab_etc.setLayout(lay_tab_etc)
+        self.tab_console.setLayout(lay_tab_console)
 
-    def selectedType_window(self):
-        for ix in self.widget_tab_window.selectedIndexes():
+    def selectedType(self):
+        for ix in self.focusWidget().selectedIndexes():
             return ix.data(Qt.DisplayRole)
 
-    def selectedType_etc(self):
-        for ix in self.widget_tab_etc.selectedIndexes():
-            return ix.data(Qt.DisplayRole)
-
-    def widget_tab_window_doubleClickEvent(self):
-        if self.selectedType_window() in ALL_LEAF_TYPES:
-            if self.first:
-                on_new_leaf(x=0, y=-250, defined=str(self.selectedType_window()))
-                self.first = False
-                return True
-            elif self.x_count > 3:
-                self.x_count = 1
-            elif self.y_count > 7:
-                self.y_count = 1
-            on_new_leaf(x=self.x_count*150, y=self.y_count*50, defined=str(self.selectedType_window()))
-
-            self.x_count += 1
-            self.y_count += 1
-
-    def widget_tab_etc_doubleClickEvent(self):
-        print(self.selectedType_etc())
-        if self.selectedType_etc() in ALL_LEAF_TYPES:
-            if self.first:
-                on_new_leaf(x=0, y=-250, defined=str(self.selectedType_etc()))
-                self.first = False
-                return True
-            elif self.x_count > 3:
-                self.x_count = 1
-            elif self.y_count > 7:
-                self.y_count = 1
-            on_new_leaf(x=self.x_count*150, y=self.y_count*50, defined=str(self.selectedType_etc()))
-
-            self.x_count += 1
-            self.y_count += 1
-
+    def itemDoubleClickEvent(self):
+        if self.selectedType() in ALL_LEAF_TYPES:
+            if [self.latest_pos["X"], self.latest_pos["Y"]] != [CONF["MOUSE_X"], CONF["MOUSE_Y"]]:
+                print("안같음")
+                on_new_leaf(x=CONF["MOUSE_X"] + 255, y=CONF["MOUSE_Y"], defined=str(self.selectedType()))
+            else:
+                print("같음")
+                on_new_leaf(x=CONF["MOUSE_X"] + random.randint(128, 512), y=CONF["MOUSE_Y"] - random.randint(64, 256),
+                            defined=str(self.selectedType()))
+            self.latest_pos["X"], self.latest_pos["Y"] = CONF["MOUSE_X"], CONF["MOUSE_Y"]
