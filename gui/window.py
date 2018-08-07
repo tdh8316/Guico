@@ -8,7 +8,7 @@ from gui.node.editor_widget import NodeEditorWidget
 import build_tools
 from core.config import *
 from core import actions
-from gui.widgets.script_widget import ScriptWidget
+from gui.widgets.script_widget import ScriptWidget, TabScriptWidget
 
 
 class MainForm(QMainWindow):
@@ -36,8 +36,8 @@ class MainForm(QMainWindow):
         # self.dock_editor.setWidget(self.editor)
         self.setCentralWidget(self.editor)
 
-        self.leaf_widget = ScriptWidget(self)
-        self.leaf_widget.setMaximumWidth(250)
+        self.leaf_widget = TabScriptWidget(self)
+        # self.leaf_widget.setMaximumWidth(250)
 
         self.dock_leaf = QDockWidget("스크립트", self)
         self.dock_leaf.setWidget(self.leaf_widget)

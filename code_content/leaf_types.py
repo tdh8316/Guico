@@ -31,3 +31,29 @@ def getLeafTypeModel():
     type_model.setHeaderData(0, Qt.Horizontal, "잎의 유형을 선택하세요↓", Qt.DisplayRole)
 
     return type_model
+
+
+def getWindowLeafTypeModel():
+    type_model = QStandardItemModel()
+
+    for window_item in LEAF_TYPES["WINDOW"]:
+        window_item = QStandardItem(window_item)
+        window_item.setEditable(False)
+        type_model.appendRow(QStandardItem(window_item))
+
+    type_model.setHeaderData(0, Qt.Horizontal, "더블클릭해서 배치할 수 있습니다.", Qt.DisplayRole)
+
+    return type_model
+
+
+def getEtcLeafTypeModel():
+    type_model = QStandardItemModel()
+
+    entry = QStandardItem("Entry")
+    entry.setEditable(False)
+
+    type_model.appendRow(entry)
+
+    type_model.setHeaderData(0, Qt.Horizontal, "더블클릭해서 배치할 수 있습니다.", Qt.DisplayRole)
+
+    return type_model
