@@ -134,10 +134,8 @@ class TabScriptWidget(QWidget):
     def itemDoubleClickEvent(self):
         if self.selectedType() in ALL_LEAF_TYPES:
             if [self.latest_pos["X"], self.latest_pos["Y"]] != [CONF["MOUSE_X"], CONF["MOUSE_Y"]]:
-                print("안같음")
                 on_new_leaf(x=CONF["MOUSE_X"] + 255, y=CONF["MOUSE_Y"], defined=str(self.selectedType()))
             else:
-                print("같음")
                 on_new_leaf(x=CONF["MOUSE_X"] + random.randint(128, 512), y=CONF["MOUSE_Y"] - random.randint(64, 256),
                             defined=str(self.selectedType()))
             self.latest_pos["X"], self.latest_pos["Y"] = CONF["MOUSE_X"], CONF["MOUSE_Y"]
