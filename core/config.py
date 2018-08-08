@@ -17,13 +17,6 @@ CONF = {
     "MOUSE_Y": int()
 }
 
-GetNameFromStr: dict = {PRINT: "PRINT",
-                        INPUT: "INPUT",
-                        ENTRY_POINT: "ENTRY_POINT",
-                        IF: "IF",
-                        WINDOW_NEW: "WINDOW_NEW",
-                        DRAW_TEXT: "DRAW_TEXT"}
-
 INDEX = None
 
 RELEASE = False

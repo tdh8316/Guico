@@ -33,6 +33,7 @@ class QDMNodeContentWidget(QWidget, Serializable):
         elif self.type == WINDOW_NEW:
             self.content_wininit()'''
         # TODO : How to get its name of variable with string?
+        # exec(f"self.content_{GetNameFromStr[self.type]}()")
         exec(f"self.content_{GetNameFromStr[self.type]}()")
 
     def content_ENTRY_POINT(self):

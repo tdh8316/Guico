@@ -24,6 +24,11 @@ LEAF_TYPES = {
     DRAW_TEXT,
 ]'''
 
-ALL_LEAF_TYPES = []
+ALL_LEAF_TYPES = dir()[0:-9]
 
-print(dir())
+GetNameFromStr: dict = {PRINT: "PRINT",
+                        INPUT: "INPUT",
+                        ENTRY_POINT: "ENTRY_POINT",
+                        IF: "IF",
+                        WINDOW_NEW: "WINDOW_NEW",
+                        DRAW_TEXT: "DRAW_TEXT"}
