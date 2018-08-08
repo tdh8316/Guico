@@ -17,20 +17,12 @@ CONF = {
     "MOUSE_Y": int()
 }
 
-LEAF_TYPES = {
-    "Entry": ENTRY_POINT,
-    "CONSOLE": [PRINT, ],
-    "WINDOW": [WINDOW_NEW, DRAW_TEXT],
-}
-
-ALL_LEAF_TYPES = [
-    ENTRY_POINT,
-    PRINT,
-    # INPUT,
-    WINDOW_NEW,
-    # WINDOW_DESTROY,
-    DRAW_TEXT,
-]
+GetNameFromStr: dict = {PRINT: "PRINT",
+                        INPUT: "INPUT",
+                        ENTRY_POINT: "ENTRY_POINT",
+                        IF: "IF",
+                        WINDOW_NEW: "WINDOW_NEW",
+                        DRAW_TEXT: "DRAW_TEXT"}
 
 INDEX = None
 

@@ -29,7 +29,9 @@ class Node(Serializable):
         if self.type == IF:
             title, self.bg = "조건문", "#01579B"
         elif self.type == PRINT:
-            title, self.bg = "출력", "#F57C00"
+            title, self.bg = "출력 (STDIO)", "#F57C00"
+        elif self.type == INPUT:
+            title, self.bg = "입력 (STDIO)", "#F57C00"
         elif self.type == ENTRY_POINT:
             title, self.bg = "EntryPoint", "#4CAF50"
             self.width, self.height = 180, 61; inputs = []

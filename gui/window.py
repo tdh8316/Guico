@@ -76,8 +76,6 @@ class MainForm(QMainWindow):
         menu_view.addAction(QAction("출력 창 보기(&O)", self, shortcut="Alt+1", triggered=lambda: self.dock_log.show()))
         menu_view.addAction(QAction(
             "전체 화면으로 보기(&S)", self, shortcut="F11", triggered=self._showFullScreen, checkable=True))
-        menu_leaf = menu_bar.addMenu("스크립트(&L)")
-        menu_leaf.addAction(actions.new_leaf())
         menu_run = menu_bar.addMenu("실행(&R)")
         menu_run.addAction(actions.run_as_python())
         menu_run.addAction(actions.compile_to_python())

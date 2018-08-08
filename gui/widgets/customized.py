@@ -2,17 +2,6 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import *
 
 
-def content_entry(self):
-    self.layout = QVBoxLayout()
-    self.wdg_label = QLabel("프로그램이 시작될 때")  # 그거 종류 그 뭐냐 하여튼 그거
-    self.wdg_label.setAlignment(Qt.AlignCenter)
-
-    self.layout.setContentsMargins(0, 0, 0, 0)
-    self.layout.addWidget(self.wdg_label)
-    self.setLayout(self.layout)
-    # self.layout.addWidget(self.wdg_label)
-
-
 def NotImplementationWidget(self):
     self.layout = QVBoxLayout()
     self.wdg_label = QLabel("NotImplementation")  # 그거 종류 그 뭐냐 하여튼 그거

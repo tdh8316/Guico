@@ -131,7 +131,7 @@ class TabScriptWidget(QWidget):
             return ix.data(Qt.DisplayRole)
 
     def itemDoubleClickEvent(self):
-        if self.selectedType() in ALL_LEAF_TYPES:
+        # if self.selectedType() in ALL_LEAF_TYPES:
             if [self.latest_pos["X"], self.latest_pos["Y"]] != [CONF["MOUSE_X"], CONF["MOUSE_Y"]]:
                 on_new_leaf(x=CONF["MOUSE_X"] + 255, y=CONF["MOUSE_Y"], defined=str(self.selectedType()))
             else:

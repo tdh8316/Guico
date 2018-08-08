@@ -251,6 +251,7 @@ def new_leaf():
 
 def create_editor_menu(p, QContextMenuEvent):
     menu = QMenu(p)
-    menu.addAction(QAction("새 잎 만들기", p, shortcut="Ctrl+L",
+    menu.addAction(QAction("이 위치(%s,%s)에 새 잎 만들기" %
+                           (CONF["MOUSE_X"], CONF["MOUSE_Y"]), p, shortcut="Ctrl+L",
                            triggered=lambda: on_new_leaf(CONF["MOUSE_X"], CONF["MOUSE_Y"])))
     menu.exec_(QContextMenuEvent.globalPos())

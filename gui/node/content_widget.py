@@ -16,12 +16,14 @@ class QDMNodeContentWidget(QWidget, Serializable):
 
         self.node = node
         self.title = title
-        self.type = title
+        self.type: str = title
 
         # print(f"QDMNodeContentWidget::title={title}")
 
-        if self.type == IF:
+        '''if self.type == IF:
             pass
+        elif self.type == INPUT:
+            self.content_input()
         elif self.type == PRINT:
             self.content_print()
         elif self.type == DRAW_TEXT:
@@ -29,9 +31,21 @@ class QDMNodeContentWidget(QWidget, Serializable):
         elif self.type == ENTRY_POINT:
             content_entry(self)
         elif self.type == WINDOW_NEW:
-            self.content_wininit()
+            self.content_wininit()'''
+        # TODO : How to get its name of variable with string?
+        exec(f"self.content_{GetNameFromStr[self.type]}()")
 
-    def content_wininit(self):
+    def content_ENTRY_POINT(self):
+        self.layout = QVBoxLayout()
+        self.wdg_label = QLabel("프로그램이 시작될 때")  # 그거 종류 그 뭐냐 하여튼 그거
+        self.wdg_label.setAlignment(Qt.AlignCenter)
+
+        self.layout.setContentsMargins(0, 0, 0, 0)
+        self.layout.addWidget(self.wdg_label)
+        self.setLayout(self.layout)
+        # self.layout.addWidget(self.wdg_label)
+
+    def content_WINDOW_NEW(self):
         self.layout = QGridLayout()
         self.wdg_label = QLabel("윈도우를 초기화하는 함수입니다.")  # 그거 종류 그 뭐냐 하여튼 그거
         self.wdg_label.setAlignment(Qt.AlignCenter)
@@ -46,7 +60,7 @@ class QDMNodeContentWidget(QWidget, Serializable):
         self.layout.addWidget(QLabel("창 크기(w,h)"), 1, 0)
         self.setLayout(self.layout)
 
-    def content_print(self):
+    def content_PRINT(self):
         self.layout = QVBoxLayout()
         self.textbox = QDMTextEdit("")  # 그 텍스트박스 그거임
         # self.wdg_label = QLabel(self.title)  # 그거 종류 그 뭐냐 하여튼 그거
@@ -56,7 +70,17 @@ class QDMNodeContentWidget(QWidget, Serializable):
         # self.layout.addWidget(self.wdg_label)
         self.layout.addWidget(self.textbox)
 
-    def content_drawtext(self):
+    def content_INPUT(self):
+        self.layout = QVBoxLayout()
+        self.textbox = QDMTextEdit("")  # 그 텍스트박스 그거임
+        # self.wdg_label = QLabel(self.title)  # 그거 종류 그 뭐냐 하여튼 그거
+
+        self.layout.setContentsMargins(0, 0, 0, 0)
+        self.setLayout(self.layout)
+        # self.layout.addWidget(self.wdg_label)
+        self.layout.addWidget(self.textbox)
+
+    def content_DRAW_TEXT(self):
         self.layout = QGridLayout()
         self.textbox = QDMLineEdit("")  # 그 텍스트박스 그거임
         self.textbox.setFont(QFont("맑은 고딕", 9))
