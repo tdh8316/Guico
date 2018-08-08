@@ -2,6 +2,7 @@ from gui.node.graphics_node import QDMGraphicsNode
 from gui.node.content_widget import QDMNodeContentWidget
 from gui.node.socket import *
 from code_content.default import *
+from code_content.create_widgets.node_ui import *
 
 DEBUG = False
 
@@ -21,27 +22,13 @@ class Node(Serializable):
         # print(self.type)
         self.type = types
 
-        self.bg = "#498DEB"
-        self.width = 180
-        self.height = 110
+        ui_info = NODE_UI[self.type]
 
-        # TODO: Move to self.typeSetter()
-        if self.type == IF:
-            title, self.bg = "조건문", "#01579B"
-        elif self.type == PRINT:
-            title, self.bg = "출력 (STDIO)", "#F57C00"
-        elif self.type == INPUT:
-            title, self.bg = "입력 (STDIO)", "#F57C00"
-        elif self.type == ENTRY_POINT:
-            title, self.bg = "EntryPoint", "#4CAF50"
-            self.width, self.height = 180, 61; inputs = []
-        elif self.type == WINDOW_NEW:
-            title = "Window Initializer"
-            self.width, self.height = 200, 100
-        elif self.type == DRAW_TEXT:
-            title = self.type
-        else:
-            title = self.type
+        try:
+            title, self.bg, self.width, self.height = ui_info[0], ui_info[1], ui_info[2], ui_info[3]
+        except IndexError:
+            self.width, self.height = 180, 110
+            title, self.bg = ui_info[0], ui_info[1]
 
         self.content: QDMNodeContentWidget = QDMNodeContentWidget(self, self.type)
         self.grNode = QDMGraphicsNode(self, title_background=self.bg, w=self.width, h=self.height)

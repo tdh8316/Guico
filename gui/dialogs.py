@@ -85,9 +85,7 @@ class setLeafType(QDialog):
 
     def selectedType(self):
         for ix in self.types.selectedIndexes():
-            text = ix.data(Qt.DisplayRole)  # or ix.data()
-            INDEX = text
-            return INDEX
+            return ix.data(Qt.DisplayRole)
 
     def doubleClickEvent(self):
         global isDoubleClicked

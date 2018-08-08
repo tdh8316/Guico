@@ -8,11 +8,11 @@ class QDMGraphicsSocket(QGraphicsItem):
         self.socket = socket
         super().__init__(socket.node.grNode)
 
-        self.radius = 6.9
+        self.radius = 7.4
         self.outline_width = 1.5
         self._colors = [
-            QColor("#FFFFFF"),  # INPUT
-            QColor("#FFFFFF"),  # OUTPUT
+            QColor("#9E9E9E"),  # INPUT
+            QColor("#9E9E9E"),  # OUTPUT
             QColor("#FF0056a6"),
             QColor("#FFa86db1"),
             QColor("#FFb54747"),
@@ -35,6 +35,6 @@ class QDMGraphicsSocket(QGraphicsItem):
         return QRectF(
             - self.radius - self.outline_width,
             - self.radius - self.outline_width,
-            2 * (self.radius + self.outline_width),
-            2 * (self.radius + self.outline_width),
+            5 * (self.radius + self.outline_width),
+            10 * (self.radius + self.outline_width),
         )

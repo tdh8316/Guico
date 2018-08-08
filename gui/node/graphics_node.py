@@ -19,7 +19,7 @@ class QDMGraphicsNode(QGraphicsItem):
         self._padding = 5.0
 
         self._pen_default = QPen(QColor("#FFFFFF"))  # 테두리
-        self._pen_selected = QPen(QColor("#D81B60"))
+        self._pen_selected = QPen(QColor("#FFFFA637"))
 
         self._brush_title = QBrush(QColor(title_background))
         self._brush_background = QBrush(QColor("#616161"))

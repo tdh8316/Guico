@@ -8,7 +8,7 @@ from core.config import LEAF_TYPES
 def getLeafTypeModel():
     type_model = QStandardItemModel()
 
-    entry_parent = QStandardItem("Entry")
+    entry_parent = QStandardItem(LEAF_TYPES["Entry"])
     entry_parent.setEditable(False)
 
     console_parent = QStandardItem("Console")

@@ -3,6 +3,7 @@ from collections import OrderedDict
 from PyQt5.QtGui import QFont
 
 from code_content.default import *
+from code_content.create_widgets import *
 from core.config import *
 from gui.widgets.customized import *
 from gui.node.serializable import Serializable
@@ -34,7 +35,10 @@ class QDMNodeContentWidget(QWidget, Serializable):
             self.content_wininit()'''
         # TODO : How to get its name of variable with string?
         # exec(f"self.content_{GetNameFromStr[self.type]}()")
-        exec(f"self.content_{GetNameFromStr[self.type]}()")
+        try:
+            exec(f"self.content_{GetNameFromStr[self.type]}()")
+        except AttributeError:
+            exec(f"content_{GetNameFromStr[self.type]}(self)")
 
     def content_ENTRY_POINT(self):
         self.layout = QVBoxLayout()
@@ -80,21 +84,6 @@ class QDMNodeContentWidget(QWidget, Serializable):
         self.setLayout(self.layout)
         # self.layout.addWidget(self.wdg_label)
         self.layout.addWidget(self.textbox)
-
-    def content_DRAW_TEXT(self):
-        self.layout = QGridLayout()
-        self.textbox = QDMLineEdit("")  # 그 텍스트박스 그거임
-        self.textbox.setFont(QFont("맑은 고딕", 9))
-        self.position = QDMLineEdit("0,0")  # 그 텍스트박스 그거임
-        # self.position.setMaxLength(3)
-        self.position.setFont(QFont("맑은 고딕", 9))
-        self.wdg_label = QLabel("출력 위치(x,y)")  # 그거 종류 그 뭐냐 하여튼 그거
-
-        self.layout.setContentsMargins(0, 0, 0, 0)
-        self.setLayout(self.layout)
-        self.layout.addWidget(self.textbox, 0, 0, 1, 0)
-        self.layout.addWidget(self.position, 1, 0)
-        self.layout.addWidget(self.wdg_label, 1, 1)
 
     def serialize(self):
         # print("Content::serialize::type =", self.type)
