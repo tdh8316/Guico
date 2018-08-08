@@ -1,12 +1,4 @@
-PRINT = "Print"
-INPUT = "Input"
-ENTRY_POINT = "시작했을 때"
-IF = "Branch"
-
-WINDOW_NEW = "창 만들기"
-WINDOW_DESTROY = "Destroy Window"
-
-DRAW_TEXT = "말하기"
+from code_content.for_dict import *
 
 # ================================================================================================== #
 LEAF_TYPES = {
@@ -23,12 +15,3 @@ LEAF_TYPES = {
     # WINDOW_DESTROY,
     DRAW_TEXT,
 ]'''
-
-ALL_LEAF_TYPES = dir()[0:-9]
-
-GetNameFromStr: dict = {PRINT: "PRINT",
-                        INPUT: "INPUT",
-                        ENTRY_POINT: "ENTRY_POINT",
-                        IF: "IF",
-                        WINDOW_NEW: "WINDOW_NEW",
-                        DRAW_TEXT: "DRAW_TEXT"}
