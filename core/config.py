@@ -17,6 +17,12 @@ CONF = {
     "MOUSE_Y": int()
 }
 
+LEAF_TYPES = {
+    "Entry": ENTRY_POINT,
+    "CONSOLE": [PRINT, INPUT],
+    "WINDOW": [WINDOW_NEW, DRAW_TEXT],
+}
+
 INDEX = None
 
 RELEASE = False
