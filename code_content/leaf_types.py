@@ -1,6 +1,7 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QStandardItem, QStandardItemModel
 
+from code_content.default import *
 from core.config import LEAF_TYPES
 
 
@@ -46,10 +47,10 @@ def getWindowLeafTypeModel():
     return type_model
 
 
-def getEtcLeafTypeModel():
+def getEventLeafTypeModel():
     type_model = QStandardItemModel()
 
-    entry = QStandardItem("Entry")
+    entry = QStandardItem(ENTRY_POINT)
     entry.setEditable(False)
 
     type_model.appendRow(entry)
