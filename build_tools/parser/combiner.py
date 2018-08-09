@@ -48,6 +48,48 @@ class Combiner:
 
         # 엔트리 포인트 검색
         for _ in self.src:
+            if _[2][0] == 0:  # 인풋 소켓이 0이라면 (이벤트 잎이라면)
+                self.replacing.append(_)
+                continue
+
+        # 엔트리 포인트에 연결된 노드 검색
+        for connect in self.connect:
+            if connect[0] == self.replacing[0][2][1]:
+                for code in self.src:
+                    if code[2][0] == connect[1]:
+                        self.replacing.append(code)
+
+        # 그 다음부터 끝까지..
+        for code in self.replacing:
+            if code[2][0] == 0:
+                continue
+            _socket_of_code = code[2]
+            for connect in self.connect:
+                # connect[0] : 인풋 잎 ID
+                if connect[0] == _socket_of_code[1]:
+                    for i in self.src:
+                        if connect[1] in i[2]:
+                            self.replacing.append(i)
+
+        # 결과 작성
+        for full_inf in self.replacing:
+            self.result.append([full_inf[0], full_inf[1]])
+
+    def combine(self):
+        # print(self.result)
+        return self.result
+
+
+class CombinerTest:
+
+    def __init__(self, src, connect):
+        self.src = src
+        self.connect = connect
+        self.replacing: list = []
+        self.result: list = []
+
+        # 엔트리 포인트 검색
+        for _ in self.src:
             print("search entry :", _)
             if _[2][0] == 0:  # 인풋 소켓이 0이라면 (이벤트 잎이라면)
                 self.replacing.append(_)
@@ -65,7 +107,7 @@ class Combiner:
             if code[2][0] == 0:
                 print("이벤트 잎 감지됨")
                 # TODO
-                self.replacing.append()
+                # self.replacing.append()
                 continue
             _socket_of_code = code[2]
             for connect in self.connect:

@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import QPlainTextEdit, QMessageBox
 
 from build_tools.parser.script_parser import Parse
 from build_tools.parser.script_lexer import Lexer
-from build_tools.parser.combiner import Combiner
+from build_tools.parser.combiner import Combiner, CombinerTest
 
 # from core.actions import on_file_save as save
 from core.config import *
@@ -88,7 +88,7 @@ def build(target, mode=None, run=False, test=False):
             # print(raw_scr)
             connector = parser.get_token()[1]
 
-            array = Combiner(raw_scr, connector).combine()
+            array = Combiner(raw_scr, connector).combine() if not test else CombinerTest(raw_scr, connector).combine
 
             # print(array)
         else:

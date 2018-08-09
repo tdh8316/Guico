@@ -13,7 +13,7 @@ class Parse:
         # Index: [TYPE, {CONTENT}, (INPUT-OUTPUT)]
         # print(self.target)
         for c in range(self.leaves):
-            print(self.target[c]["type"])
+            # print(self.target[c]["type"])
             self.parsed_token.append(
                 [
                     self.target[c]["type"],
