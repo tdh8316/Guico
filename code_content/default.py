@@ -8,6 +8,8 @@ WINDOW_DESTROY = "Destroy Window"
 
 DRAW_TEXT = "화면에 글쓰기"
 
+KEY_INPUT = "키를 눌렀을 때"
+
 # ================================================================================================== #
 
 
@@ -22,4 +24,5 @@ ALL_LEAF_TYPES = []
 for _LEAF_TYPE in ALL_VARIABLE_NAME:
     ALL_LEAF_TYPES.append(locals()[_LEAF_TYPE])
 
-# print(ALL_LEAF_TYPES)
+print(ALL_LEAF_TYPES)
+print(GetNameFromStr)

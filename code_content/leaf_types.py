@@ -2,7 +2,6 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QStandardItem, QStandardItemModel
 
 from code_content.default import *
-from core.config import LEAF_TYPES
 
 
 def getLeafTypeModel():
@@ -34,13 +33,15 @@ def getLeafTypeModel():
     return type_model
 
 
-def getWindowLeafTypeModel():
+def getLooksLeafTypeModel():
     type_model = QStandardItemModel()
 
-    for window_item in LEAF_TYPES["WINDOW"]:
-        window_item = QStandardItem(window_item)
-        window_item.setEditable(False)
-        type_model.appendRow(QStandardItem(window_item))
+    item = QStandardItem(WINDOW_NEW)
+    item.setEditable(False)
+    type_model.appendRow(item)
+    item = QStandardItem(DRAW_TEXT)
+    item.setEditable(False)
+    type_model.appendRow(item)
 
     type_model.setHeaderData(0, Qt.Horizontal, "더블클릭해서 배치할 수 있습니다.", Qt.DisplayRole)
 
@@ -52,21 +53,19 @@ def getEventLeafTypeModel():
 
     entry = QStandardItem(ENTRY_POINT)
     entry.setEditable(False)
-
     type_model.appendRow(entry)
+    item = QStandardItem(KEY_INPUT)
+    item.setEditable(False)
+    type_model.appendRow(item)
 
     type_model.setHeaderData(0, Qt.Horizontal, "더블클릭해서 배치할 수 있습니다.", Qt.DisplayRole)
 
     return type_model
 
 
-def getConsoleLeafTypeModel():
+def getSoundsLeafTypeModel():
     type_model = QStandardItemModel()
 
-    for console_item in LEAF_TYPES["CONSOLE"]:
-        console_item = QStandardItem(console_item)
-        console_item.setEditable(False)
-        type_model.appendRow(QStandardItem(console_item))
 
     type_model.setHeaderData(0, Qt.Horizontal, "더블클릭해서 배치할 수 있습니다.", Qt.DisplayRole)
 

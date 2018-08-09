@@ -2,6 +2,7 @@ import autopep8
 from PyQt5.QtWidgets import QPlainTextEdit
 
 from build_tools.generator import pygame
+from code_content.default import *
 from core.config import *
 
 

@@ -1,5 +1,3 @@
-from code_content.default import *
-
 NAME = "Guico"
 AUTHOR = "tdh8316@naver.com"
 TEAM = "TakturStudio"
@@ -15,12 +13,6 @@ CONF = {
     "MODIFIED": False,
     "MOUSE_X": int(),
     "MOUSE_Y": int()
-}
-
-LEAF_TYPES = {
-    "Entry": ENTRY_POINT,
-    "CONSOLE": [PRINT, INPUT],
-    "WINDOW": [WINDOW_NEW, DRAW_TEXT],
 }
 
 INDEX = None

@@ -89,7 +89,7 @@ class TabScriptWidget(QWidget):
 
         self.widget_tab_looks = QBasedTreeSelector()
         self.widget_tab_looks.setMinimumHeight(500)
-        self.widget_tab_looks.setModel(getWindowLeafTypeModel())
+        self.widget_tab_looks.setModel(getLooksLeafTypeModel())
         self.widget_tab_looks.doubleClicked.connect(self.itemDoubleClickEvent)
 
         self.widget_tab_event = QBasedTreeSelector()
@@ -99,7 +99,7 @@ class TabScriptWidget(QWidget):
 
         self.widget_tab_sounds = QBasedTreeSelector()
         self.widget_tab_sounds.setMinimumHeight(500)
-        self.widget_tab_sounds.setModel(getConsoleLeafTypeModel())
+        self.widget_tab_sounds.setModel(getSoundsLeafTypeModel())
         self.widget_tab_sounds.doubleClicked.connect(self.itemDoubleClickEvent)
 
         self.widget_tab_etc = QBasedTreeSelector()
