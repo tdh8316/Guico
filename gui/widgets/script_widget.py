@@ -110,7 +110,7 @@ class TabScriptWidget(QWidget):
         self.tab.setMinimumHeight(500)
         self.tab.addTab(self.tab_window, "윈도우")
         self.tab.addTab(self.tab_event, "이벤트")
-        self.tab.addTab(self.tab_console, "표준입출력")
+        # self.tab.addTab(self.tab_console, "표준입출력")
         self.tab.addTab(self.tab_etc, "기타")
 
         lay_tab_window = QFormLayout()
@@ -124,7 +124,7 @@ class TabScriptWidget(QWidget):
 
         self.tab_window.setLayout(lay_tab_window)
         self.tab_event.setLayout(lay_tab_event)
-        self.tab_console.setLayout(lay_tab_console)
+        # self.tab_console.setLayout(lay_tab_console)
 
     def selectedType(self):
         for ix in self.focusWidget().selectedIndexes():

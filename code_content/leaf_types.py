@@ -11,12 +11,12 @@ def getLeafTypeModel():
     entry_parent = QStandardItem(LEAF_TYPES["Entry"])
     entry_parent.setEditable(False)
 
-    console_parent = QStandardItem("Console")
+    '''console_parent = QStandardItem("Console")
     for console_item in LEAF_TYPES["CONSOLE"]:
         item = QStandardItem(console_item)
         item.setEditable(False)
         console_parent.appendRow(QStandardItem(item))
-    console_parent.setEditable(False)
+    console_parent.setEditable(False)'''
 
     window_parent = QStandardItem("Window")
     for window_item in LEAF_TYPES["WINDOW"]:
@@ -26,7 +26,7 @@ def getLeafTypeModel():
     window_parent.setEditable(False)
 
     type_model.appendRow(entry_parent)
-    type_model.appendRow(console_parent)
+    # type_model.appendRow(console_parent)
     type_model.appendRow(window_parent)
 
     type_model.setHeaderData(0, Qt.Horizontal, "잎의 유형을 선택하세요↓", Qt.DisplayRole)
