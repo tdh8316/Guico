@@ -5,8 +5,7 @@ Guico 에는 크게 `int` 가지로 '잎' 을 분류합니다.
 + 형태
     + Colour <span style="color:#498DEB">#498DEB</span>
 + 이벤트
-    + Colour(EntryPoint) <span style="color:#4CAF50">#4CAF50</span>
-    + Colour <span style="color:#">#</span>
+    + Colour <span style="color:#4CAF50">#4CAF50</span>
 + 소리
     + Colour <span style="color:#">#</span>
 + 일반
