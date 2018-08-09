@@ -1,4 +1,7 @@
 from collections import OrderedDict
+
+from PyQt5.QtWidgets import QMessageBox
+
 from gui.node.graphics_edge import QDMGraphicsEdge
 from gui.node.node import Node
 from gui.node.edge import Edge
@@ -12,6 +15,10 @@ class SceneClipboard():
 
     def serializeSelected(self, delete=False):
         if DEBUG: print("-- COPY TO CLIPBOARD ---")
+
+        # 선택된 아이템이 있는지 확인
+        if not self.scene.grScene.selectedItems():
+            QMessageBox.critical(None, "유효하지 않은 요청", "선택된 아이템의 리턴값이 False 이므로 복사할 아이템이 없습니다.")
 
         sel_nodes, sel_edges, sel_sockets = [], [], {}
 
