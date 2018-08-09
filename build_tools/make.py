@@ -2,7 +2,7 @@ import autopep8
 from PyQt5.QtWidgets import QPlainTextEdit
 
 from build_tools.generator import pygame
-from code_content.default import *
+from leaf_content.default import *
 from core.config import *
 
 
@@ -68,21 +68,21 @@ class MakeTokenIntoPyCode:
             self.output.append(_)
         for code in self.code:
             code_type = code[0]
-            code_content = code[1]
+            leaf_content = code[1]
 
             if code_type == ENTRY_POINT:
                 pass
             elif code_type == PRINT:
-                self.add_to_code(self.print(code_content["str"]))
+                self.add_to_code(self.print(leaf_content["str"]))
             elif code_type == WINDOW_NEW:
                 self.is_window_init = True
-                self.add_to_code(pygame.WINDOW(display_width=code_content["size"].split(',')[0],
-                                               display_height=code_content["size"].split(',')[1]))
+                self.add_to_code(pygame.WINDOW(display_width=leaf_content["size"].split(',')[0],
+                                               display_height=leaf_content["size"].split(',')[1]))
             elif code_type == DRAW_TEXT:
                 self.used_label = True
-                self.add_to_code(f"{indent(1)}message_display(\"{code_content['str']}\", "
-                                 f"{int(code_content['pos'].split(',')[0])}, "
-                                 f"{int(code_content['pos'].split(',')[1])})")
+                self.add_to_code(f"{indent(1)}message_display(\"{leaf_content['str']}\", "
+                                 f"{int(leaf_content['pos'].split(',')[0])}, "
+                                 f"{int(leaf_content['pos'].split(',')[1])})")
 
     def add_to_code(self, line):
         self.output.append(line)

@@ -2,8 +2,8 @@ from collections import OrderedDict
 
 from PyQt5.QtGui import QFont
 
-from code_content.default import *
-from code_content.create_widgets import *
+from leaf_content.default import *
+from leaf_content.create_widgets import *
 from core.config import *
 from gui.widgets.customized import *
 from gui.node.serializable import Serializable
@@ -38,7 +38,10 @@ class QDMNodeContentWidget(QWidget, Serializable):
         try:
             exec(f"self.content_{GetNameFromStr[self.type]}()")
         except AttributeError:
-            exec(f"content_{GetNameFromStr[self.type]}(self)")
+            try:
+                exec(f"content_{GetNameFromStr[self.type]}(self)")
+            except NameError:
+                QMessageBox.critical(None, "잎 콘텐츠 없음", "해당하는 콘텐츠가 없습니다.")
 
     def content_ENTRY_POINT(self):
         self.layout = QVBoxLayout()

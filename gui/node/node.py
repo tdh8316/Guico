@@ -3,8 +3,8 @@ import sys
 from gui.node.graphics_node import QDMGraphicsNode
 from gui.node.content_widget import QDMNodeContentWidget
 from gui.node.socket import *
-from code_content.default import *
-from code_content.create_widgets.node_ui import *
+from leaf_content.default import *
+from leaf_content.create_widgets.node_ui import *
 
 DEBUG = False
 
@@ -27,7 +27,8 @@ class Node(Serializable):
         try:
             ui_info = NODE_UI[self.type]
         except KeyError:
-            sys.exit("Nonexistent leaf")
+            print("Nonexistent leaf")
+            sys.exit(1)
 
         try:
             title, self.bg, self.width, self.height = ui_info[0], ui_info[1], ui_info[2], ui_info[3]

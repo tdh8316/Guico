@@ -24,5 +24,5 @@ ALL_LEAF_TYPES = []
 for _LEAF_TYPE in ALL_VARIABLE_NAME:
     ALL_LEAF_TYPES.append(locals()[_LEAF_TYPE])
 
-print(ALL_LEAF_TYPES)
-print(GetNameFromStr)
+# print(ALL_LEAF_TYPES)
+# print(GetNameFromStr)
