@@ -172,6 +172,15 @@ def run_as_python():
     _save_and_run(CONF["FILE_PATH"]))
 
 
+def run_as_python__dev():
+    def _save_and_run(f):
+        on_file_save()
+        build(f if f is not None else CONF["FILE_PATH"], mode="py", run=True, test=True)
+
+    return QAction("컴파일 후 실행 (for debugging)(&U)", parent, triggered=lambda:
+    _save_and_run(CONF["FILE_PATH"]))
+
+
 def compile_to_python():
     return QAction("Python Code 생성", parent, shortcut="Shift+F5", triggered=lambda:
     save_to_py(CONF["FILE_PATH"]))

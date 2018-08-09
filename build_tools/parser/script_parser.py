@@ -12,25 +12,28 @@ class Parse:
         self.parsed_token: list = []
         # Index: [TYPE, {CONTENT}, (INPUT-OUTPUT)]
         # print(self.target)
-        for i in range(self.leaves):
+        for c in range(self.leaves):
+            print(self.target[c]["type"])
             self.parsed_token.append(
                 [
-                    self.target[i]["type"],
-                    self.target[i]["content"],
-                    (self.target[i]["inputs"][0]["id"]
-                     if self.target[i]["type"] != ENTRY_POINT
+                    self.target[c]["type"],
+                    self.target[c]["content"],
+                    (self.target[c]["inputs"][0]["id"]
+                     if target[c]["inputs"] != []
                      else 0,
-                     self.target[i]["outputs"][0]["id"]),
+                     # if self.target[i]["type"] != ENTRY_POINT
+                     # else 0,
+                     self.target[c]["outputs"][0]["id"]),
                 ]
             )
 
-        self.parsed_connect: list=[]
+        self.parsed_connect: list = []
         # Index: [(START, END)]
         for x in range(len(self.edges)):
             self.parsed_connect.append(
-                    (
-                        self.edges[x]["start"], self.edges[x]["end"]
-                    )
+                (
+                    self.edges[x]["start"], self.edges[x]["end"]
+                )
             )
 
     def get_token(self):

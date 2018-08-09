@@ -48,9 +48,10 @@ class Combiner:
 
         # 엔트리 포인트 검색
         for _ in self.src:
-            if _[0] == ENTRY_POINT:
+            print("search entry :", _)
+            if _[2][0] == 0:  # 인풋 소켓이 0이라면 (이벤트 잎이라면)
                 self.replacing.append(_)
-                break
+                continue
 
         # 엔트리 포인트에 연결된 노드 검색
         for connect in self.connect:
@@ -61,7 +62,10 @@ class Combiner:
 
         # 그 다음부터 끝까지..
         for code in self.replacing:
-            if code[0] == ENTRY_POINT:
+            if code[2][0] == 0:
+                print("이벤트 잎 감지됨")
+                # TODO
+                self.replacing.append()
                 continue
             _socket_of_code = code[2]
             for connect in self.connect:

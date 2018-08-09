@@ -36,6 +36,10 @@ class Node(Serializable):
             self.width, self.height = 180, 110
             title, self.bg = ui_info[0], ui_info[1]
 
+        # 잎 유형별 정리..
+        if self.bg == "#4CAF50":
+            inputs = []  # 잎 유형이 이벤트일 경우 input socket 을 제거
+
         self.content: QDMNodeContentWidget = QDMNodeContentWidget(self, self.type)
         self.grNode = QDMGraphicsNode(self, title_background=self.bg, w=self.width, h=self.height)
         self.title = title

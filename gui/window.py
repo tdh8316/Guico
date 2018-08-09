@@ -79,6 +79,7 @@ class MainForm(QMainWindow):
         menu_run = menu_bar.addMenu("실행(&R)")
         menu_run.addAction(actions.run_as_python())
         menu_run.addAction(actions.compile_to_python())
+        menu_run.addAction(actions.run_as_python__dev())
         menu_run.addSeparator()
         menu_run.addAction(actions.packaging())
         menu_help = menu_bar.addMenu("도움말(&H)")
