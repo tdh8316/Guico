@@ -4,6 +4,7 @@ from PyQt5.QtCore import *
 # from gui.widgets.tree_combobox import TreeComboBox
 from code_content.leaf_types import getLeafTypeModel
 from gui.widgets.tree_selector import QBasedTreeSelector
+from gui.widgets.script_widget import TabScriptWidget
 from core.config import *
 
 
@@ -50,7 +51,7 @@ class setLeafType(QDialog):
 
         isDoubleClicked = False
 
-        self.types = QBasedTreeSelector()
+        self.types = TabScriptWidget()
         self.setWindowTitle(f"{NAME} - 새 잎 만들기")
         # self.setWindowFlags(Qt.FramelessWindowHint)
         self.resize(480, 240)
@@ -74,8 +75,8 @@ class setLeafType(QDialog):
         # self.types.resize(240, 30)
         # self.types.currentIndexChanged.connect(self.change)
         # self.types.setFont(QFont("맑은 고딕", 9))
-        self.types.setModel(getLeafTypeModel())
-        self.types.doubleClicked.connect(self.doubleClickEvent)
+        # self.types.setModel(getLeafTypeModel())
+        # self.types.click.connect(self.doubleClickEvent)
 
         self.buttons = QDialogButtonBox(
             QDialogButtonBox.Ok | QDialogButtonBox.Cancel,
@@ -109,3 +110,8 @@ class setLeafType(QDialog):
             if isDoubleClicked:
                 return None, False
             return "CANCELED", False
+
+    @staticmethod
+    def make(parent=None):
+        global isDoubleClicked
+        setLeafType(parent).exec_()

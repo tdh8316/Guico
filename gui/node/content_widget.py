@@ -12,7 +12,7 @@ from PyQt5.QtWidgets import *
 
 class QDMNodeContentWidget(QWidget, Serializable):
 
-    def __init__(self, node, title, parent=None):
+    def __init__(self, node, title=None, parent=None):
         super().__init__(parent)
 
         self.node = node

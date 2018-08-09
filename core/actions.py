@@ -120,6 +120,7 @@ def cut():
 def copy():
     def _copy():
         data = parent.editor.scene.clipboard.serializeSelected(delete=False)
+        # print(data)
         QApplication.instance().clipboard().setText(json.dumps(data, indent=4))
 
     return QAction("복사 (&C)", parent, shortcut="Ctrl+C", triggered=lambda:
@@ -213,7 +214,7 @@ def on_new_leaf(x, y, defined=False):
     # noinspection PyBroadException
     # try:
     if not defined:
-        while True:
+        '''while True:
             str_1, _make = setLeafType.get(parent=parent)
 
             if not _make:
@@ -222,17 +223,18 @@ def on_new_leaf(x, y, defined=False):
                 elif str_1 == "CANCELED":
                     return False
             else:
-                break
+                break'''
+        setLeafType.make(parent)
         #                         ↓TODO: Show(s) the icon of its function.
-        exec(f'Leaf{leaf_count} = CreateNode(editor.scene, " ", inputs=[0,], outputs=[1], types=str_1)')
-        exec(f'Leaf{leaf_count}.setPos(x, y)')
-        parent.signal_change_editor()
+        # exec(f'Leaf{leaf_count} = CreateNode(editor.scene, " ", inputs=[0,], outputs=[1], types=str_1)')
+        # exec(f'Leaf{leaf_count}.setPos(x, y)')
 
     elif type(defined) == str:
         #                         ↓TODO: Show(s) the icon of its function.
         exec(f'Leaf{leaf_count} = CreateNode(editor.scene, " ", inputs=[0,], outputs=[1], types=defined)')
         exec(f'Leaf{leaf_count}.setPos(x, y)')
-        parent.signal_change_editor()
+
+    parent.signal_change_editor()
 
 
 def test_on_new_leaf():
@@ -251,7 +253,8 @@ def new_leaf():
 
 def create_editor_menu(p, QContextMenuEvent):
     menu = QMenu(p)
-    menu.addAction(QAction("이 위치(%s,%s)에 새 잎 만들기" %
+    '''menu.addAction(QAction("이 위치(%s,%s)에 새 잎 만들기" %
                            (CONF["MOUSE_X"], CONF["MOUSE_Y"]), p, shortcut="Ctrl+L",
-                           triggered=lambda: on_new_leaf(CONF["MOUSE_X"], CONF["MOUSE_Y"])))
+                           triggered=lambda: on_new_leaf(CONF["MOUSE_X"], CONF["MOUSE_Y"])))'''
+    menu.addAction(QAction("붙여넣기"))
     menu.exec_(QContextMenuEvent.globalPos())
