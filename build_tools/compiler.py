@@ -88,7 +88,7 @@ def build(target, mode=None, run=False, test=False):
             # print(raw_scr)
             connector = parser.get_token()[1]
 
-            array = Combiner(raw_scr, connector).combine() if not test else CombinerTest(raw_scr, connector).combine
+            array = Combiner(raw_scr, connector).combine() if not test else CombinerTest(raw_scr, connector).combine()
 
             # print(array)
         else:
@@ -110,6 +110,8 @@ def build(target, mode=None, run=False, test=False):
                 if not os.path.isfile("\\".join(list(CONF["FILE_PATH"].split("/")[:-1])) + r'\NanumBarunpenR.ttf') \
                 else None
         except Exception as e:
+            import traceback
+            traceback.print_exc()
             QMessageBox.critical(None, f"{NAME} - 처리되지 않은 예외", f"{e}\n{sys.exc_info()}")
             if not test:
                 parent.log.appendPlainText(f"{str(datetime.datetime.now()).split('.')[0]} 에 빌드 완료 [실패].")
@@ -120,11 +122,11 @@ def build(target, mode=None, run=False, test=False):
             if run:
                 subprocess.Popen(f"{os.environ['PYTHON']} \"{CONF['SOURCE_PATH']}\"", shell=True,
                                  start_new_session=True)
-                print(f"{os.environ['PYTHON']} \"{CONF['SOURCE_PATH']}\"")
+                # print(f"{os.environ['PYTHON']} \"{CONF['SOURCE_PATH']}\"")
 
         # os.system(f"start /B start cmd @cmd /k python {CONF['SOURCE_PATH']}")
 
-        if test:
+        '''if test:
             print(f"array : {array}\n"
                   f"token : {tokenize}\n"
-                  f"code : {python_code}\n")
+                  f"code : {python_code}\n")'''

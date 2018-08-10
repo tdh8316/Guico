@@ -83,14 +83,17 @@ class Combiner:
 class CombinerTest:
 
     def __init__(self, src, connect):
+        global _connector_start, _connector_end
+        print("DEBUGGING")
         self.src = src
+        # print("Here is gotten code :", self.src)
         self.connect = connect
+        # print("Here is gotten connector :", self.connect)
         self.replacing: list = []
         self.result: list = []
 
-        # 엔트리 포인트 검색
+        ''''# 엔트리 포인트 검색
         for _ in self.src:
-            print("search entry :", _)
             if _[2][0] == 0:  # 인풋 소켓이 0이라면 (이벤트 잎이라면)
                 self.replacing.append(_)
                 continue
@@ -100,26 +103,33 @@ class CombinerTest:
             if connect[0] == self.replacing[0][2][1]:
                 for code in self.src:
                     if code[2][0] == connect[1]:
-                        self.replacing.append(code)
+                        self.replacing.append(code)'''
 
-        # 그 다음부터 끝까지..
-        for code in self.replacing:
-            if code[2][0] == 0:
-                print("이벤트 잎 감지됨")
-                # TODO
-                # self.replacing.append()
-                continue
-            _socket_of_code = code[2]
-            for connect in self.connect:
-                # connect[0] : 인풋 잎 ID
-                if connect[0] == _socket_of_code[1]:
-                    for i in self.src:
-                        if connect[1] in i[2]:
-                            self.replacing.append(i)
+        all_connectors = []
+        for i in range(len(self.connect)):
+            all_connectors.append(self.connect[i][0])
+            all_connectors.append(self.connect[i][1])
+
+        for code in self.src:
+            _socket_input = code[2][0]
+            _socket_output = code[2][1]
+            if _socket_input == 0:  # 잎의 INPUT 소켓이 없다면
+                if len(self.replacing) != 0:
+                    last_code_output = self.replacing[-1][2][1]
+                    if last_code_output not in all_connectors:
+                        self.replacing.append(code)
+                elif len(self.replacing) == 0:
+                    self.replacing.append(code)
+            else:
+                pass
+
+
 
         # 결과 작성
         for full_inf in self.replacing:
             self.result.append([full_inf[0], full_inf[1]])
+
+        print("COMPLETED COMBINER :", self.result)
 
     def combine(self):
         # print(self.result)
