@@ -24,56 +24,10 @@ def initialize(_parent):
     packager.initialize(parent)
 
 
-class ConvertToC:
-
-    def __init__(self, code):
-        pass
-
-
-class PromptlyExecute:
-
-    def __init__(self, code):
-        print(f"\n{'=' * 50}\n{CONF['FILE_PATH']} Has started.\n{'=' * 50}")
-        self.code = code
-
-        for code in self.code:
-            if code[0] == PRINT:
-                self.print(code[1]["str"])
-
-        print(f"\n{'=' * 50}\n{CONF['FILE_PATH']} Completed successfully.\n{'=' * 50}\n")
-
-    @staticmethod
-    def print(str_1: str, *args):
-        print(str_1.replace("\\n", "\n"), end=str())
-
-
 def build(target, mode=None, run=False, test=False):
     parent.log: QPlainTextEdit
 
-    if mode is None:
-        try:
-            lexer = Lexer(target)
-        except IOError:
-            return
-        tokenize = lexer.lexer()
-
-        parser = Parse(target=tokenize, edges=lexer.edges())
-        if parser.leaves is not 1:
-            raw_scr = parser.get_token()[0]
-            # print(raw_scr)
-            connector = parser.get_token()[1]
-
-            array = Combiner(raw_scr, connector).combine()
-
-            # print(array)
-        else:
-            array = parser.get_token()[0]
-
-        # print(array)
-
-        PromptlyExecute(array)
-
-    elif mode == "py":
+    if mode == "py":
         if not test:
             parent.log.appendPlainText(f"\n{str(datetime.datetime.now()).split('.')[0]} 에 빌드 시작.")
         try:
@@ -88,7 +42,8 @@ def build(target, mode=None, run=False, test=False):
             # print(raw_scr)
             connector = parser.get_token()[1]
 
-            array = Combiner(raw_scr, connector).combine() if not test else CombinerTest(raw_scr, connector).combine()
+            array = CombinerTest(raw_scr, connector).combine()
+                    # Combiner(raw_scr, connector).combine() if not test else CombinerTest(raw_scr, connector).combine()
 
             # print(array)
         else:
@@ -120,13 +75,8 @@ def build(target, mode=None, run=False, test=False):
                 parent.log.appendPlainText(f"{str(datetime.datetime.now()).split('.')[0]} 에 빌드 완료 [성공].")
             # sys.path.append("\\".join(list(CONF["FILE_PATH"].split("/")[:-1])))
             if run:
-                subprocess.Popen(f"{os.environ['PYTHON']} \"{CONF['SOURCE_PATH']}\"", shell=True,
-                                 start_new_session=True)
-                # print(f"{os.environ['PYTHON']} \"{CONF['SOURCE_PATH']}\"")
+                '''subprocess.Popen(f"{os.environ['PYTHON']} \"{CONF['SOURCE_PATH']}\"", shell=True,
+                                 start_new_session=True)'''
+                pass
 
         # os.system(f"start /B start cmd @cmd /k python {CONF['SOURCE_PATH']}")
-
-        '''if test:
-            print(f"array : {array}\n"
-                  f"token : {tokenize}\n"
-                  f"code : {python_code}\n")'''
