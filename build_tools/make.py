@@ -1,7 +1,7 @@
 import autopep8
 from PyQt5.QtWidgets import QPlainTextEdit
 
-from build_tools.generator import pygame
+from build_tools import generator
 from leaf_content.default import *
 from core.config import *
 
@@ -28,11 +28,29 @@ class GuicoBuildError(Exception):
 
 
 class MakeTokenIntoPyCode:
-    def __init__(self, code):
-        self.code = code
+    def __init__(self, intercode):
+        self.original_code = intercode
+        self.converted_code = []
+        self.python_main_code = ["\n"]
 
-    def get_code(self):
-        pass
+        for code in self.original_code:
+            self.putting_code(code)
+
+    def putting_code(self, original):
+        _type = original[0]
+        contents = original[1]
+
+        if _type == ENTRY_POINT:
+            self.python_main_code.append(generator.PYTHON_MAIN)
+        elif _type == WINDOW_NEW:
+            self.python_main_code.append(indent(1) + generator.WINDOW_NEW.format(int(contents["size"].split(",")[0]),
+                                                                                 int(contents["size"].split(",")[1]),
+                                                                                 indent(1) + "Guico Display (pygame)"))
+            self.python_main_code.append(indent(1)+"main()")
+
+    def get_code(self) -> str:
+        print("\n".join(self.converted_code + self.python_main_code))
+        return "\n".join(self.converted_code + self.python_main_code)
 
 
 class _MakeTokenIntoPyCode:
