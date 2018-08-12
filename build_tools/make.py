@@ -45,7 +45,7 @@ class MakeTokenIntoPyCode:
         elif _type == WINDOW_NEW:
             self.python_main_code.append(indent(1) + generator.WINDOW_NEW.format(int(contents["size"].split(",")[0]),
                                                                                  int(contents["size"].split(",")[1]),
-                                                                                 indent(1) + "Guico Display (pygame)"))
+                                                                                 "Guico Display (pygame)"))
             self.python_main_code.append(indent(1)+"main()")
 
     def get_code(self) -> str:

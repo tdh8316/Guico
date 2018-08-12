@@ -124,7 +124,13 @@ class CombinerTest:
             for _ in self.src:
                 if _[2][0] == 0:  # 인풋 소켓이 0이라면 (이벤트 잎이라면)
                     if _[0] == event_leaf[0]:
-                        self.replacing.append(_)
+                        if "key" in _[1]:
+                            if not event_leaf[1]["key"] == _[1]["key"]:
+                                self.replacing.append(event_leaf)
+                            else:
+                                self.replacing.append(_)
+                        else:
+                            self.replacing.append(_)
                         break
 
             # 엔트리 포인트에 연결된 노드 검색
