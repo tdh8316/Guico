@@ -79,4 +79,7 @@ def build(target, mode=None, run=False, test=False):
                                  start_new_session=True)'''
                 pass
 
+            if test:
+                print(array)
+
         # os.system(f"start /B start cmd @cmd /k python {CONF['SOURCE_PATH']}")

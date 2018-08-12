@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
+from gui.node.edge import Edge, EDGE_TYPE_BEZIER
 from leaf_content.default import *
 from gui.node.scene import Scene
 from gui.node.node import Node
@@ -42,5 +43,10 @@ class NodeEditorWidget(QWidget):
         node3.setPos(200, -150)
 
     def add_default_node(self):
-        self.entryNode = Node(self.scene, "진입점", inputs=[], outputs=[1], types=ENTRY_POINT)
-        self.entryNode.setPos(-250,-250)
+        self.entryNode = Node(self.scene, inputs=[], outputs=[1], types=ENTRY_POINT)
+        self.entryNode.setPos(-250, -250)
+
+        self.initwindowNode = Node(self.scene, inputs=[0], outputs=[1], types=WINDOW_NEW)
+        self.entryNode.setPos(-250, 0)
+
+        Edge(self.scene, self.entryNode.outputs[0], self.initwindowNode.inputs[0], edge_type=EDGE_TYPE_BEZIER)
