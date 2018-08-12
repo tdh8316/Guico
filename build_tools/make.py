@@ -28,6 +28,14 @@ class GuicoBuildError(Exception):
 
 
 class MakeTokenIntoPyCode:
+    def __init__(self, code):
+        self.code = code
+
+    def get_code(self):
+        pass
+
+
+class _MakeTokenIntoPyCode:
 
     def __init__(self, code):
         # print(f"{NAME}Build::Python:{build_tools}")
