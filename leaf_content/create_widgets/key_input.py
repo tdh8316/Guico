@@ -1,15 +1,17 @@
-from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import *
 
-from gui.widgets.customized import QDMLineEdit
+from core.constants import ALL_KEYS
 
 
 def content_KEY_INPUT(self):
     self.layout = QVBoxLayout()
-    self.wdg_label = QLabel("NotImplementedError")  # 그거 종류 그 뭐냐 하여튼 그거
-    self.wdg_label.setAlignment(Qt.AlignCenter)
+    # self.wdg_label = QLabel("NotImplementedError")  # 그거 종류 그 뭐냐 하여튼 그거
+    # self.wdg_label.setAlignment(Qt.AlignCenter)
+    self.key = QComboBox()
+    self.key.addItems(ALL_KEYS)
+    self.key.setEditable(True)
+    self.key.completer().setCompletionMode(QCompleter.PopupCompletion)
 
     self.layout.setContentsMargins(0, 0, 0, 0)
-    self.layout.addWidget(self.wdg_label)
+    self.layout.addWidget(self.key)
     self.setLayout(self.layout)
-    # self.layout.addWidget(self.wdg_label)

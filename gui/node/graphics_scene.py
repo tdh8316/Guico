@@ -52,7 +52,7 @@ class QDMGraphicsScene(QGraphicsScene):
                 lines_dark.append(QLine(x, top, x, bottom))
 
         for y in range(first_top, bottom, self.gridSize):
-            if (y % (self.gridSize * self.gridSquares) != 0):
+            if y % (self.gridSize * self.gridSquares) != 0:
                 lines_light.append(QLine(left, y, right, y))
             else:
                 lines_dark.append(QLine(left, y, right, y))

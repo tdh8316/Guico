@@ -36,9 +36,9 @@ class QDMGraphicsView(QGraphicsView):
 
         self.zoomInFactor = 1.25
         self.zoomClamp = True
-        self.zoom = 10
+        self.zoom = 1
         self.zoomStep = 1
-        self.zoomRange = [0, 10]
+        self.zoomRange = [-1, 3]
 
         # cutline
         self.cutline = QDMCutLine()
@@ -318,22 +318,25 @@ class QDMGraphicsView(QGraphicsView):
 
     def wheelEvent(self, event):
         # calculate our zoom Factor
-        zoomOutFactor = 1 / self.zoomInFactor
+        if not self.grScene.selectedItems():
+            zoomOutFactor = 1 / self.zoomInFactor
 
-        # calculate zoom
-        if event.angleDelta().y() > 0:
-            zoomFactor = self.zoomInFactor
-            self.zoom += self.zoomStep
+            # calculate zoom
+            if event.angleDelta().y() > 0:
+                zoomFactor = self.zoomInFactor
+                self.zoom += self.zoomStep
+            else:
+                zoomFactor = zoomOutFactor
+                self.zoom -= self.zoomStep
+
+            clamped = False
+            if self.zoom < self.zoomRange[0]:
+                self.zoom, clamped = self.zoomRange[0], True
+            if self.zoom > self.zoomRange[1]:
+                self.zoom, clamped = self.zoomRange[1], True
+
+            # set scene scale
+            if not clamped or self.zoomClamp is False:
+                self.scale(zoomFactor, zoomFactor)
         else:
-            zoomFactor = zoomOutFactor
-            self.zoom -= self.zoomStep
-
-        clamped = False
-        if self.zoom < self.zoomRange[0]:
-            self.zoom, clamped = self.zoomRange[0], True
-        if self.zoom > self.zoomRange[1]:
-            self.zoom, clamped = self.zoomRange[1], True
-
-        # set scene scale
-        if not clamped or self.zoomClamp is False:
-            self.scale(zoomFactor, zoomFactor)
+            super().wheelEvent(event)
