@@ -93,11 +93,11 @@ class MainForm(QMainWindow):
 
     def renewal(self):
         if not CONF["MODIFIED"]:
-            self.setWindowTitle(f"{TEAM} {NAME} {VERSION} - {CONF['FILE_PATH']}"
+            self.setWindowTitle(f"{TEAM} {NAME} {VERSION} [{CONF['FILE_PATH']}]"
                                 if CONF['FILE_PATH'] is not None
                                 else f"{TEAM} {NAME} {VERSION} - 빈 파일")
         elif CONF["MODIFIED"]:
-            self.setWindowTitle(f"{TEAM} {NAME} {VERSION} - {CONF['FILE_PATH']}*"
+            self.setWindowTitle(f"{TEAM} {NAME} {VERSION} [{CONF['FILE_PATH']}]*"
                                 if CONF['FILE_PATH'] is not None
                                 else f"{TEAM} {NAME} {VERSION} - 제목 없음*")
 

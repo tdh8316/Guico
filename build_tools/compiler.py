@@ -65,6 +65,10 @@ def build(target, mode=None, run=False, test=False):
                 list(CONF["FILE_PATH"].split("/")[:-1])) + "\"") \
                 if not os.path.isfile("\\".join(list(CONF["FILE_PATH"].split("/")[:-1])) + r'\NanumBarunpenR.ttf') \
                 else None
+            # Copy Guico Game Engine
+            if not os.path.isdir("/".join(CONF["SOURCE_PATH"].replace("\\", "/").split("/")[0:-1]) + "/Engine/"):
+                shutil.copytree("./Engine/",
+                                "/".join(CONF["SOURCE_PATH"].replace("\\", "/").split("/")[0:-1]) + "/Engine/")
         except Exception as e:
             import traceback
             traceback.print_exc()
@@ -81,10 +85,5 @@ def build(target, mode=None, run=False, test=False):
 
             if test:
                 print(array)
-
-        # Copy Guico Game Engine
-        if not os.path.isdir("/".join(CONF["SOURCE_PATH"].replace("\\", "/").split("/")[0:-1])+"/Engine/"):
-            shutil.copytree("./Engine/",
-                            "/".join(CONF["SOURCE_PATH"].replace("\\", "/").split("/")[0:-1])+"/Engine/")
 
         # os.system(f"start /B start cmd @cmd /k python {CONF['SOURCE_PATH']}")

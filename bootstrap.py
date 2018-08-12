@@ -13,6 +13,8 @@ from gui.window import MainForm
 from core.config import *
 from gui import theme
 
+sys.path.append("./Engine")
+
 
 COMPILE_TEST = False
 
