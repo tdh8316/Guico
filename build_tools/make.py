@@ -64,7 +64,7 @@ class MakeTokenIntoPyCode:
 
     def get_code(self) -> str:
         # print("\n".join(self.converted_code + self.python_main_code))
-        return "\n".join(self.converted_code + self.python_main_code)
+        return autopep8.fix_code("\n".join(self.converted_code + self.python_main_code))
 
 
 class _MakeTokenIntoPyCode:
