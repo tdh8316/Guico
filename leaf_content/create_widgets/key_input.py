@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import *
 
 from core.constants import ALL_KEYS
+from leaf_content.default import KEY_INPUT
 
 
 def content_KEY_INPUT(self):
@@ -11,7 +12,12 @@ def content_KEY_INPUT(self):
     self.key.addItems(ALL_KEYS)
     self.key.setEditable(True)
     self.key.completer().setCompletionMode(QCompleter.PopupCompletion)
+    self.key.currentTextChanged.connect(lambda: changeTitle(self))
 
     self.layout.setContentsMargins(0, 0, 0, 0)
     self.layout.addWidget(self.key)
     self.setLayout(self.layout)
+
+
+def changeTitle(self):
+    self.node.title = f"[{self.key.currentText()}] {KEY_INPUT}"

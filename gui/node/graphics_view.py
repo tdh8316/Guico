@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QGraphicsView, QApplication, QMenu, QAction
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 
+from gui.node.graphics_scene import QDMGraphicsScene
 from gui.node.graphics_socket import QDMGraphicsSocket
 from gui.node.graphics_edge import QDMGraphicsEdge
 from gui.node.edge import Edge, EDGE_TYPE_BEZIER
@@ -38,7 +39,7 @@ class QDMGraphicsView(QGraphicsView):
         self.zoomClamp = True
         self.zoom = 1
         self.zoomStep = 1
-        self.zoomRange = [-1, 3]
+        self.zoomRange = [-1, 1]
 
         # cutline
         self.cutline = QDMCutLine()
@@ -318,6 +319,7 @@ class QDMGraphicsView(QGraphicsView):
 
     def wheelEvent(self, event):
         # calculate our zoom Factor
+        self.grScene: QDMGraphicsScene
         if not self.grScene.selectedItems():
             zoomOutFactor = 1 / self.zoomInFactor
 

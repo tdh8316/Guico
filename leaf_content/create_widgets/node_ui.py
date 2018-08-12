@@ -8,7 +8,7 @@ NODE_UI: dict = {
 
     # TYPE : EVENT
     ENTRY_POINT: ("EntryPoint", "#4CAF50", 180, 61),
-    KEY_INPUT: ("[]키를 눌렀을 때", "#4CAF50"),
+    KEY_INPUT: ("[a]키를 눌렀을 때", "#4CAF50"),
 
     # TYPE : LOOKS
     WINDOW_NEW: ("Window Initializer", "#498DEB", 200, 100),

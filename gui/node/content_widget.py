@@ -85,6 +85,9 @@ class QDMNodeContentWidget(QWidget, Serializable):
             return OrderedDict([
                 # ("str", self.textbox.text()),
                 ("size", self._win_size.text())])
+        elif self.type == KEY_INPUT:
+            return OrderedDict([
+                ("key", self.key.currentText())])
 
         return OrderedDict([])
 
@@ -96,6 +99,12 @@ class QDMNodeContentWidget(QWidget, Serializable):
             self.position.setText(data["pos"])
         elif self.type == WINDOW_NEW:
             self._win_size.setText(data["size"])
+        elif self.type == KEY_INPUT:
+            self.key.setCurrentText(data["key"])
+            self.node.title = f"[{data['key']}] {KEY_INPUT}"
 
     def setEditingFlag(self, value):
         self.node.scene.grScene.views()[0].editingFlag = value
+
+    def wheelEvent(self, QWheelEvent):
+        super().wheelEvent(QWheelEvent)
