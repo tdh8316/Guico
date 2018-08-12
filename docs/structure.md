@@ -26,15 +26,24 @@ _음악 재생하기_ 등의 잎이 이 분류에 속합니다.
 _변수_ 등과 같이 프로그래밍에서 공통으로 사용되는 요소들이 있습니다.
 
 # interlanguage?
-Guico 에서 만든 코드는 Python code 로 변환됩니다. 코드의 생김새는 다음과 같습니다:
+Guico 에서 만든 코드는 Python code 로 변환됩니다. 변환된 코드의 생김새는 다음과 같습니다:
 ```python
 import Engine  # Guico 자체 엔진입니다.
 
 def main():
-    pass
-    
+    while Engine.loop:
+        for event in Engine.pygame.event.get():
+            Engine.Event(event)
+
+        if Engine.is_key_pressed("k"):
+            print("[k] KEY PRESSED")
+
+        Engine.display.update()
+
+
 if __name__ == "__main__":
-    window = Engine.Window(size=(800,600), title="Guico Window")
+    window = Engine.Window(size=(800, 600), title="Guico Window")
     main()
+
 
 ```
