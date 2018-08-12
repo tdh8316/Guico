@@ -51,15 +51,15 @@ def build(target, mode=None, run=False, test=False):
 
         # noinspection PyBroadException
         try:
-            python_code = MakeTokenIntoPyCode(array).get_code()
+            python_code: str = MakeTokenIntoPyCode(array).get_code()
             CONF[
                 "SOURCE_PATH"
             ] = os.path.join(
                 "/".join(
                     list(CONF["FILE_PATH"].split("/")[:-1])),
                 (CONF["FILE_PATH"].split("/")[-1].split(".")[0] + ".py"))
-            with open(CONF["SOURCE_PATH"], "w", encoding="utf-8") as _source:
-                _source.write("\n".join(python_code))
+            # with open(CONF["SOURCE_PATH"], "w", encoding="utf-8") as _source:
+                # _source.write(python_code)
             os.system(f"copy NanumBarunpenR.ttf " + "\"" + "\\".join(
                 list(CONF["FILE_PATH"].split("/")[:-1])) + "\"") \
                 if not os.path.isfile("\\".join(list(CONF["FILE_PATH"].split("/")[:-1])) + r'\NanumBarunpenR.ttf') \
