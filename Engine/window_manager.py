@@ -11,6 +11,6 @@ class Window:
         self.loop = True
 
         pygame.init()
-        self.DISPLAY = pygame.display.set_mode((self.display_width, self.display_height))
+        self.display = pygame.display.set_mode((self.display_width, self.display_height))
         pygame.display.set_caption(self.title)
         self.fps = pygame.time.Clock()

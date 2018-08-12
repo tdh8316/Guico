@@ -1,5 +1,6 @@
 import datetime
 import os
+import shutil
 import subprocess
 import sys
 
@@ -58,8 +59,8 @@ def build(target, mode=None, run=False, test=False):
                 "/".join(
                     list(CONF["FILE_PATH"].split("/")[:-1])),
                 (CONF["FILE_PATH"].split("/")[-1].split(".")[0] + ".py"))
-            # with open(CONF["SOURCE_PATH"], "w", encoding="utf-8") as _source:
-                # _source.write(python_code)
+            with open(CONF["SOURCE_PATH"], "w", encoding="utf-8") as _source:
+                _source.write(python_code)
             os.system(f"copy NanumBarunpenR.ttf " + "\"" + "\\".join(
                 list(CONF["FILE_PATH"].split("/")[:-1])) + "\"") \
                 if not os.path.isfile("\\".join(list(CONF["FILE_PATH"].split("/")[:-1])) + r'\NanumBarunpenR.ttf') \
@@ -75,11 +76,15 @@ def build(target, mode=None, run=False, test=False):
                 parent.log.appendPlainText(f"{str(datetime.datetime.now()).split('.')[0]} 에 빌드 완료 [성공].")
             # sys.path.append("\\".join(list(CONF["FILE_PATH"].split("/")[:-1])))
             if run:
-                '''subprocess.Popen(f"{os.environ['PYTHON']} \"{CONF['SOURCE_PATH']}\"", shell=True,
-                                 start_new_session=True)'''
-                pass
+                subprocess.Popen(f"{os.environ['PYTHON']} \"{CONF['SOURCE_PATH']}\"", shell=True,
+                                 start_new_session=True)
 
             if test:
                 print(array)
+
+        # Copy Guico Game Engine
+        if not os.path.isdir("/".join(CONF["SOURCE_PATH"].replace("\\", "/").split("/")[0:-1])+"/Engine/"):
+            shutil.copytree("./Engine/",
+                            "/".join(CONF["SOURCE_PATH"].replace("\\", "/").split("/")[0:-1])+"/Engine/")
 
         # os.system(f"start /B start cmd @cmd /k python {CONF['SOURCE_PATH']}")

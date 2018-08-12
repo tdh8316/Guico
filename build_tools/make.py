@@ -7,7 +7,7 @@ from core.config import *
 
 
 def indent(level=1):
-    return "    " * level
+    return "\t" * level
 
 
 parent = None
@@ -36,6 +36,9 @@ class MakeTokenIntoPyCode:
         for code in self.original_code:
             self.putting_code(code)
 
+        self.converted_code.insert(0, "import Engine\n\n")
+        self.converted_code.append(f"{indent(2)}Engine.display.update()")
+
     def putting_code(self, original):
         _type = original[0]
         contents = original[1]
@@ -46,10 +49,21 @@ class MakeTokenIntoPyCode:
             self.python_main_code.append(indent(1) + generator.WINDOW_NEW.format(int(contents["size"].split(",")[0]),
                                                                                  int(contents["size"].split(",")[1]),
                                                                                  "Guico Display (pygame)"))
-            self.python_main_code.append(indent(1)+"main()")
+            self.python_main_code.append(indent(1) + "main()")
+            self.converted_code.append(generator.DEF_MAIN)
+        elif _type == KEY_INPUT:
+            self.converted_code.append(generator.KEY_PRESSED.format(contents["key"]))
+        elif _type == DRAW_TEXT:
+            self.converted_code.append(generator.DRAW_TEXT.format(contents["str"],
+                                                                  contents["pos"].split(",")[0],
+                                                                  contents["pos"].split(",")[1])
+                                       if not self.converted_code[-1].endswith(":")
+                                       else indent(1) + generator.DRAW_TEXT.format(contents["str"],
+                                                                                   contents["pos"].split(",")[0],
+                                                                                   contents["pos"].split(",")[1]))
 
     def get_code(self) -> str:
-        print("\n".join(self.converted_code + self.python_main_code))
+        # print("\n".join(self.converted_code + self.python_main_code))
         return "\n".join(self.converted_code + self.python_main_code)
 
 
