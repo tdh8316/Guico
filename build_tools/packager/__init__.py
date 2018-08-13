@@ -24,6 +24,7 @@ def packaging_windows(bsd):
         parent.log.appendPlainText(f"{CONF['FILE_PATH']} 에 대한 패키징 시작...")
         MakePyEnv(basedir=bsd)
         shutil.copy("NanumBarunpenR.ttf", os.path.join(bsd, "NanumBarunpenR.ttf"))
+        shutil.copytree("./Engine/", bsd + "/Engine/")
         with open(os.path.join(bsd, "bootstrapper.cmd"), "w") as script:
             script.write("@ECHO OFF\n")
             script.write(f".\Binaries\python.exe "
