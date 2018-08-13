@@ -15,8 +15,8 @@ from gui import theme
 
 sys.path.append("./Engine")
 
-
 COMPILE_TEST = False
+
 
 # TODO: 프로젝트 기능 구현하기
 
@@ -50,8 +50,8 @@ def launch_window():
     app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
     app.setFont(QFont("나눔바른펜", 11))
     app.setWindowIcon(QIcon(r"gui\resources\icon.ico"
-                      if os.path.isfile(r"gui\resources\icon.ico")
-                      else r"icon.ico"))
+                            if os.path.isfile(r"gui\resources\icon.ico")
+                            else r"icon.ico"))
 
     root = MainForm()
     # splash.finish(root)
@@ -71,13 +71,13 @@ def main():
     if COMPILE_TEST:
         return
 
-    if not os.path.isfile(os.environ['PYTHON']):
-        sys.exit("PYTHON NOT FOUND.")
+    # if not os.path.isfile(os.environ['PYTHON']):
+    # sys.exit("PYTHON NOT FOUND.")
 
     return launch_window()
 
 
 if __name__ == "__main__":
-    os.environ['PYTHON'] = ".\\python\\python.exe"
+    os.environ['PYTHON'] = "python"  # ".\\python\\python.exe"
     print(f"{NAME} {VERSION} [{TEAM} | {AUTHOR}]")
     sys.exit(main())
