@@ -36,7 +36,8 @@ class MakeTokenIntoPyCode:
         for code in self.original_code:
             self.putting_code(code)
 
-        self.converted_code.insert(0, "import Engine\n\n")
+        mod_ext = "/".join(CONF["FILE_PATH"].replace("\\", "/").split("/")[0:-1])
+        self.converted_code.insert(0, f"import sys\nsys.path.append(\"{mod_ext}\")\nimport Engine\n\n")
         self.converted_code.append(f"{indent(2)}Engine.display.update()")
 
     def putting_code(self, original):
