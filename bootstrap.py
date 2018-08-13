@@ -18,7 +18,6 @@ sys.path.append("./Engine")
 
 COMPILE_TEST = False
 
-# TODO: pygame 입력 이벤트 구현하기
 # TODO: 프로젝트 기능 구현하기
 
 
