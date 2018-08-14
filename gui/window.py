@@ -14,7 +14,7 @@ from gui.widgets.script_widget import ScriptWidget, TabScriptWidget
 class MainForm(QMainWindow):
 
     def __init__(self):
-        super().__init__()
+        super(MainForm, self).__init__()
         self.log = QPlainTextEdit(self)
         self.log.setReadOnly(True)
         self.dock_log = QDockWidget("Log", self)
