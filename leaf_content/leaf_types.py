@@ -42,6 +42,9 @@ def getLooksLeafTypeModel():
     item = QStandardItem(DRAW_TEXT)
     item.setEditable(False)
     type_model.appendRow(item)
+    item = QStandardItem(SCREEN_CLEAR)
+    item.setEditable(False)
+    type_model.appendRow(item)
 
     type_model.setHeaderData(0, Qt.Horizontal, "더블클릭해서 배치할 수 있습니다.", Qt.DisplayRole)
 

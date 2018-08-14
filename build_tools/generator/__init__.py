@@ -11,3 +11,5 @@ DEF_MAIN = "def main():\n" \
 KEY_PRESSED = "\t\tif Engine.is_key_pressed(\"{}\"):"
 
 DRAW_TEXT = "\t\tEngine.draw_text(window, \"{}\", {}, {})"
+
+SCREEN_CLEAR = "\t\twindow.display.fill((255, 255, 255))"

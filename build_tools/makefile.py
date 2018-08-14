@@ -38,7 +38,7 @@ class MakeTokenIntoPyCode:
 
         mod_ext = "/".join(CONF["FILE_PATH"].replace("\\", "/").split("/")[0:-1])
         self.converted_code.insert(0, f"import sys\nsys.path.append(\"{mod_ext}\")\nimport Engine\n\n")
-        self.converted_code.append(f"{indent(2)}Engine.display.update()")
+        self.converted_code.append(f"\n{indent(2)}Engine.display.update()")
 
     def putting_code(self, original):
         _type = original[0]
@@ -55,17 +55,25 @@ class MakeTokenIntoPyCode:
         elif _type == KEY_INPUT:
             self.converted_code.append(generator.KEY_PRESSED.format(contents["key"]))
         elif _type == DRAW_TEXT:
-            self.converted_code.append(generator.DRAW_TEXT.format(contents["str"],
-                                                                  contents["pos"].split(",")[0],
-                                                                  contents["pos"].split(",")[1])
-                                       if not self.converted_code[-1].endswith(":")
-                                       else indent(1) + generator.DRAW_TEXT.format(contents["str"],
-                                                                                   contents["pos"].split(",")[0],
-                                                                                   contents["pos"].split(",")[1]))
+            self.append_code(generator.DRAW_TEXT.format(contents["str"],
+                                                        contents["pos"].split(",")[0],
+                                                        contents["pos"].split(",")[1]))
+        elif _type == SCREEN_CLEAR:
+            self.append_code(generator.SCREEN_CLEAR)
 
     def get_code(self) -> str:
-        # print("\n".join(self.converted_code + self.python_main_code))
         return autopep8.fix_code("\n".join(self.converted_code + self.python_main_code))
+
+    def append_code(self, item: str, syntax_indent: bool = True):
+        if not syntax_indent:
+            self.converted_code.append(item)
+            return True
+
+        if self.converted_code[-1].endswith(":") or self.converted_code[-1].startswith("\t\t\t"):
+            self.converted_code.append(indent(1) + item)
+
+        else:
+            self.converted_code.append(item)
 
 
 class _MakeTokenIntoPyCode:

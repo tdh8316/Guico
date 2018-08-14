@@ -1,3 +1,3 @@
-from leaf_content.create_widgets.draw_text import content_DRAW_TEXT
+from leaf_content.create_widgets.draw_text import content_DRAW_TEXT, content_SCREEN_CLEAR
 from leaf_content.create_widgets.window_new import content_WINDOW_NEW
 from leaf_content.create_widgets.key_input import content_KEY_INPUT

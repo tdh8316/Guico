@@ -12,8 +12,8 @@ from build_tools.parser.combiner import Combiner, CombinerTest
 
 # from core.actions import on_file_save as save
 from core.config import *
-from build_tools.make import MakeTokenIntoPyCode
-from build_tools import make, packager
+from build_tools.makefile import MakeTokenIntoPyCode
+from build_tools import makefile, packager
 
 parent = None
 
@@ -21,7 +21,7 @@ parent = None
 def initialize(_parent):
     global parent
     parent = _parent
-    make.initialize(parent)
+    makefile.initialize(parent)
     packager.initialize(parent)
 
 
@@ -53,6 +53,8 @@ def build(target, mode=None, run=False, test=False):
         # noinspection PyBroadException
         try:
             python_code: str = MakeTokenIntoPyCode(array).get_code()
+            if test:
+                print(python_code)
             CONF[
                 "SOURCE_PATH"
             ] = os.path.join(

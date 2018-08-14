@@ -7,6 +7,7 @@ WINDOW_NEW = "창 만들기"
 WINDOW_DESTROY = "Destroy Window"
 
 DRAW_TEXT = "화면에 글쓰기"
+SCREEN_CLEAR = "화면 지우기"
 
 KEY_INPUT = "키를 눌렀을 때"
 
