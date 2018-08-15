@@ -9,6 +9,7 @@ import build_tools
 from core.config import *
 from core import actions
 from gui.widgets.script_widget import ScriptWidget, TabScriptWidget
+from gui.widgets.pos_widget import *
 
 
 class MainForm(QMainWindow):
@@ -42,9 +43,15 @@ class MainForm(QMainWindow):
         self.dock_leaf = QDockWidget("스크립트", self)
         self.dock_leaf.setWidget(self.leaf_widget)
 
+        self.pos_widget = View(640, 480, self)
+        self.pos_widget.view.scenePosChanged.connect(self.pos_widget_pos_change)
+        self.dock_pos = QDockWidget("", self)
+        self.dock_pos.setWidget(self.pos_widget)
+
         # self.addDockWidget(Qt.RightDockWidgetArea, self.dock_editor)
         self.addDockWidget(Qt.BottomDockWidgetArea, self.dock_log)
         self.addDockWidget(Qt.LeftDockWidgetArea, self.dock_leaf)
+        self.addDockWidget(Qt.RightDockWidgetArea, self.dock_pos)
 
         self.setWindowTitle(f"{TEAM} {NAME} {VERSION}")
 
@@ -90,6 +97,9 @@ class MainForm(QMainWindow):
         # print(self.focusWidget())
         CONF["MODIFIED"] = True if true else False
         self.renewal()
+
+    def pos_widget_pos_change(self, x, y):
+        self.pos_widget.pos_label.setText("{},{}".format(x*2, y*2))
 
     def renewal(self):
         if not CONF["MODIFIED"]:

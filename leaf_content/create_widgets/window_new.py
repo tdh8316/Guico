@@ -10,7 +10,7 @@ def content_WINDOW_NEW(self):
     self.wdg_label = QLabel("윈도우를 초기화하는 함수입니다.")  # 그거 종류 그 뭐냐 하여튼 그거
     self.wdg_label.setAlignment(Qt.AlignCenter)
 
-    self._win_size = QDMLineEdit("800,600")
+    self._win_size = QDMLineEdit("640,480")
     self._win_size.setMaximumWidth(100)
     self._win_size.setFont(QFont("맑은 고딕", 9))
 

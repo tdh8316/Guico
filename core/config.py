@@ -7,6 +7,9 @@ VERSION = "0.5c1 빌드 183"
 OPEN_SOURCE_LICENSE = open(r".\docs\LICENSE.txt", "r", encoding="utf-8").read()
 TMP_PATH = os.path.join(os.path.expanduser("~"), f".{NAME}")
 PREF_FILE = os.path.join(TMP_PATH, ".pref")
+PERSON_IMAGE = (os.path.join("gui", "resources", "person.png")
+                if os.path.isdir(os.path.join("gui", "resources"))
+                else os.path.join("resources", "person.png"))
 
 FILE_TYPES = f"{NAME} script files (*.gvs);;" \
              "모든 파일 (*.*)"
