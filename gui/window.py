@@ -27,7 +27,7 @@ class MainForm(QMainWindow):
 
         self.create_menu()
         self.status_mouse_pos = QLabel("Unknown Mouse Pos")
-        self.statusBar().addPermanentWidget(self.status_mouse_pos)
+        # self.statusBar().addPermanentWidget(self.status_mouse_pos)
 
         self.editor = NodeEditorWidget(self)
         self.editor.scene.addHasBeenModifiedListener(lambda: self.signal_change_editor())
@@ -45,7 +45,7 @@ class MainForm(QMainWindow):
 
         self.pos_widget = View(640, 480, self)
         self.pos_widget.view.scenePosChanged.connect(self.pos_widget_pos_change)
-        self.dock_pos = QDockWidget("", self)
+        self.dock_pos = QDockWidget("Window emulate", self)
         self.dock_pos.setWidget(self.pos_widget)
 
         # self.addDockWidget(Qt.RightDockWidgetArea, self.dock_editor)

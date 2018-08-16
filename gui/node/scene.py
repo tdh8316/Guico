@@ -14,8 +14,8 @@ class Scene(Serializable):
         self.nodes = []
         self.edges = []
 
-        self.scene_width = 64000
-        self.scene_height = 64000
+        self.scene_width = 8192
+        self.scene_height = 8192
 
         self._has_been_modified = False
         self._has_been_modified_listeners = []
