@@ -15,6 +15,7 @@ from gui.widgets.script_widget import ScriptWidget, TabScriptWidget
 from gui.widgets.attr_widget import AttributesTableWidget
 from leaf_content.create_widgets.window_new import define_parent_window
 from gui.widgets.pos_widget import *
+from gui import dialogs
 
 
 class MainForm(QMainWindow):
@@ -30,6 +31,7 @@ class MainForm(QMainWindow):
 
         actions.initialize(self)
         build_tools.initialize(self)
+        dialogs.initialize(self)
 
         self.create_menu()
         self.status_mouse_pos = QLabel("Unknown Mouse Pos")
@@ -183,7 +185,9 @@ class MainForm(QMainWindow):
         try:
             with open(CONF["FILE_PATH"], "w") as file:
                 file.write(json.dumps(self.editor.scene.serialize(), indent=4))
-                self.editor.scene.has_been_modified = False
+            with open(CONF["FILE_PATH"], "a") as file:
+                file.write(f"_;;!~,{json.dumps(self.attribute_widget.getGlobals(), indent=4)}")
+            self.editor.scene.has_been_modified = False
         except:
             QMessageBox.critical(None, "저장 실패!", sys.exc_info())
         else:
@@ -203,10 +207,13 @@ class MainForm(QMainWindow):
         if _name == '':
             return
         if os.path.isfile(_name):
-            self.editor.scene.load(json.loads(open(_name).read(), encoding='utf-8'))
+            data = open(_name).read()
+            self.editor.scene.load(json.loads(data.split("_;;!~,")[0], encoding='utf-8'))
             CONF["FILE_PATH"] = _name
             self.signal_change_editor(False)
             self.renewal()
+
+            self.attribute_widget.buildVariablesGlobals(json.loads(data.split("_;;!~,")[1], encoding='utf-8'))
 
     def closeEvent(self, event):
         if self.maybe_save():

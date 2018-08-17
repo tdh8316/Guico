@@ -1,1 +1,3 @@
-locals().clear()
+# locals().clear()
+
+globals = {}

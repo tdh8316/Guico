@@ -6,7 +6,15 @@ from PyQt5.QtCore import *
 from gui.widgets.tree_selector import QBasedTreeSelector
 # from gui.widgets.script_widget import TabScriptWidget
 from gui.widgets.customized import VariableNameEdit
+from core import script_variables
 from core.config import *
+
+parent = None
+
+
+def initialize(_parent):
+    global parent
+    parent = _parent
 
 
 class OpenSourceLicense(QDialog):
@@ -53,6 +61,7 @@ class NewVariable(QDialog):
 
         self.layout = QGridLayout()
         self.var_name = VariableNameEdit()
+        self.var_value = QLineEdit()
         self.buttons = QDialogButtonBox(
             QDialogButtonBox.Ok | QDialogButtonBox.Cancel,
             Qt.Horizontal, self)
@@ -64,15 +73,17 @@ class NewVariable(QDialog):
     def create_widget(self):
         self.layout.addWidget(QLabel("변수 이름:"), 0, 0)
         self.layout.addWidget(self.var_name, 0, 1)
-        self.layout.addWidget(self.buttons, 1, 1)
+        self.layout.addWidget(QLabel("값:"), 1, 0)
+        self.layout.addWidget(self.var_value, 1, 1)
+        self.layout.addWidget(self.buttons, 2, 1)
         self.setLayout(self.layout)
 
     def reject(self):
-
         super().reject()
 
     def accept(self):
-
+        script_variables.globals[self.var_name.text()] = self.var_value.text()
+        parent.attribute_widget.buildVariablesGlobals(script_variables.globals)
         super().accept()
 
     @staticmethod
