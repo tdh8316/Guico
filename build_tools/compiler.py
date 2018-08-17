@@ -6,6 +6,7 @@ import sys
 
 from PyQt5.QtWidgets import QPlainTextEdit, QMessageBox
 
+from build_tools.check_validity import CheckValidity
 from build_tools.parser.script_parser import Parse
 from build_tools.parser.script_lexer import Lexer
 from build_tools.parser.combiner import Combiner, CombinerTest
@@ -52,6 +53,7 @@ def build(target, mode=None, run=False, test=False):
 
         # noinspection PyBroadException
         try:
+            CheckValidity(array)
             python_code: str = MakeTokenIntoPyCode(array).get_code()
             if test:
                 print(python_code)
