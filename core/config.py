@@ -10,6 +10,7 @@ PREF_FILE = os.path.join(TMP_PATH, ".pref")
 PERSON_IMAGE = (os.path.join("gui", "resources", "person.png")
                 if os.path.isdir(os.path.join("gui", "resources"))
                 else os.path.join("resources", "person.png"))
+MAX_VAR = 99
 
 FILE_TYPES = f"{NAME} script files (*.gvs);;" \
              "모든 파일 (*.*)"

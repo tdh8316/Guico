@@ -3,6 +3,14 @@ from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import *
 
 from gui.widgets.customized import QDMLineEdit
+from gui.widgets.pos_widget import View
+
+parent = None
+
+
+def define_parent_window(_parent):
+    global parent
+    parent = _parent
 
 
 def content_WINDOW_NEW(self):
@@ -13,9 +21,18 @@ def content_WINDOW_NEW(self):
     self._win_size = QDMLineEdit("640,480")
     self._win_size.setMaximumWidth(100)
     self._win_size.setFont(QFont("맑은 고딕", 9))
+    self._win_size.textChanged.connect(
+        lambda: resize_pos_widget(self))
 
     self.layout.setContentsMargins(0, 0, 0, 0)
     self.layout.addWidget(self.wdg_label, 0, 0, 1, 0)
     self.layout.addWidget(self._win_size, 1, 1)
     self.layout.addWidget(QLabel("창 크기(w,h)"), 1, 0)
     self.setLayout(self.layout)
+
+
+def resize_pos_widget(self):
+    if str(self._win_size.text()).endswith(","):
+        return False
+    if "," in self._win_size.text():
+        parent.reset_pos_widget(self._win_size.text().split(",")[0], self._win_size.text().split(",")[1])

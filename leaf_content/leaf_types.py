@@ -3,7 +3,6 @@ from PyQt5.QtGui import QStandardItem, QStandardItemModel
 
 from leaf_content.default import *
 
-
 '''def getLeafTypeModel():
     type_model = QStandardItemModel()
 
@@ -69,6 +68,17 @@ def getEventLeafTypeModel():
 def getSoundsLeafTypeModel():
     type_model = QStandardItemModel()
 
+    type_model.setHeaderData(0, Qt.Horizontal, "더블클릭해서 배치할 수 있습니다.", Qt.DisplayRole)
+
+    return type_model
+
+
+def getStdLeafTypeModel():
+    type_model = QStandardItemModel()
+
+    item = QStandardItem(VARIABLE_NEW)
+    item.setEditable(False)
+    type_model.appendRow(item)
 
     type_model.setHeaderData(0, Qt.Horizontal, "더블클릭해서 배치할 수 있습니다.", Qt.DisplayRole)
 

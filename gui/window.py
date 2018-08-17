@@ -8,7 +8,10 @@ from gui.node.editor_widget import NodeEditorWidget
 import build_tools
 from core.config import *
 from core import actions
+from core import script_variables
 from gui.widgets.script_widget import ScriptWidget, TabScriptWidget
+from gui.widgets.attr_widget import AttributesTableWidget
+from leaf_content.create_widgets.window_new import define_parent_window
 from gui.widgets.pos_widget import *
 
 
@@ -16,6 +19,7 @@ class MainForm(QMainWindow):
 
     def __init__(self):
         super(MainForm, self).__init__()
+        self.setWindowTitle(f"{TEAM} {NAME} {VERSION}")
         self.log = QPlainTextEdit(self)
         self.log.setReadOnly(True)
         self.dock_log = QDockWidget("Log", self)
@@ -43,24 +47,44 @@ class MainForm(QMainWindow):
         self.dock_leaf = QDockWidget("스크립트", self)
         self.dock_leaf.setWidget(self.leaf_widget)
 
-        self.pos_widget = View(640, 480, self)
-        self.pos_widget.view.scenePosChanged.connect(self.pos_widget_pos_change)
-        self.dock_pos = QDockWidget("Window emulate", self)
-        self.dock_pos.setWidget(self.pos_widget)
+        self.attribute_widget = AttributesTableWidget()
+        self.dock_attribute = QDockWidget("Attributes", self)
+        self.dock_attribute.setWidget(self.attribute_widget)
+        self.dock_attribute.showMaximized()
 
         # self.addDockWidget(Qt.RightDockWidgetArea, self.dock_editor)
         self.addDockWidget(Qt.BottomDockWidgetArea, self.dock_log)
         self.addDockWidget(Qt.LeftDockWidgetArea, self.dock_leaf)
-        self.addDockWidget(Qt.RightDockWidgetArea, self.dock_pos)
+        self.addDockWidget(Qt.RightDockWidgetArea, self.dock_attribute)
 
-        self.setWindowTitle(f"{TEAM} {NAME} {VERSION}")
+        self.set_pos_widget()
 
         self.showMaximized()
         self.log.appendPlainText(f"{str(datetime.datetime.now()).split('.')[0]} 에 {NAME} 위젯 초기화 성공")
         # self.showFullScreen()
 
+    def set_pos_widget(self):
+        self.pos_widget = View(640, 480, self)
+        self.pos_widget.view.scenePosChanged.connect(self.pos_widget_pos_change)
+        self.dock_pos = QDockWidget("Emulate Window", self)
+        self.dock_pos.setWidget(self.pos_widget)
+        define_parent_window(self)
+        self.addDockWidget(Qt.RightDockWidgetArea, self.dock_pos)
+
+    def reset_pos_widget(self, x, y):
+        self.dock_pos.hide()
+        self.pos_widget = View(int(x), int(y), self)
+        self.pos_widget.view.scenePosChanged.connect(self.pos_widget_pos_change)
+        self.dock_pos = QDockWidget("Emulate Window", self)
+        self.dock_pos.setWidget(self.pos_widget)
+        define_parent_window(self)
+        self.addDockWidget(Qt.RightDockWidgetArea, self.dock_pos)
+        if int(x) > 640 or int(y) > 480:
+            self.dock_pos.setFloating(True)
+        self.dock_pos.show()
+
     def create_menu(self):
-        menu_bar:QMenu = self.menuBar()
+        menu_bar: QMenu = self.menuBar()
         # menu_bar.setFont(QFont("맑은 고딕", 9))
 
         menu_file = menu_bar.addMenu("파일(&F)")
@@ -69,7 +93,7 @@ class MainForm(QMainWindow):
         menu_file.addAction(actions.file_save())
         menu_file.addAction(actions.file_save_as())
         menu_file.addSeparator()
-        menu_file.addAction(QAction(f"{NAME} 종료(&X)", self, shortcut="Alt+F4", triggered=lambda:self.close()))
+        menu_file.addAction(QAction(f"{NAME} 종료(&X)", self, shortcut="Alt+F4", triggered=lambda: self.close()))
         menu_edit = menu_bar.addMenu("편집(&E)")
         menu_edit.addAction(actions.undo())
         menu_edit.addAction(actions.redo())
@@ -80,7 +104,10 @@ class MainForm(QMainWindow):
         menu_edit.addAction(actions.delete())
         menu_edit.addSeparator()
         menu_view = menu_bar.addMenu("보기(&V)")
-        menu_view.addAction(QAction("출력 창 보기(&O)", self, shortcut="Alt+1", triggered=lambda: self.dock_log.show()))
+        menu_view.addAction(QAction(
+            "출력 창 보이기(&O)", self, shortcut="Alt+1", triggered=lambda: self.dock_log.show()))
+        menu_view.addAction(QAction(
+            "윈도우 에뮬레이팅 보기(&W)", self, shortcut="Alt+2", triggered=self._showEmulateWindow, checkable=True))
         menu_view.addAction(QAction(
             "전체 화면으로 보기(&S)", self, shortcut="F11", triggered=self._showFullScreen, checkable=True))
         menu_run = menu_bar.addMenu("실행(&R)")
@@ -99,7 +126,7 @@ class MainForm(QMainWindow):
         self.renewal()
 
     def pos_widget_pos_change(self, x, y):
-        self.pos_widget.pos_label.setText("{},{}".format(x*2, y*2))
+        self.pos_widget.pos_label.setText("{},{}".format(x * 2, y * 2))
 
     def renewal(self):
         if not CONF["MODIFIED"]:
@@ -116,6 +143,12 @@ class MainForm(QMainWindow):
             self.showFullScreen()
         else:
             self.showNormal()
+
+    def _showEmulateWindow(self, checked):
+        if checked:
+            self.dock_pos.show()
+        else:
+            self.dock_pos.hide()
 
     def is_modified(self) -> bool:
         return self.editor.scene.has_been_modified

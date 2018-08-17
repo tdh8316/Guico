@@ -17,7 +17,7 @@ def content_DRAW_TEXT(self):
     self.layout.setContentsMargins(0, 0, 0, 0)
     self.setLayout(self.layout)
     self.layout.addWidget(self.textbox, 0, 0, 1, 0)
-    self.layout.addWidget(QLabel("출력 위치(x,y)"), 0, 1, 3, 0)
+    # self.layout.addWidget(QLabel("출력 위치(x,y)"), 0, 1, 3, 0)
     self.layout.addWidget(self.position, 1, 1)
     self.layout.addWidget(QLabel("출력 위치(x,y)"), 1, 0)
 

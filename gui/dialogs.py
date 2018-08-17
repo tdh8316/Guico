@@ -4,7 +4,8 @@ from PyQt5.QtCore import *
 # from gui.widgets.tree_combobox import TreeComboBox
 # from leaf_content.leaf_types import getLeafTypeModel
 from gui.widgets.tree_selector import QBasedTreeSelector
-from gui.widgets.script_widget import TabScriptWidget
+# from gui.widgets.script_widget import TabScriptWidget
+from gui.widgets.customized import VariableNameEdit
 from core.config import *
 
 
@@ -41,6 +42,43 @@ class ActivateKey(QDialog):
 
         self.setLayout(layout)
         self.show()
+
+
+class NewVariable(QDialog):
+
+    def __init__(self, parent=None):
+        super(NewVariable, self).__init__(parent)
+        self.setWindowTitle(f"{NAME} - 새로운 변수")
+        self.setFixedSize(320, 160)
+
+        self.layout = QGridLayout()
+        self.var_name = VariableNameEdit()
+        self.buttons = QDialogButtonBox(
+            QDialogButtonBox.Ok | QDialogButtonBox.Cancel,
+            Qt.Horizontal, self)
+        self.buttons.accepted.connect(self.accept)
+        self.buttons.rejected.connect(self.reject)
+
+        self.create_widget()
+
+    def create_widget(self):
+        self.layout.addWidget(QLabel("변수 이름:"), 0, 0)
+        self.layout.addWidget(self.var_name, 0, 1)
+        self.layout.addWidget(self.buttons, 1, 1)
+        self.setLayout(self.layout)
+
+    def reject(self):
+
+        super().reject()
+
+    def accept(self):
+
+        super().accept()
+
+    @staticmethod
+    def setattr(parent=None):
+        _win = NewVariable(parent)
+        _exec = _win.exec_()
 
 
 class setLeafType(QDialog):

@@ -1,15 +1,16 @@
 PRINT = "Print"
 INPUT = "Input"
-ENTRY_POINT = "시작했을 때"
 IF = "Branch"
 
 WINDOW_NEW = "창 만들기"
-WINDOW_DESTROY = "Destroy Window"
-
+# WINDOW_DESTROY = "Destroy Window"
 DRAW_TEXT = "화면에 글쓰기"
 SCREEN_CLEAR = "화면 지우기"
 
 KEY_INPUT = "키가 눌려있을 때"
+ENTRY_POINT = "시작했을 때"
+
+VARIABLE_NEW = "새 변수"
 
 # ================================================================================================== #
 

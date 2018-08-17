@@ -13,5 +13,7 @@ NODE_UI: dict = {
     # TYPE : LOOKS
     WINDOW_NEW: ("Window Initializer", "#498DEB", 200, 100),
     DRAW_TEXT: ("화면에 글쓰기", "#498DEB"),
-    SCREEN_CLEAR: (SCREEN_CLEAR, "#498DEB")
+    SCREEN_CLEAR: (SCREEN_CLEAR, "#498DEB"),
+
+    # TYPE : STANDARD
 }

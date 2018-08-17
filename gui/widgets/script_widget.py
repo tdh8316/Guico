@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 
 # from gui.widgets.tree_combobox import TreeComboBox
+from gui.dialogs import NewVariable
 from leaf_content.leaf_types import *
 from core import actions
 from gui.widgets.tree_selector import QBasedTreeSelector
@@ -104,8 +105,8 @@ class TabScriptWidget(QWidget):
 
         self.widget_tab_etc = QBasedTreeSelector()
         self.widget_tab_etc.setMinimumHeight(500)
-        # self.widget_tab_etc.setModel(getConsoleLeafTypeModel())
-        self.widget_tab_etc.doubleClicked.connect(self.itemDoubleClickEvent)
+        self.widget_tab_etc.setModel(getStdLeafTypeModel())
+        self.widget_tab_etc.doubleClicked.connect(self.newVariable)
 
         self.initialize_widgets()
 
@@ -133,7 +134,7 @@ class TabScriptWidget(QWidget):
         self.tab_looks.setLayout(lay_tab_looks)
         self.tab_event.setLayout(lay_tab_event)
         self.tab_sounds.setLayout(lay_tab_sounds)
-        self.tab_sounds.setLayout(lay_tab_etc)
+        self.tab_etc.setLayout(lay_tab_etc)
 
     def selectedType(self):
         for ix in self.focusWidget().selectedIndexes():
@@ -147,6 +148,9 @@ class TabScriptWidget(QWidget):
                 actions.on_new_leaf(x=CONF["MOUSE_X"] + random.randint(128, 512), y=CONF["MOUSE_Y"] - random.randint(64, 256),
                             defined=str(self.selectedType()))
             self.latest_pos["X"], self.latest_pos["Y"] = CONF["MOUSE_X"], CONF["MOUSE_Y"]
+
+    def newVariable(self):
+        NewVariable.setattr(self)
 
 
 class TabScriptWidget_Button(QWidget):
