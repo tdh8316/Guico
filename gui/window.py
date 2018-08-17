@@ -1,4 +1,6 @@
 import datetime
+import json
+import sys
 
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import *
@@ -171,6 +173,40 @@ class MainForm(QMainWindow):
             return False
 
         return True
+
+    def save(self):
+        if CONF["FILE_PATH"] is None:
+            _name, _filter = QFileDialog.getSaveFileName(None, f'{NAME} - 저장', '', FILE_TYPES)
+            if _name == '':
+                return False
+            CONF["FILE_PATH"] = _name
+        try:
+            with open(CONF["FILE_PATH"], "w") as file:
+                file.write(json.dumps(self.editor.scene.serialize(), indent=4))
+                self.editor.scene.has_been_modified = False
+        except:
+            QMessageBox.critical(None, "저장 실패!", sys.exc_info())
+        else:
+            self.signal_change_editor(true=False)
+            self.renewal()
+
+    def save_as(self):
+        _name, _filter = QFileDialog.getSaveFileName(None, f'{NAME} - 저장', '', FILE_TYPES)
+        if _name == '':
+            return False
+        CONF["FILE_PATH"] = _name
+
+        self.save()
+
+    def load(self):
+        _name, _filter = QFileDialog.getOpenFileName(None, f'{NAME} - 열기', '', FILE_TYPES)
+        if _name == '':
+            return
+        if os.path.isfile(_name):
+            self.editor.scene.load(json.loads(open(_name).read(), encoding='utf-8'))
+            CONF["FILE_PATH"] = _name
+            self.signal_change_editor(False)
+            self.renewal()
 
     def closeEvent(self, event):
         if self.maybe_save():

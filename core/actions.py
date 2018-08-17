@@ -49,55 +49,22 @@ def on_file_save():
 
 def file_new():
     return QAction("새 파일 (&N)", parent, shortcut="Ctrl+N", triggered=lambda:
-    print("File new"))
+    QMessageBox.information(None, "0", "0"))
 
 
 def file_open():
-    def _file_open():
-        _name, _filter = QFileDialog.getOpenFileName(parent, f'{NAME} - 열기', '', FILE_TYPES)
-        if _name == '':
-            return
-        if os.path.isfile(_name):
-            parent.editor.scene.loadFromFile(_name)
-            CONF["FILE_PATH"] = _name
-            parent.signal_change_editor(False)
-            parent.renewal()
-
     return QAction("열기 (&O)", parent, shortcut="Ctrl+O", triggered=lambda:
-    _file_open())
+    parent.load())
 
 
 def file_save():
-    def _file_save():
-        if CONF["FILE_PATH"] is None:
-            _name, _filter = QFileDialog.getSaveFileName(parent, f'{NAME} - 저장', '', FILE_TYPES)
-            if _name == '':
-                return False
-            CONF["FILE_PATH"] = _name
-        parent.editor.scene.saveToFile(CONF["FILE_PATH"])
-        parent.statusBar().showMessage("Successfully saved %s" % CONF["FILE_PATH"])
-        parent.signal_change_editor(true=False)
-        parent.renewal()
-        return True
-
     return QAction("저장 (&A)", parent, shortcut="Ctrl+S", triggered=lambda:
-    _file_save())
+    parent.save())
 
 
 def file_save_as():
-    def _file_save_as():
-        _name, _filter = QFileDialog.getSaveFileName(parent, f'{NAME} - 다른 이름으로 저장', '', FILE_TYPES)
-        if _name == '':
-            return False
-        CONF["FILE_PATH"] = _name
-        parent.editor.scene.saveToFile(CONF["FILE_PATH"])
-        parent.statusBar().showMessage("Successfully saved %s" % CONF["FILE_PATH"])
-        parent.signal_change_editor(true=False)
-        parent.renewal()
-        return True
-
     return QAction("다른 이름으로 저장 (&A)...", parent, shortcut="Ctrl+Shift+S", triggered=lambda:
-    _file_save_as())
+    parent.save_as())
 
 
 def undo():

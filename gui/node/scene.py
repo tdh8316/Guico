@@ -71,13 +71,10 @@ class Scene(Serializable):
 
             self.has_been_modified = False
 
-    def loadFromFile(self, filename):
-        with open(filename, "r") as file:
-            raw_data = file.read()
-            data = json.loads(raw_data, encoding='utf-8')
-            self.deserialize(data)
+    def load(self, data):
+        self.deserialize(data)
 
-            self.has_been_modified = False
+        self.has_been_modified = False
 
     def serialize(self):
         nodes, edges = [], []
