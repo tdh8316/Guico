@@ -19,7 +19,6 @@ sys.path.append("./Engine")
 
 COMPILE_TEST = False
 
-
 # TODO: 프로젝트 기능 구현하기
 
 
@@ -105,4 +104,4 @@ def main():
 if __name__ == "__main__":
     app = QApplication([])
     print(f"{NAME} {VERSION} [{TEAM} | {AUTHOR}]")
-    sys.exit(main())
+    main()
