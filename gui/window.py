@@ -121,6 +121,8 @@ class MainForm(QMainWindow):
         menu_run.addAction(actions.packaging())
         menu_help = menu_bar.addMenu("도움말(&H)")
         menu_help.addAction(actions.license_dialog())
+        menu_help.addAction(QAction(
+            "&Qt 에 대해서...", self, triggered=qApp.aboutQt))
         # menu_edit.addAction(actions.new_leaf())
 
     def signal_change_editor(self, true=True):
