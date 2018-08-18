@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QPlainTextEdit
 from build_tools import generator
 from leaf_content.default import *
 from core.config import *
+from core import script_variables
 
 
 def indent(level=1):
@@ -35,10 +36,25 @@ class MakeTokenIntoPyCode:
 
         for code in self.original_code:
             self.putting_code(code)
+        self.putting_variables()
 
         mod_ext = "/".join(CONF["FILE_PATH"].replace("\\", "/").split("/")[0:-1])
         self.converted_code.insert(0, f"import sys\nsys.path.append(\"{mod_ext}\")\nimport Engine\n\n")
         self.converted_code.append(f"\n{indent(2)}Engine.display.update()")
+
+    def putting_variables(self):
+        for name in script_variables.globals.keys():
+            try:
+                int(script_variables.globals[name])
+            except:
+                if str(script_variables.globals[name]).endswith("'") or str(script_variables.globals[name]).endswith(
+                        "\""):
+                    py_code = "{0} = {1}".format(name, script_variables.globals[name])
+                py_code = "{0} = \"{1}\"".format(name, script_variables.globals[name])
+            else:
+                py_code = "{0} = {1}".format(name, script_variables.globals[name])
+            finally:
+                self.converted_code.insert(0, py_code)
 
     def putting_code(self, original):
         _type = original[0]

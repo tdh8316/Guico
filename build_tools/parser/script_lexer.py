@@ -16,7 +16,7 @@ class Lexer:
             raise IOError(f"다음 파일을 읽을 수 없습니다. {target}")
 
         with open(os.path.join(target), "r") as _s:
-            self.token = json.loads(_s.read(), encoding='utf-8')
+            self.token = json.loads(_s.read().split("Below are the variables.")[0], encoding='utf-8')
 
         for node_data in self.token['nodes']:
             self.res.append(node_data)

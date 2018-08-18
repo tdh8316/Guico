@@ -1,6 +1,6 @@
 PYTHON_MAIN = "if __name__ == \"__main__\":"
 
-WINDOW_NEW = "window = Engine.Window(size=({}, {}), title=\"{}\")"
+WINDOW_NEW = "window = Engine.Window(size=({}, {}), title=f\"{}\")"
 
 DEF_MAIN = "def main():\n" \
            "\twhile Engine.loop:\n" \
@@ -10,6 +10,6 @@ DEF_MAIN = "def main():\n" \
 
 KEY_PRESSED = "\t\tif Engine.is_key_pressed(\"{}\"):"
 
-DRAW_TEXT = "\t\tEngine.draw_text(window, \"{}\", {}, {})"
+DRAW_TEXT = "\t\tEngine.draw_text(window, f\"{}\", {}, {})"
 
 SCREEN_CLEAR = "\t\twindow.display.fill((255, 255, 255))"

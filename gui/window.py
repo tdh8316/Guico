@@ -10,7 +10,6 @@ from gui.node.editor_widget import NodeEditorWidget
 import build_tools
 from core.config import *
 from core import actions
-from core import script_variables
 from gui.widgets.script_widget import ScriptWidget, TabScriptWidget
 from gui.widgets.attr_widget import AttributesTableWidget
 from leaf_content.create_widgets.window_new import define_parent_window
@@ -186,7 +185,7 @@ class MainForm(QMainWindow):
             with open(CONF["FILE_PATH"], "w") as file:
                 file.write(json.dumps(self.editor.scene.serialize(), indent=4))
             with open(CONF["FILE_PATH"], "a") as file:
-                file.write(f"_;;!~,{json.dumps(self.attribute_widget.getGlobals(), indent=4)}")
+                file.write(f"Below are the variables.{json.dumps(self.attribute_widget.getGlobals(), indent=4)}")
             self.editor.scene.has_been_modified = False
         except:
             QMessageBox.critical(None, "저장 실패!", sys.exc_info())
@@ -208,12 +207,13 @@ class MainForm(QMainWindow):
             return
         if os.path.isfile(_name):
             data = open(_name).read()
-            self.editor.scene.load(json.loads(data.split("_;;!~,")[0], encoding='utf-8'))
+            self.editor.scene.load(json.loads(data.split("Below are the variables.")[0], encoding='utf-8'))
             CONF["FILE_PATH"] = _name
             self.signal_change_editor(False)
             self.renewal()
 
-            self.attribute_widget.buildVariablesGlobals(json.loads(data.split("_;;!~,")[1], encoding='utf-8'))
+            self.attribute_widget.buildVariablesGlobals(
+                json.loads(data.split("Below are the variables.")[1], encoding='utf-8'))
 
     def closeEvent(self, event):
         if self.maybe_save():

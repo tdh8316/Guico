@@ -117,7 +117,7 @@ def delete():
 
 
 def save_to_py(f):
-    on_file_save()
+    parent.save()
     build(f if f is not None else CONF["FILE_PATH"], mode="py", )
 
 
@@ -132,7 +132,7 @@ def run():
 
 def run_as_python():
     def _save_and_run(f):
-        on_file_save()
+        parent.save()
         build(f if f is not None else CONF["FILE_PATH"], mode="py", run=True)
 
     return QAction("컴파일 후 실행(&U)", parent, shortcut="F5", triggered=lambda:
@@ -141,7 +141,7 @@ def run_as_python():
 
 def run_as_python__dev():
     def _save_and_run(f):
-        on_file_save()
+        parent.save()
         build(f if f is not None else CONF["FILE_PATH"], mode="py", run=True, test=True)
 
     return QAction("컴파일 후 실행 (for debugging)(&U)", parent, shortcut="F1", triggered=lambda:
