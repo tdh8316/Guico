@@ -35,6 +35,6 @@ class QDMGraphicsSocket(QGraphicsItem):
         return QRectF(
             - self.radius - self.outline_width,
             - self.radius - self.outline_width,
-            5 * (self.radius + self.outline_width),
+            3 * (self.radius + self.outline_width),
             10 * (self.radius + self.outline_width),
         )
