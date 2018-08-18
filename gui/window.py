@@ -82,8 +82,10 @@ class MainForm(QMainWindow):
         self.dock_pos.setWidget(self.pos_widget)
         define_parent_window(self)
         self.addDockWidget(Qt.RightDockWidgetArea, self.dock_pos)
-        if int(x) > 640 or int(y) > 480:
+        if int(x) > 800 or int(y) > 600:
             self.dock_pos.setFloating(True)
+        else:
+            self.dock_pos.setFloating(False)
         self.dock_pos.show()
 
     def create_menu(self):
@@ -110,7 +112,8 @@ class MainForm(QMainWindow):
         menu_view.addAction(QAction(
             "출력 창 보이기(&O)", self, shortcut="Alt+1", triggered=lambda: self.dock_log.show()))
         menu_view.addAction(QAction(
-            "윈도우 에뮬레이팅 보기(&W)", self, shortcut="Alt+2", triggered=self._showEmulateWindow, checkable=True))
+            "윈도우 에뮬레이팅 보기(&W)", self, shortcut="Alt+2", triggered=self._showEmulateWindow, checkable=True,
+            checked=True))
         menu_view.addAction(QAction(
             "전체 화면으로 보기(&S)", self, shortcut="F11", triggered=self._showFullScreen, checkable=True))
         menu_run = menu_bar.addMenu("실행(&R)")

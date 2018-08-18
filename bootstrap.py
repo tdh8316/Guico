@@ -4,7 +4,6 @@ import sys
 import time
 import json
 
-import qdarkstyle
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFontDatabase, QFont, QIcon, QPixmap, QMovie
 from PyQt5.QtWidgets import QApplication, QSplashScreen, QProgressBar, QMessageBox
@@ -49,6 +48,7 @@ def launch_window():
 
         # Simulate something that takes time'''
 
+    import qdarkstyle
     app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
     app.setFont(QFont("나눔바른펜", 11))
 
