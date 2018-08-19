@@ -3,7 +3,7 @@ import os
 NAME = "Guico"
 AUTHOR = "tdh8316@naver.com"
 TEAM = "TakturStudio"
-VERSION = "0.6c2 빌드 193"
+VERSION = "0.6c3"
 TMP_PATH = os.path.join(os.path.expanduser("~"), f".{NAME}")
 PREF_FILE = os.path.join(TMP_PATH, ".pref")
 PERSON_IMAGE = (os.path.join("gui", "resources", "person.png")

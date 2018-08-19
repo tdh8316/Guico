@@ -70,9 +70,11 @@ def build(target, mode=None, run=False, test=False):
                 if not os.path.isfile("\\".join(list(CONF["FILE_PATH"].split("/")[:-1])) + r'\NanumBarunpenR.ttf') \
                 else None
             # Copy Guico Game Engine
-            if not os.path.isdir("/".join(CONF["SOURCE_PATH"].replace("\\", "/").split("/")[0:-1]) + "/Engine/"):
+            '''if not os.path.isdir("/".join(CONF["SOURCE_PATH"].replace("\\", "/").split("/")[0:-1]) + "/Engine/"):
                 shutil.copytree("./Engine/",
-                                "/".join(CONF["SOURCE_PATH"].replace("\\", "/").split("/")[0:-1]) + "/Engine/")
+                                "/".join(CONF["SOURCE_PATH"].replace("\\", "/").split("/")[0:-1]) + "/Engine/")'''
+            if not os.path.isfile(os.path.join(os.path.dirname(CONF["SOURCE_PATH"]), "Engine.dll")):
+                os.system(f"copy Engine.dll \"{os.path.join(os.path.dirname(CONF['SOURCE_PATH']), 'Engine.dll')}\"")
         except Exception as e:
             import traceback
             traceback.print_exc()
