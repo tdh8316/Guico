@@ -12,7 +12,7 @@ from core.config import *
 from core import actions
 from gui.widgets.script_widget import ScriptWidget, TabScriptWidget
 from gui.widgets.attr_widget import AttributesTableWidget
-from leaf_content.create_widgets.window_new import define_parent_window
+from contents.create_widgets.window_new import define_parent_window
 from gui.widgets.pos_widget import *
 from gui import dialogs
 

@@ -5,7 +5,7 @@ from PyQt5.QtCore import *
 
 # from gui.widgets.tree_combobox import TreeComboBox
 from gui.dialogs import NewVariable
-from leaf_content.leaf_types import *
+from contents.leaf_types import *
 from core import actions
 from gui.widgets.tree_selector import QBasedTreeSelector
 from core.config import *

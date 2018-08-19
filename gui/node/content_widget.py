@@ -2,8 +2,8 @@ from collections import OrderedDict
 
 from PyQt5.QtGui import QFont
 
-from leaf_content.default import *
-from leaf_content.create_widgets import *
+from contents.default import *
+from contents.create_widgets import *
 from core.config import *
 from gui.widgets.customized import *
 from gui.node.serializable import Serializable

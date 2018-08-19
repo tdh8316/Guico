@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import *
 
 from core.constants import ALL_KEYS
-from leaf_content.default import KEY_INPUT
+from contents.default import KEY_INPUT
 
 
 def content_KEY_INPUT(self):

@@ -1,4 +1,4 @@
-from leaf_content.default import *
+from contents.default import *
 
 # title, bg, width, height
 NODE_UI: dict = {

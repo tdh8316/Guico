@@ -1,4 +1,4 @@
-from leaf_content.default import *
+from contents.default import *
 
 
 class GuicoBuildError(Exception):

@@ -1,7 +1,7 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QStandardItem, QStandardItemModel
 
-from leaf_content.default import *
+from contents.default import *
 
 '''def getLeafTypeModel():
     type_model = QStandardItemModel()

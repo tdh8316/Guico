@@ -3,7 +3,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
 from gui.node.edge import Edge, EDGE_TYPE_BEZIER
-from leaf_content.default import *
+from contents.default import *
 from gui.node.scene import Scene
 from gui.node.node import Node
 from gui.node.graphics_view import QDMGraphicsView

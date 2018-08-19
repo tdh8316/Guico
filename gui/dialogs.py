@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 
 # from gui.widgets.tree_combobox import TreeComboBox
-# from leaf_content.leaf_types import getLeafTypeModel
+# from contents.leaf_types import getLeafTypeModel
 from gui.widgets.tree_selector import QBasedTreeSelector
 # from gui.widgets.script_widget import TabScriptWidget
 from gui.widgets.customized import VariableNameEdit

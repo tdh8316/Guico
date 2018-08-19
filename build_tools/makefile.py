@@ -2,7 +2,7 @@ import autopep8
 from PyQt5.QtWidgets import QPlainTextEdit
 
 from build_tools import generator
-from leaf_content.default import *
+from contents.default import *
 from core.config import *
 from core import script_variables
 
@@ -145,9 +145,9 @@ class _MakeTokenIntoPyCode:
                                                display_height=leaf_content["size"].split(',')[1]))
             elif code_type == DRAW_TEXT:
                 self.used_label = True
-                self.add_to_code(f"{indent(1)}message_display(\"{leaf_content['str']}\", "
-                                 f"{int(leaf_content['pos'].split(',')[0])}, "
-                                 f"{int(leaf_content['pos'].split(',')[1])})")
+                self.add_to_code(f"{indent(1)}message_display(\"{contents['str']}\", "
+                                 f"{int(contents['pos'].split(',')[0])}, "
+                                 f"{int(contents['pos'].split(',')[1])})")
 
     def add_to_code(self, line):
         self.output.append(line)
