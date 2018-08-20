@@ -7,6 +7,7 @@ import sys
 from PyQt5.QtWidgets import QPlainTextEdit, QMessageBox
 
 from build_tools.check_validity import CheckValidity
+from build_tools.makeengine import build_engine_archive
 from build_tools.parser.script_parser import Parse
 from build_tools.parser.script_lexer import Lexer
 from build_tools.parser.combiner import Combiner, CombinerTest
@@ -74,6 +75,8 @@ def build(target, mode=None, run=False, test=False):
                 shutil.copytree("./Engine/",
                                 "/".join(CONF["SOURCE_PATH"].replace("\\", "/").split("/")[0:-1]) + "/Engine/")'''
             if not os.path.isfile(os.path.join(os.path.dirname(CONF["SOURCE_PATH"]), "Engine.dll")):
+                if not os.path.isfile("./Engine.dll"):
+                    build_engine_archive("Engine.dll", "./Engine/")
                 os.system(f"copy Engine.dll \"{os.path.join(os.path.dirname(CONF['SOURCE_PATH']), 'Engine.dll')}\"")
         except Exception as e:
             import traceback
