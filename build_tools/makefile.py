@@ -50,10 +50,11 @@ class MakeTokenIntoPyCode:
                 if str(script_variables.globals[name]).endswith("'") or str(script_variables.globals[name]).endswith(
                         "\""):
                     py_code = "{0} = {1}".format(name, script_variables.globals[name])
-                py_code = "{0} = \"{1}\"".format(name, script_variables.globals[name])
+                py_code = "{0} = fr\"{1}\"".format(name, script_variables.globals[name])
             else:
                 py_code = "{0} = {1}".format(name, script_variables.globals[name])
             finally:
+                # noinspection PyUnboundLocalVariable
                 self.converted_code.insert(0, py_code)
 
     def putting_code(self, original):

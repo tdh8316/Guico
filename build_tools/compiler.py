@@ -29,6 +29,7 @@ def initialize(_parent):
 
 def build(target, mode=None, run=False, test=False):
     parent.log: QPlainTextEdit
+    parent.log.show()
 
     if mode == "py":
         if not test:
