@@ -47,8 +47,8 @@ def launch_window():
 
         # Simulate something that takes time'''
 
-    import qdarkstyle
-    app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
+    # import qdarkstyle
+    app.setStyleSheet(__import__("qdarkstyle").load_stylesheet_pyqt5())
     app.setFont(QFont("나눔바른펜", 11))
 
     root = MainForm()
