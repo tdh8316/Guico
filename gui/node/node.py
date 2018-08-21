@@ -3,8 +3,7 @@ import sys
 from gui.node.graphics_node import QDMGraphicsNode
 from gui.node.content_widget import QDMNodeContentWidget
 from gui.node.socket import *
-from contents.default import *
-from contents.create_widgets.node_ui import *
+from contents.node_ui import *
 
 DEBUG = False
 

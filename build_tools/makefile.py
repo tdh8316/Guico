@@ -76,6 +76,10 @@ class MakeTokenIntoPyCode:
                                                         contents["pos"].split(",")[1]))
         elif _type == SCREEN_CLEAR:
             self.append_code(generator.SCREEN_CLEAR)
+        elif _type == DRAW_IMAGE:
+            # TODO: 이미지 포지션 조정
+            self.append_code(generator.DRAW_IMAGE.format(contents["path"],
+                                                         "0", "0"))
 
     def get_code(self) -> str:
         return autopep8.fix_code("\n".join(self.converted_code + self.python_main_code))

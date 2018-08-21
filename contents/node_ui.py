@@ -14,6 +14,7 @@ NODE_UI: dict = {
     WINDOW_NEW: ("Window Initializer", "#498DEB", 200, 100),
     DRAW_TEXT: ("화면에 글쓰기", "#498DEB"),
     SCREEN_CLEAR: (SCREEN_CLEAR, "#498DEB"),
+    DRAW_IMAGE: ("화면에 사진 추가", "#EC4466")
 
     # TYPE : STANDARD
 }

@@ -6,7 +6,7 @@ import json
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFontDatabase, QFont, QIcon, QPixmap, QMovie
-from PyQt5.QtWidgets import QApplication, QSplashScreen, QProgressBar, QMessageBox
+from PyQt5.QtWidgets import QApplication, QSplashScreen, QProgressBar, QMessageBox, QStyleFactory
 
 # from build_tools.compiler import interpreter
 from core.user.environment import Composition
@@ -49,6 +49,7 @@ def launch_window():
 
     # import qdarkstyle
     app.setStyleSheet(__import__("qdarkstyle").load_stylesheet_pyqt5())
+    # app.setStyleSheet()
     app.setFont(QFont("나눔바른펜", 11))
 
     root = MainForm()
