@@ -4,7 +4,8 @@ import shutil
 import subprocess
 import sys
 
-from PyQt5.QtWidgets import QPlainTextEdit, QMessageBox
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QPlainTextEdit, QMessageBox, QApplication
 
 from build_tools.check_validity import CheckValidity
 from build_tools.makeengine import build_engine_archive
@@ -28,8 +29,9 @@ def initialize(_parent):
 
 
 def build(target, mode=None, run=False, test=False):
+    QApplication.setOverrideCursor(Qt.WaitCursor)
     parent.log: QPlainTextEdit
-    parent.log.show()
+    parent.dock_log.show()
 
     if mode == "py":
         if not test:
@@ -97,3 +99,4 @@ def build(target, mode=None, run=False, test=False):
                 print(array)
 
         # os.system(f"start /B start cmd @cmd /k python {CONF['SOURCE_PATH']}")
+    QApplication.restoreOverrideCursor()
