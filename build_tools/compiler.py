@@ -34,8 +34,8 @@ def build(target, mode=None, run=False, test=False):
     parent.dock_log.show()
 
     if mode == "py":
-        if not test:
-            parent.log.appendPlainText(f"\n{str(datetime.datetime.now()).split('.')[0]} 에 빌드 시작.")
+        # if not test:
+        parent.log.appendPlainText(f"\n{str(datetime.datetime.now()).split('.')[0]} 에 빌드 시작.")
         try:
             lexer = Lexer(target)
         except IOError:
@@ -85,11 +85,11 @@ def build(target, mode=None, run=False, test=False):
             import traceback
             traceback.print_exc()
             QMessageBox.critical(None, f"{NAME} - 처리되지 않은 예외", f"{e}\n{sys.exc_info()}")
-            if not test:
-                parent.log.appendPlainText(f"{str(datetime.datetime.now()).split('.')[0]} 에 빌드 완료 [실패].")
+            # if not test:
+            parent.log.appendPlainText(f"{str(datetime.datetime.now()).split('.')[0]} 에 빌드 완료 [실패].")
         else:
-            if not test:
-                parent.log.appendPlainText(f"{str(datetime.datetime.now()).split('.')[0]} 에 빌드 완료 [성공].")
+            # if not test:
+            parent.log.appendPlainText(f"{str(datetime.datetime.now()).split('.')[0]} 에 빌드 완료 [성공].")
             QApplication.restoreOverrideCursor()
             # sys.path.append("\\".join(list(CONF["FILE_PATH"].split("/")[:-1])))
             if run:
