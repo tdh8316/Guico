@@ -90,6 +90,7 @@ def build(target, mode=None, run=False, test=False):
         else:
             if not test:
                 parent.log.appendPlainText(f"{str(datetime.datetime.now()).split('.')[0]} 에 빌드 완료 [성공].")
+            QApplication.restoreOverrideCursor()
             # sys.path.append("\\".join(list(CONF["FILE_PATH"].split("/")[:-1])))
             if run:
                 subprocess.Popen(f"{os.environ['PYTHON']} \"{CONF['SOURCE_PATH']}\"", shell=True,
@@ -99,4 +100,3 @@ def build(target, mode=None, run=False, test=False):
                 print(array)
 
         # os.system(f"start /B start cmd @cmd /k python {CONF['SOURCE_PATH']}")
-    QApplication.restoreOverrideCursor()
