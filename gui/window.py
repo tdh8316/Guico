@@ -54,6 +54,7 @@ class MainForm(QMainWindow):
         self.dock_attribute = QDockWidget("Attributes", self)
         self.dock_attribute.setWidget(self.attribute_widget)
         self.dock_attribute.showMaximized()
+        self.dock_attribute.setFeatures(QDockWidget.DockWidgetFloatable | QDockWidget.DockWidgetMovable)
 
         # self.addDockWidget(Qt.RightDockWidgetArea, self.dock_editor)
         self.addDockWidget(Qt.BottomDockWidgetArea, self.dock_log)
@@ -153,6 +154,9 @@ class MainForm(QMainWindow):
             self.showNormal()
 
     def _showEmulateWindow(self, checked):
+        if self.dock_pos.isHidden():
+            self.dock_pos.show()
+            return
         if checked:
             self.dock_pos.show()
         else:
