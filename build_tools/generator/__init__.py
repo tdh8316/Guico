@@ -2,7 +2,13 @@ PYTHON_MAIN = "if __name__ == \"__main__\":"
 
 WINDOW_NEW = "window = Engine.Window(size=({}, {}), title=f\"{}\")"
 
-DEF_MAIN = "def main():\n\tglobal {}\n" \
+DEF_MAIN_VAR = "def main():\n\tglobal {}\n" \
+           "\twhile Engine.loop:\n" \
+           "\t\tfor event in Engine.pygame.event.get():\n" \
+           "\t\t\tEngine.Event(event)\n" \
+           "\t\twindow.display.fill((255, 255, 255))\n"
+
+DEF_MAIN = "def main():\n" \
            "\twhile Engine.loop:\n" \
            "\t\tfor event in Engine.pygame.event.get():\n" \
            "\t\t\tEngine.Event(event)\n" \

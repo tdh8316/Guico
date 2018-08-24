@@ -74,7 +74,7 @@ class MakeTokenIntoPyCode:
             var = str()
             for var_item in list(script_variables.globals.keys()):
                 var += "{}, ".format(var_item) if list(script_variables.globals.keys())[-1] != var_item else var_item
-            self.converted_code.append(generator.DEF_MAIN.format(var))
+            self.converted_code.append(generator.DEF_MAIN if var == str() else generator.DEF_MAIN_VAR.format(var))
         elif _type == KEY_INPUT:
             self.converted_code.append(generator.KEY_PRESSED.format(contents["key"]))
         elif _type == DRAW_TEXT:
