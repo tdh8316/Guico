@@ -23,7 +23,7 @@ COMPILE_TEST = False
 
 
 def launch_window():
-    QFontDatabase().addApplicationFont(r"NanumBarunpenR.ttf")
+    QFontDatabase().addApplicationFont(r"font.ttf")
     # QFontDatabase().addApplicationFont(r"gui\resources\godoRounded L.ttf")
 
     '''splash = MovieSplashScreen(QMovie("gui/resources/splash.gif"

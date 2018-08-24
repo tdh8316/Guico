@@ -24,7 +24,7 @@ while True:
 """
 
 
-def LABEL(FONT=".\\NanumBarunpenR.ttf"):
+def LABEL(FONT=".\\font.ttf"):
     return f"""
 def text_objects(text, font):
     textSurface = font.render(text, True, (0, 0, 0))
