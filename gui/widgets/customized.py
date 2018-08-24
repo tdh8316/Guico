@@ -77,7 +77,7 @@ class ImagePathLineEdit(QLineEdit):
 
     def setPath(self, path):
         if os.path.dirname(path) == str():
-            path = os.path.join(os.path.dirname(CONF["FILE_PATH"]), path)
+            path = "%s/%s" % (os.path.dirname(CONF["FILE_PATH"]), path)
         self.setText(os.path.basename(path))
         self.image_path = path
 

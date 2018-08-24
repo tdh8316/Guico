@@ -1,3 +1,5 @@
+import os
+
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
@@ -24,4 +26,5 @@ def content_DRAW_IMAGE(self):
 
 def setup_image(self):
     fname, f = QFileDialog.getOpenFileName(caption="이미지 찾기", filter="이미지 파일 (*.png *.jpg *.gif *.bmp)")
-    self.image_path.setPath(fname)
+    if os.path.isfile(fname):
+        self.image_path.setPath(fname)

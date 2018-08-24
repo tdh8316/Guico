@@ -215,9 +215,9 @@ class MainForm(QMainWindow):
         if _name == '':
             return
         if os.path.isfile(_name):
+            CONF["FILE_PATH"] = _name
             data = open(_name).read()
             self.editor.scene.load(json.loads(data.split("Below are the variables.")[0], encoding='utf-8'))
-            CONF["FILE_PATH"] = _name
             self.signal_change_editor(False)
             self.renewal()
 

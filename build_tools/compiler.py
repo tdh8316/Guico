@@ -3,6 +3,7 @@ import os
 import shutil
 import subprocess
 import sys
+import time
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QPlainTextEdit, QMessageBox, QApplication
@@ -29,6 +30,7 @@ def initialize(_parent):
 
 
 def build(target, mode=None, run=False, test=False):
+    start_time = time.time()
     QApplication.setOverrideCursor(Qt.WaitCursor)
     parent.log: QPlainTextEdit
     parent.dock_log.show()
@@ -49,7 +51,7 @@ def build(target, mode=None, run=False, test=False):
             connector = parser.get_token()[1]
 
             array = CombinerTest(raw_scr, connector).combine()
-                    # Combiner(raw_scr, connector).combine() if not test else CombinerTest(raw_scr, connector).combine()
+            # Combiner(raw_scr, connector).combine() if not test else CombinerTest(raw_scr, connector).combine()
 
             # print(array)
         else:
@@ -87,14 +89,17 @@ def build(target, mode=None, run=False, test=False):
             QMessageBox.critical(None, f"{NAME} - 처리되지 않은 예외", f"{e}\n{sys.exc_info()}")
             # if not test:
             parent.log.appendPlainText(f"{str(datetime.datetime.now()).split('.')[0]} 에 빌드 완료 [실패].")
+            return False
         else:
             # if not test:
             parent.log.appendPlainText(f"{str(datetime.datetime.now()).split('.')[0]} 에 빌드 완료 [성공].")
+            parent.log.appendPlainText("소요 시간: %0.3fs" % float(time.time() - start_time))
             QApplication.restoreOverrideCursor()
             # sys.path.append("\\".join(list(CONF["FILE_PATH"].split("/")[:-1])))
             if run:
-                subprocess.Popen(f"{os.environ['PYTHON']} \"{CONF['SOURCE_PATH']}\"", shell=True,
-                                 start_new_session=True)
+                subprocess.Popen(
+                    f"cd {os.path.dirname(CONF['SOURCE_PATH'])} && {os.environ['PYTHON']} \"{CONF['SOURCE_PATH']}\"",
+                    shell=True, start_new_session=True)
 
             if test:
                 print(array)
