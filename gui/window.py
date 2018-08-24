@@ -149,19 +149,14 @@ class MainForm(QMainWindow):
                                 else f"{TEAM} {NAME} {VERSION} - 제목 없음*")
 
     def _showFullScreen(self, checked):
-        if checked:
-            self.showFullScreen()
-        else:
-            self.showNormal()
+        self.showFullScreen() if checked else self.showNormal()
 
     def _showEmulateWindow(self, checked):
         if self.dock_pos.isHidden():
             self.dock_pos.show()
             return
-        if checked:
-            self.dock_pos.show()
-        else:
-            self.dock_pos.hide()
+
+        self.dock_pos.show() if checked else self.dock_pos.hide()
 
     def is_modified(self) -> bool:
         return self.editor.scene.has_been_modified
