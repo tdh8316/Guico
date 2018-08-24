@@ -1,9 +1,10 @@
 import os
 
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QFont
+from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
+from core import script_variables
 from core.config import CONF
 
 
@@ -37,25 +38,37 @@ class QDMLineEdit(QLineEdit):
         super().focusOutEvent(event)
 
 
+class Completer(QCompleter):
+
+    def __init__(self, *__args):
+        super().__init__(*__args)
+
+
 class VariableNameEdit(QLineEdit):
     def __init__(self, parent=None):
         super().__init__(parent)
 
         self.setFont(QFont("맑은 고딕", 9))
+        self._completer = QCompleter(list(script_variables.globals.keys()), self)
+        self.setCompleter(self._completer)
+        # self.completer = QCompleter(list(script_variables.globals.keys()), self)
+        # self.completer.setCompletionMode(QCompleter.InlineCompletion)
         # self.setFixedSize(100, 30)
 
     def focusInEvent(self, event):
-        # self.parentWidget().setEditingFlag(True)
         super().focusInEvent(event)
+        self.setFixedSize(90, 30)
 
     def focusOutEvent(self, event):
         # self.parentWidget().setEditingFlag(False)
         super().focusOutEvent(event)
+        self.setText(self.text().replace(" ", "_"))
+        self.setFixedSize(60, 30)
 
     def textToVariableName(self):
         return self.text().replace(" ", "_")
 
-    def setVariableNameToText(self, s: str):
+    def setVariableNameFromText(self, s: str):
         self.setText(s.replace("_", " "))
 
 

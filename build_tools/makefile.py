@@ -71,7 +71,10 @@ class MakeTokenIntoPyCode:
                                                                                  int(contents["size"].split(",")[1]),
                                                                                  "Guico Display (pygame)"))
             self.python_main_code.append(indent(1) + "main()")
-            self.converted_code.append(generator.DEF_MAIN)
+            var = str()
+            for var_item in list(script_variables.globals.keys()):
+                var += "{}, ".format(var_item) if list(script_variables.globals.keys())[-1] != var_item else var_item
+            self.converted_code.append(generator.DEF_MAIN.format(var))
         elif _type == KEY_INPUT:
             self.converted_code.append(generator.KEY_PRESSED.format(contents["key"]))
         elif _type == DRAW_TEXT:
@@ -84,6 +87,12 @@ class MakeTokenIntoPyCode:
             # TODO: 이미지 포지션 조정
             self.append_code(generator.DRAW_IMAGE.format(contents["path"],
                                                          "0", "0"))
+        elif _type == VARIABLE_CHANGE:
+            try:
+                int(contents["value"])
+                self.append_code("\t\t{} = {}".format(contents["name"], contents["value"]))
+            except:
+                self.append_code("\t\t{} = fr\"{}\"".format(contents["name"], contents["value"]))
 
     def get_code(self) -> str:
         return autopep8.fix_code("\n".join(self.converted_code + self.python_main_code))

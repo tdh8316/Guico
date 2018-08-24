@@ -106,7 +106,7 @@ class TabScriptWidget(QWidget):
         self.widget_tab_etc = QBasedTreeSelector()
         self.widget_tab_etc.setMinimumHeight(500)
         self.widget_tab_etc.setModel(getStdLeafTypeModel())
-        self.widget_tab_etc.doubleClicked.connect(self.newVariable)
+        self.widget_tab_etc.doubleClicked.connect(self.itemDoubleClickEvent)
 
         self.initialize_widgets()
 
@@ -141,12 +141,15 @@ class TabScriptWidget(QWidget):
             return ix.data(Qt.DisplayRole)
 
     def itemDoubleClickEvent(self):
+        if self.selectedType() == VARIABLE_NEW:
+            return self.newVariable()
         # if self.selectedType() in ALL_LEAF_TYPES:
-            if [self.latest_pos["X"], self.latest_pos["Y"]] != [CONF["MOUSE_X"], CONF["MOUSE_Y"]]:
-                actions.on_new_leaf(x=CONF["MOUSE_X"] + 255, y=CONF["MOUSE_Y"], defined=str(self.selectedType()))
-            else:
-                actions.on_new_leaf(x=CONF["MOUSE_X"] + random.randint(128, 512), y=CONF["MOUSE_Y"] - random.randint(64, 256),
-                            defined=str(self.selectedType()))
+        if [self.latest_pos["X"], self.latest_pos["Y"]] != [CONF["MOUSE_X"], CONF["MOUSE_Y"]]:
+            actions.on_new_leaf(x=CONF["MOUSE_X"] + 255, y=CONF["MOUSE_Y"], defined=str(self.selectedType()))
+        else:
+            actions.on_new_leaf(x=CONF["MOUSE_X"] + random.randint(128, 512),
+                                y=CONF["MOUSE_Y"] - random.randint(64, 256),
+                                defined=str(self.selectedType()))
             self.latest_pos["X"], self.latest_pos["Y"] = CONF["MOUSE_X"], CONF["MOUSE_Y"]
 
     def newVariable(self):
@@ -167,7 +170,7 @@ class TabScriptWidget_Button(QWidget):
         self.tab_console = QWidget()
         self.tab_event = QWidget()
         self.tab_etc = QWidget()
-        self.tab.setMinimumSize(300,500)
+        self.tab.setMinimumSize(300, 500)
         self.tab.addTab(self.tab_window, "윈도우")
         self.tab.addTab(self.tab_event, "이벤트")
         self.tab.addTab(self.tab_console, "표준입출력")
@@ -191,8 +194,6 @@ class TabScriptWidget_Button(QWidget):
 
         self.lay_tab_window.addWidget(window_new)
         self.lay_tab_window.addWidget(draw)
-
-
 
     def selectedType(self):
         return self.focusWidget().text()

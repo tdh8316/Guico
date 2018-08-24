@@ -90,6 +90,10 @@ class QDMNodeContentWidget(QWidget, Serializable):
                 ("key", self.key.currentText())])
         elif self.type == DRAW_IMAGE:
             return OrderedDict([("path", self.image_path.WhereIsImage())])
+        elif self.type == VARIABLE_CHANGE:
+            return OrderedDict([
+                ("name", self.var_name.textToVariableName()),
+                ("value", self.var_value.text())])
 
         return OrderedDict([])
 
@@ -106,6 +110,9 @@ class QDMNodeContentWidget(QWidget, Serializable):
             self.node.title = f"[{data['key']}] {KEY_INPUT}"
         elif self.type == DRAW_IMAGE:
             self.image_path.setPath(data["path"])
+        elif self.type == VARIABLE_CHANGE:
+            self.var_name.setVariableNameFromText(data["name"])
+            self.var_value.setText(data["value"])
 
     def setEditingFlag(self, value):
         self.node.scene.grScene.views()[0].editingFlag = value
