@@ -53,11 +53,9 @@ class VariableNameEdit(QLineEdit):
         super().focusOutEvent(event)
 
     def textToVariableName(self):
-
         return self.text().replace(" ", "_")
 
     def setVariableNameToText(self, s: str):
-
         self.setText(s.replace("_", " "))
 
 
@@ -78,10 +76,17 @@ class ImagePathLineEdit(QLineEdit):
         super().focusOutEvent(event)
 
     def setPath(self, path):
+        if os.path.dirname(path) == str():
+            path = os.path.join(os.path.dirname(CONF["FILE_PATH"]), path)
         self.setText(os.path.basename(path))
         self.image_path = path
 
     def WhereIsImage(self):
+        if CONF["FILE_PATH"] is None:
+            return False
         if os.path.dirname(CONF["FILE_PATH"]) == os.path.dirname(self.image_path):
             return os.path.basename(self.image_path)
         return self.image_path
+
+    def enterEvent(self, *args, **kwargs):
+        self.setToolTip(self.image_path)
