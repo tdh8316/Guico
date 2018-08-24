@@ -49,6 +49,7 @@ class MainForm(QMainWindow):
 
         self.dock_leaf = QDockWidget("스크립트", self)
         self.dock_leaf.setWidget(self.leaf_widget)
+        self.dock_leaf.setFeatures(QDockWidget.DockWidgetFloatable | QDockWidget.DockWidgetMovable)
 
         self.attribute_widget = AttributesTableWidget()
         self.dock_attribute = QDockWidget("Attributes", self)
