@@ -4,6 +4,8 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import *
 
+from core.config import CONF
+
 
 def NotImplementationWidget(self):
     self.layout = QVBoxLayout()
@@ -80,4 +82,6 @@ class ImagePathLineEdit(QLineEdit):
         self.image_path = path
 
     def WhereIsImage(self):
+        if os.path.dirname(CONF["FILE_PATH"]) == os.path.dirname(self.image_path):
+            return os.path.basename(self.image_path)
         return self.image_path

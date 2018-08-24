@@ -64,7 +64,7 @@ class MainForm(QMainWindow):
         self.set_pos_widget()
 
         self.showMaximized()
-        self.log.appendPlainText(f"{str(datetime.datetime.now()).split('.')[0]} 에 {NAME} 위젯 초기화 성공")
+        self.log.appendPlainText(f"{str(datetime.datetime.now()).split('.')[0]} 에 {NAME} 초기화 성공")
         # self.showFullScreen()
 
     def set_pos_widget(self):

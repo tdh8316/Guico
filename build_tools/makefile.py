@@ -50,7 +50,10 @@ class MakeTokenIntoPyCode:
                 if str(script_variables.globals[name]).endswith("'") or str(script_variables.globals[name]).endswith(
                         "\""):
                     py_code = "{0} = {1}".format(name, script_variables.globals[name])
-                py_code = "{0} = fr\"{1}\"".format(name, script_variables.globals[name])
+                if os.path.isfile(script_variables.globals[name]):
+                    py_code = "{0} = fr\"{1}\"".format(name, script_variables.globals[name])
+                else:
+                    py_code = "{0} = f\"{1}\"".format(name, script_variables.globals[name])
             else:
                 py_code = "{0} = {1}".format(name, script_variables.globals[name])
             finally:
