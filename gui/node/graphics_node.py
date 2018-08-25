@@ -22,7 +22,7 @@ class QDMGraphicsNode(QGraphicsItem):
         self._pen_selected = QPen(QColor("#FFFFA637"))
 
         self._brush_title = QBrush(QColor(title_background))
-        self._brush_background = QBrush(QColor("#616161"))
+        self._brush_background = QBrush(QColor("#2D2D30"))
 
         # init title
         self.initTitle()

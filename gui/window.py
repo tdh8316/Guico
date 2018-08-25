@@ -22,6 +22,7 @@ class MainForm(QMainWindow):
     def __init__(self):
         super(MainForm, self).__init__()
         self.setWindowTitle(f"{TEAM} {NAME} {VERSION}")
+
         self.log = QPlainTextEdit(self)
         self.log.setReadOnly(True)
         self.dock_log = QDockWidget("Log", self)
@@ -33,7 +34,7 @@ class MainForm(QMainWindow):
         dialogs.initialize(self)
 
         self.create_menu()
-        self.status_mouse_pos = QLabel("Unknown Mouse Pos")
+        # self.status_mouse_pos = QLabel("Unknown Mouse Pos")
         # self.statusBar().addPermanentWidget(self.status_mouse_pos)
 
         self.editor = NodeEditorWidget(self)

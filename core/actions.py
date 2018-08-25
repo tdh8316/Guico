@@ -176,7 +176,7 @@ def license_dialog():
 
 
 def on_scene_pos_changed(x, y):
-    parent.status_mouse_pos.setText("Mouse Pos(%d, %d)" % (x, y))
+    # parent.status_mouse_pos.setText("Mouse Pos(%d, %d)" % (x, y))
     CONF["MOUSE_X"], CONF["MOUSE_Y"] = x, y
 
 

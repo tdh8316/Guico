@@ -1,19 +1,15 @@
-import os
+import json
 import subprocess
 import sys
-import time
-import json
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QFontDatabase, QFont, QIcon, QPixmap, QMovie
-from PyQt5.QtWidgets import QApplication, QSplashScreen, QProgressBar, QMessageBox, QStyleFactory
+from PyQt5.QtGui import QFontDatabase, QFont, QIcon
+from PyQt5.QtWidgets import QApplication, QMessageBox
 
+from core.config import *
 # from build_tools.compiler import interpreter
 from core.user.environment import Composition
-from gui.widgets.gif import MovieSplashScreen
+from gui import styles
 from gui.window import MainForm
-from core.config import *
-from gui import theme
 
 sys.path.append("./Engine")
 
@@ -50,6 +46,7 @@ def launch_window():
     # import qdarkstyle
     app.setStyleSheet(__import__("qdarkstyle").load_stylesheet_pyqt5())
     # app.setStyleSheet()
+    styles.dark(app)
     app.setFont(QFont("나눔바른펜", 11))
 
     root = MainForm()
@@ -103,6 +100,6 @@ def main():
 
 
 if __name__ == "__main__":
-    app = QApplication([])
+    app = QApplication(sys.argv)
     print(f"{NAME} ver.{VERSION} [{TEAM} | {AUTHOR}]")
     main()
