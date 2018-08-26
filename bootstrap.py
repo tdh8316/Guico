@@ -91,9 +91,9 @@ def main():
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("-w", "--white", help="프로그램 색상을 흰색으로 변경합니다.", action="store_true")
+    parser.add_argument("-w", "--use-white-theme", help="프로그램 색상을 흰색으로 변경합니다.", action="store_true")
     args = parser.parse_args()
-    if args.white:
+    if args.use_white_theme:
         CONF["THEME"] = "WHITE"
     app = QApplication(sys.argv)
     print(f"{NAME} ver.{VERSION} [{TEAM} | {AUTHOR}]")
