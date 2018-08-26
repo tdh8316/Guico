@@ -16,7 +16,7 @@ from build_tools.parser.combiner import Combiner, CombinerTest
 
 # from core.actions import on_file_save as save
 from core.config import *
-from build_tools.makefile import MakeTokenIntoPyCode
+from build_tools.makefile import MakeTokenIntoPyCode, GuicoBuildError
 from build_tools import makefile, packager
 
 parent = None
@@ -30,6 +30,9 @@ def initialize(_parent):
 
 
 def build(target, mode=None, run=False, test=False):
+    if target is None:
+        print("build_tools.makefile.GuicoBuildError: 지정되지 않은 타겟")
+        return False
     start_time = time.time()
     QApplication.setOverrideCursor(Qt.WaitCursor)
     parent.log: QPlainTextEdit

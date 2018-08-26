@@ -119,6 +119,7 @@ def delete():
 def save_to_py(f):
     parent.save()
     build(f if f is not None else CONF["FILE_PATH"], mode="py", )
+    QMessageBox.information(None, "빌드 성공!", "작업이 완료되었습니다.")
 
 
 def run():
@@ -144,12 +145,12 @@ def run_as_python__dev():
         parent.save()
         build(f if f is not None else CONF["FILE_PATH"], mode="py", run=True, test=True)
 
-    return QAction("컴파일 후 실행 (for debugging)(&U)", parent, shortcut="F1", triggered=lambda:
+    return QAction("컴파일 후 실행 (개발 중 디버깅용)(&U)", parent, shortcut="F1", triggered=lambda:
     _save_and_run(CONF["FILE_PATH"]))
 
 
 def compile_to_python():
-    return QAction("Python Code 생성", parent, shortcut="Shift+F5", triggered=lambda:
+    return QAction("Python Code 로 변환", parent, shortcut="Shift+F5", triggered=lambda:
     save_to_py(CONF["FILE_PATH"]))
 
 
