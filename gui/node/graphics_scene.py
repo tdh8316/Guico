@@ -3,6 +3,8 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 
+from core.config import *
+
 
 class QDMGraphicsScene(QGraphicsScene):
     def __init__(self, scene, parent=None):
@@ -17,14 +19,19 @@ class QDMGraphicsScene(QGraphicsScene):
         '''self._color_background = QColor("#EEEEEE")
         self._color_light = QColor("#FAFAFA")
         self._color_dark = QColor("#F5F5F5")'''
-        self._color_background = QColor("#262626")
-        self._color_light = QColor("#323232")
-        self._color_dark = QColor("#323232")
+        if CONF["THEME"] == "WHITE":
+            self._color_background = QColor("#F5F5F5")  # F1F1F1
+            self._color_light = QColor("#F1F1F1")  # black : 323232
+            self._color_dark = QColor("#F1F1F1")  # white : AAAFBA
+        else:
+            self._color_background = QColor("#262626")  # F1F1F1
+            self._color_light = QColor("#323232")  # black : 323232
+            self._color_dark = QColor("#323232")  # white : AAAFBA
 
         self._pen_light = QPen(self._color_light)
         self._pen_light.setWidth(1)
         self._pen_dark = QPen(self._color_dark)
-        self._pen_dark.setWidth(2)
+        self._pen_dark.setWidth(1)
 
         self.setBackgroundBrush(self._color_background)
 

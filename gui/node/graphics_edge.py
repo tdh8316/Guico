@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 
+from core.config import *
 from gui.node.socket import *
 
 EDGE_CP_ROUNDNESS = 100
@@ -14,8 +15,12 @@ class QDMGraphicsEdge(QGraphicsPathItem):
 
         self.edge = edge
 
-        self._color = QColor("#FFFFFF")
-        self._color_selected = QColor("#FFFFA637")
+        if CONF["THEME"] == "WHITE":
+            self._color = QColor("#FFE793")
+            self._color_selected = QColor("#FFFFA637")
+        else:
+            self._color = QColor("#FFFFFF")
+            self._color_selected = QColor("#FFFFA637")
         self._pen = QPen(self._color)
         self._pen_selected = QPen(self._color_selected)
         self._pen_dragging = QPen(self._color)

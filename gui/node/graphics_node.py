@@ -2,6 +2,8 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 
+from core.config import *
+
 
 class QDMGraphicsNode(QGraphicsItem):
     def __init__(self, node, parent=None, title_background="#498DEB", w=180, h=180):
@@ -18,11 +20,17 @@ class QDMGraphicsNode(QGraphicsItem):
         self.title_height = 30
         self._padding = 5.0
 
-        self._pen_default = QPen(QColor("#FFFFFF"))  # 테두리
-        self._pen_selected = QPen(QColor("#FFFFA637"))
+        if CONF["THEME"] == "WHITE":
+            self._pen_default = QPen(QColor("#FFFFFF"))  # 테두리 white : 000000
+            self._pen_selected = QPen(QColor("#FFFFA637"))
+            self._brush_background = QBrush(QColor("#CFD6E5"))
+        else:
+            self._pen_default = QPen(QColor("#000000"))  # 테두리 white : 000000
+            self._pen_selected = QPen(QColor("#FFFFA637"))
+            self._brush_background = QBrush(QColor("#2D2D30"))
 
         self._brush_title = QBrush(QColor(title_background))
-        self._brush_background = QBrush(QColor("#2D2D30"))
+        # white : CFD6E5 / black : 2D2D30
 
         # init title
         self.initTitle()

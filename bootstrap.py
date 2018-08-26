@@ -1,5 +1,6 @@
 import json
 import subprocess
+import argparse
 import sys
 
 from PyQt5.QtGui import QFontDatabase, QFont, QIcon
@@ -13,7 +14,6 @@ from gui.window import MainForm
 
 sys.path.append("./Engine")
 
-COMPILE_TEST = False
 
 # TODO: 프로젝트 기능 구현하기
 
@@ -43,20 +43,12 @@ def launch_window():
 
         # Simulate something that takes time'''
 
-    # import qdarkstyle
-    app.setStyleSheet(__import__("qdarkstyle").load_stylesheet_pyqt5())
-    # app.setStyleSheet()
-    styles.dark(app)
+    styles.apply(app)
     app.setFont(QFont("나눔바른펜", 11))
 
     root = MainForm()
     # splash.finish(root)
     root.show()
-
-    if COMPILE_TEST:
-        root.hide()
-        # interpreter('docs/example_pygame.gvs', mode="py", run=True, test=True)
-        sys.exit(0)
 
     return app.exec_()
 
@@ -64,8 +56,6 @@ def launch_window():
 def main():
     # TODO: unstable exit with unknown error with 0xC0000409:
     # see https://stackoverflow.com/questions/12827305/pyqt-application-close-with-error
-    if COMPILE_TEST:
-        return
 
     app.setWindowIcon(QIcon(r"gui\resources\icon.ico"
                             if os.path.isfile(r"gui\resources\icon.ico")
@@ -100,6 +90,11 @@ def main():
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-w", "--white", help="프로그램 색상을 흰색으로 변경합니다.", action="store_true")
+    args = parser.parse_args()
+    if args.white:
+        CONF["THEME"] = "WHITE"
     app = QApplication(sys.argv)
     print(f"{NAME} ver.{VERSION} [{TEAM} | {AUTHOR}]")
     main()

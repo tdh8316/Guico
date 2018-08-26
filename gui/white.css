@@ -1,0 +1,36 @@
+QPushButton {
+    color: black;
+    background-color: #d6dbe9;
+    border-width: 1px;
+    border-color: #76797C;
+    border-style: solid;
+    padding: 5px;
+    border-radius: 2px;
+    outline: none;
+}
+
+QPushButton:focus {
+    background-color: #293955;
+    color: white;
+}
+
+QPushButton:pressed {
+    background-color: #fff29d;
+    padding-top: -15px;
+    padding-bottom: -17px;
+}
+
+QMenu {
+    border: 1px solid #bec3cb;
+}
+
+QMenu::separator {
+    height: 1px;
+    background: #bec3cb;
+    margin-left: 10px;
+    margin-right: 5px;
+}
+
+QMenu::focus {
+    background-color: #fdf4bf;
+}

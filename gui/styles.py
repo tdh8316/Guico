@@ -1,30 +1,28 @@
 from os.path import join, dirname, abspath
 
-from qtpy.QtGui import QPalette, QColor
+from PyQt5.QtGui import QPalette, QColor
 
-_STYLESHEET = join(dirname(abspath(__file__)), 'style.css')
-""" str: Main stylesheet. """
+from core.config import *
 
 
 def _apply_base_theme(app):
-    """ Apply base theme to the application.
-
-        Args:
-            app (QApplication): QApplication instance.
-    """
     app.setStyle('Fusion')
 
     with open(_STYLESHEET) as stylesheet:
         app.setStyleSheet(stylesheet.read())
 
 
+def apply(app):
+    global _STYLESHEET
+    if CONF["THEME"] == "WHITE":
+        _STYLESHEET = join(dirname(abspath(__file__)), 'white.css')
+        white(app)
+    else:
+        _STYLESHEET = join(dirname(abspath(__file__)), 'dark.css')
+        dark(app)
+
+
 def dark(app):
-    """ Apply Dark Theme to the Qt application instance.
-
-        Args:
-            app (QApplication): QApplication instance.
-    """
-
     _apply_base_theme(app)
 
     darkPalette = QPalette()
@@ -61,3 +59,30 @@ def dark(app):
                          QColor(127, 127, 127))
 
     app.setPalette(darkPalette)
+
+
+def white(app):
+    _apply_base_theme(app)
+
+    whitePalette = QPalette()
+
+    # base
+    whitePalette.setColor(QPalette.WindowText, QColor(0, 0, 0))
+    whitePalette.setColor(QPalette.Button, QColor(255, 255, 255))
+    whitePalette.setColor(QPalette.Light, QColor(180, 180, 180))
+    whitePalette.setColor(QPalette.Midlight, QColor(41, 57, 86))
+    whitePalette.setColor(QPalette.Dark, QColor(241, 241, 241))
+    whitePalette.setColor(QPalette.Text, QColor(0, 0, 0))
+    whitePalette.setColor(QPalette.BrightText, QColor(0, 0, 0))
+    whitePalette.setColor(QPalette.ButtonText, QColor(0, 0, 0))
+    whitePalette.setColor(QPalette.Base, QColor(245, 245, 245))
+    whitePalette.setColor(QPalette.Window, QColor(238, 238, 242))
+    whitePalette.setColor(QPalette.Shadow, QColor(20, 20, 20))
+    whitePalette.setColor(QPalette.Highlight, QColor(201, 222, 245))
+    whitePalette.setColor(QPalette.HighlightedText, QColor(0, 0, 0))
+    whitePalette.setColor(QPalette.Link, QColor(56, 252, 196))
+    whitePalette.setColor(QPalette.AlternateBase, QColor(255, 255, 255))
+    whitePalette.setColor(QPalette.ToolTipBase, QColor(53, 53, 53))
+    whitePalette.setColor(QPalette.ToolTipText, QColor(180, 180, 180))
+
+    app.setPalette(whitePalette)

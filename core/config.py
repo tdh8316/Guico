@@ -19,7 +19,8 @@ CONF = {
     "SOURCE_PATH": None,
     "MODIFIED": False,
     "MOUSE_X": int(),
-    "MOUSE_Y": int()
+    "MOUSE_Y": int(),
+    "THEME": "BLACK"
 }
 
 INDEX = None
