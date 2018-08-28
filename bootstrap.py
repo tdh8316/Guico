@@ -1,21 +1,26 @@
 import json
+import atexit
 import subprocess
 import argparse
 import sys
+import traceback
 
 from PyQt5.QtGui import QFontDatabase, QFont, QIcon
 from PyQt5.QtWidgets import QApplication, QMessageBox
 
 from core.config import *
+from core.exception_handler import report_unhandled_exception
 # from build_tools.compiler import interpreter
 from core.user.environment import Composition
 from gui import styles
 from gui.window import MainForm
 
 sys.path.append("./Engine")
+# Back up the reference to the exceptionhook
+sys._excepthook = sys.excepthook
 
-
-# TODO: 프로젝트 기능 구현하기
+# Set the exception hook to our wrapping function
+sys.excepthook = report_unhandled_exception
 
 
 def launch_window():
@@ -45,12 +50,13 @@ def launch_window():
 
     styles.apply(app)
     app.setFont(QFont("나눔바른펜", 11))
-
-    root = MainForm()
+    try:
+        root = MainForm()
     # splash.finish(root)
-    root.show()
-
-    return app.exec_()
+        root.show()
+        app.exec_()
+    except Exception:
+        atexit.register(report_unhandled_exception, traceback.format_exc())
 
 
 def main():
@@ -69,7 +75,7 @@ def main():
         else:
             try:
                 os.environ["PYTHON"] = "".join(list(subprocess.check_output("where python").decode("utf8"))[0:-2])
-            except subprocess.CalledProcessError:
+            except:
                 pass
             Composition.launch()
 
@@ -86,7 +92,7 @@ def main():
     else:
         os.environ["PYTHON"] = "python"
 
-    return launch_window()
+    launch_window()
 
 
 if __name__ == "__main__":
@@ -97,4 +103,5 @@ if __name__ == "__main__":
         CONF["THEME"] = "WHITE"
     app = QApplication(sys.argv)
     print(f"{NAME} ver.{VERSION} [{TEAM} | {AUTHOR}]")
+
     main()
