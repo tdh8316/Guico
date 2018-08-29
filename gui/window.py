@@ -23,6 +23,15 @@ class MainForm(QMainWindow):
         super(MainForm, self).__init__()
         self.setWindowTitle(f"{TEAM} {NAME} {VERSION}")
 
+        if hasattr(Qt, 'AA_EnableHighDpiScaling'):
+            QApplication.instance().setAttribute(Qt.AA_EnableHighDpiScaling, True)
+
+        if hasattr(Qt, 'AA_UseHighDpiPixmaps'):
+            QApplication.instance().setAttribute(Qt.AA_UseHighDpiPixmaps, True)
+
+        self.pos_widget = None
+        self.dock_pos = None
+
         self.log = QPlainTextEdit(self)
         self.log.setReadOnly(True)
         self.dock_log = QDockWidget("Log", self)

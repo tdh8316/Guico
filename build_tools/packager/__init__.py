@@ -25,5 +25,5 @@ def packaging_windows(bsd):
         (output, err) = p.communicate()
         p.wait()
         parent.log.appendPlainText(f"installed pyinstaller successfully {output}")
-    parent.log.appendPlainText(f"{CONF['FILE_PATH']} 에 대한 패키징 시작...")
+    parent.log.appendPlainText(f"{CONF['FILE_PATH']} 에 대한 패키징 시작... [{bsd}]")
 

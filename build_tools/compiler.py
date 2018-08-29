@@ -4,6 +4,7 @@ import shutil
 import subprocess
 import sys
 import time
+import traceback
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QPlainTextEdit, QMessageBox, QApplication
@@ -60,12 +61,15 @@ def build(target, mode=None, run=False, test=False):
         else:
             array = parser.get_token()[0]
 
+        if test:
+            print("Generated token:\n", array)
+
         # noinspection PyBroadException
         try:
             CheckValidity(array)
             python_code: str = MakeTokenIntoPyCode(array).get_code()
             if test:
-                print(python_code)
+                print("Created code:\n", python_code)
             CONF[
                 "SOURCE_PATH"
             ] = os.path.join(
@@ -86,8 +90,12 @@ def build(target, mode=None, run=False, test=False):
                 if not os.path.isfile("./Engine.dll"):
                     build_engine_archive("Engine.dll", "./Engine/")
                 os.system(f"copy Engine.dll \"{os.path.join(os.path.dirname(CONF['SOURCE_PATH']), 'Engine.dll')}\"")
+        except IndexError:
+            traceback.print_exc()
+            QMessageBox.information(None, f"{NAME} 컴파일 오류", f"{NAME} 규칙에 맞지 않는 부분이 있는 것 같습니다.")
+            parent.log.appendPlainText(f"{str(datetime.datetime.now()).split('.')[0]} 에 빌드 완료 [실패].")
+            return False
         except Exception as e:
-            import traceback
             traceback.print_exc()
             QMessageBox.critical(None, f"{NAME} - 처리되지 않은 예외", f"{e}\n{sys.exc_info()}")
             # if not test:

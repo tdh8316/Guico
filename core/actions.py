@@ -118,8 +118,10 @@ def delete():
 
 def save_to_py(f):
     parent.save()
-    build(f if f is not None else CONF["FILE_PATH"], mode="py", )
-    QMessageBox.information(None, "빌드 성공!", "작업이 완료되었습니다.")
+    if build(f if f is not None else CONF["FILE_PATH"], mode="py", ):
+        QMessageBox.information(None, "빌드 성공!", "작업이 완료되었습니다.")
+    else:
+        return False
 
 
 def run():
@@ -156,11 +158,16 @@ def compile_to_python():
 
 def packaging():
     def _():
-        save_to_py(CONF["FILE_PATH"])
-        packaging_windows(bsd=QFileDialog.getExistingDirectory(parent, f"{NAME} - "
-                                                                       f"패키징 폴더 지정",
-                                                               os.path.expanduser("~"),
-                                                               QFileDialog.ShowDirsOnly))
+        if save_to_py(CONF["FILE_PATH"]):
+            _dir, kw = QFileDialog.getExistingDirectory(parent, f"{NAME} - "
+                                                                f"패키징 폴더 지정",
+                                                        os.path.expanduser("~"),
+                                                        QFileDialog.ShowDirsOnly)
+            if not os.path.isdir(_dir):
+                return False
+            packaging_windows(bsd=_dir)
+        else:
+            QMessageBox.information(None, "패키징 실패!", "죄송 ㅠ")
 
     return QAction("패키징(&P)...", parent, shortcut="", triggered=lambda:
     _())
