@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import QMessageBox
 from core.config import *
 
 GITHUB_OWNER = 'tdh8316'
-GITHUB_REPO = 'BannedUsers'
+GITHUB_REPO = 'Guico'
 EMAIL = 'tdh8316@naver.com'
 
 
