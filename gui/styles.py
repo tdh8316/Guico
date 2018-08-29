@@ -1,30 +1,21 @@
-from os.path import join, dirname, abspath
-
 from PyQt5.QtGui import QPalette, QColor
 
 from core.config import *
-
-
-def _apply_base_theme(app):
-    app.setStyle('Fusion')
-
-    with open(_STYLESHEET) as stylesheet:
-        app.setStyleSheet(stylesheet.read())
+from gui import theme
 
 
 def apply(app):
-    global _STYLESHEET
+    app.setStyle('Fusion')
+
     if CONF["THEME"] == "WHITE":
-        _STYLESHEET = join(dirname(abspath(__file__)), 'white.css')
+        app.setStyleSheet(theme.white())
         white(app)
     else:
-        _STYLESHEET = join(dirname(abspath(__file__)), 'dark.css')
+        app.setStyleSheet(theme.dark())
         dark(app)
 
 
 def dark(app):
-    _apply_base_theme(app)
-
     darkPalette = QPalette()
 
     # base
@@ -62,8 +53,6 @@ def dark(app):
 
 
 def white(app):
-    _apply_base_theme(app)
-
     whitePalette = QPalette()
 
     # base

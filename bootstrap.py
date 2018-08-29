@@ -55,7 +55,7 @@ def launch_window():
     # splash.finish(root)
         root.show()
         app.exec_()
-    except Exception:
+    except:
         atexit.register(report_unhandled_exception, traceback.format_exc())
 
 

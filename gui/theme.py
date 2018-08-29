@@ -1,4 +1,4 @@
-def load() -> str:
+def ydl() -> str:
     return """
     QToolTip
 {
@@ -461,7 +461,8 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
 }
 """
 
-def qdarkstyle_load() -> str:
+
+def qdarkstyle() -> str:
     return """QToolTip {
     border: 1px solid #76797C;
     background-color: #5A7566;
@@ -1698,3 +1699,227 @@ QDateEdit::down-arrow:focus {
     image: url(:/qss_icons/rc/down_arrow.png);
 }
 """
+
+
+def dark() -> str:
+    return """
+/*
+ * QGroupBox
+ */
+
+QGroupBox {
+    background-color: palette(alternate-base);
+    border: 1px solid palette(midlight);
+    margin-top: 25px;
+}
+
+QGroupBox::title {
+    background-color: transparent;
+}
+
+/*
+ * QToolBar
+ */
+
+QToolBar {
+    border: none;
+}
+
+/*
+ * QTabBar
+ */
+
+QTabBar {
+    background-color: transparent;
+}
+
+QTabBar::tab {
+    padding: 4px 13px;
+    background-color: transparent;
+    border-bottom: 2px solid transparent;
+}
+
+QTabBar::tab:selected,
+QTabBar::tab:hover {
+    color: palette(text);
+    border-bottom: 2px solid palette(highlight);
+}
+
+QTabBar::tab:selected:disabled {
+    border-bottom: 2px solid palette(light);
+}
+
+/*
+ * QScrollBar
+ */
+
+QScrollBar:vertical {
+    background: palette(base);
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+    width: 16px;
+    margin: 0px;
+}
+
+QScrollBar::handle:vertical {
+    background-color: palette(alternate-base);
+    border-radius: 2px;
+    min-height: 20px;
+    margin: 2px 4px 2px 4px;
+}
+
+QScrollBar::handle:vertical:hover {
+    background-color: palette(highlight);
+}
+
+QScrollBar::add-line:vertical {
+    background: none;
+    height: 0px;
+    subcontrol-position: right;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:vertical {
+    background: none;
+    height: 0px;
+    subcontrol-position: left;
+    subcontrol-origin: margin;
+}
+
+QScrollBar:horizontal {
+    background: palette(base);
+    height: 16px;
+    margin: 0px;
+}
+
+QScrollBar::handle:horizontal {
+    background-color: palette(alternate-base);
+    border-radius: 2px;
+    min-width: 20px;
+    margin: 4px 2px 4px 2px;
+}
+
+QScrollBar::handle:horizontal:hover {
+    background-color: palette(highlight);
+}
+
+QScrollBar::add-line:horizontal {
+    background: none;
+    width: 0px;
+    subcontrol-position: bottom;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:horizontal {
+    background: none;
+    width: 0px;
+    subcontrol-position: top;
+    subcontrol-origin: margin;
+}
+
+/*
+ * QScrollArea
+ */
+
+QScrollArea {
+    border-style: none;
+}
+
+QScrollArea #scrollAreaWidgetContents {
+    background-color: palette(alternate-base);
+}
+
+/*
+ * QSlider
+ */
+
+QSlider::handle:horizontal {
+    border-radius: 5px;
+    background-color: palette(light);
+    max-height: 20px;
+}
+
+QSlider::add-page:horizontal {
+    background: palette(base);
+}
+
+QSlider::sub-page:horizontal {
+    background: palette(highlight);
+}
+
+QSlider::sub-page:horizontal:disabled {
+    background-color: palette(light);
+}
+
+QPushButton {
+    color: #eff0f1;
+    background-color: #333334;
+    border-width: 1px;
+    border-color: #76797C;
+    border-style: solid;
+    padding: 5px;
+    border-radius: 2px;
+    outline: none;
+}
+
+QPushButton:focus {
+    background-color: #a6a6a6;
+    color: white;
+}
+
+QPushButton:pressed {
+    background-color: #a6a6a6;
+    padding-top: -15px;
+    padding-bottom: -17px;
+}
+
+QMenu {
+    border: 2px solid #373739;
+}
+
+QMenu::separator {
+    height: 2px;
+    background: #373739;
+    margin-left: 10px;
+    margin-right: 5px;
+}"""
+
+
+def white() -> str:
+    return """
+QPushButton {
+    color: black;
+    background-color: #d6dbe9;
+    border-width: 1px;
+    border-color: #76797C;
+    border-style: solid;
+    padding: 5px;
+    border-radius: 2px;
+    outline: none;
+}
+
+QPushButton:focus {
+    background-color: #293955;
+    color: white;
+}
+
+QPushButton:pressed {
+    background-color: #fff29d;
+    padding-top: -15px;
+    padding-bottom: -17px;
+}
+
+QMenu {
+    border: 1px solid #bec3cb;
+}
+
+QMenu::separator {
+    height: 1px;
+    background: #bec3cb;
+    margin-left: 10px;
+    margin-right: 5px;
+}
+
+QMenu::focus {
+    background-color: #fdf4bf;
+}"""
