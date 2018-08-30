@@ -94,6 +94,10 @@ class QDMNodeContentWidget(QWidget, Serializable):
             return OrderedDict([
                 ("name", self.var_name.textToVariableName()),
                 ("value", self.var_value.text())])
+        elif self.type == VARIABLE_PLUS:
+            return OrderedDict([
+                ("name", self.var_name.textToVariableName()),
+                ("value", self.var_value.text())])
 
         return OrderedDict([])
 
@@ -111,6 +115,9 @@ class QDMNodeContentWidget(QWidget, Serializable):
         elif self.type == DRAW_IMAGE:
             self.image_path.setPath(data["path"])
         elif self.type == VARIABLE_CHANGE:
+            self.var_name.setVariableNameFromText(data["name"])
+            self.var_value.setText(data["value"])
+        elif self.type == VARIABLE_PLUS:
             self.var_name.setVariableNameFromText(data["name"])
             self.var_value.setText(data["value"])
 

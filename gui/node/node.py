@@ -32,7 +32,7 @@ class Node(Serializable):
         try:
             title, self.bg, self.width, self.height = ui_info[0], ui_info[1], ui_info[2], ui_info[3]
         except IndexError:
-            self.width, self.height = 180, 110
+            self.width, self.height = 180, 100
             title, self.bg = ui_info[0], ui_info[1]
 
         # 잎 유형별 정리..

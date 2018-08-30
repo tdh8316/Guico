@@ -94,6 +94,20 @@ class MakeTokenIntoPyCode:
             except:
                 self.append_code("\t\t{} = fr\"{}\"".format(contents["name"], contents["value"]))
 
+        elif _type == VARIABLE_PLUS:
+            print(script_variables.globals[contents["name"]])
+            try:
+                int(contents["value"])
+            except ValueError:
+                try:
+                    float(contents["value"])
+                except ValueError:
+                    raise GuicoBuildError("변수 값 바꾸기의 피연산자는 실수여야 합니다.")
+                else:
+                    self.append_code("\t\t{0} = {0} + {1}".format(contents["name"], contents["value"]))
+            else:
+                self.append_code("\t\t{0} = {0} + {1}".format(contents["name"], contents["value"]))
+
     def get_code(self) -> str:
         return autopep8.fix_code("\n".join(self.converted_code + self.python_main_code))
 

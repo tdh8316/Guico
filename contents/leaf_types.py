@@ -85,6 +85,9 @@ def getStdLeafTypeModel():
     item = QStandardItem(VARIABLE_CHANGE)
     item.setEditable(False)
     type_model.appendRow(item)
+    item = QStandardItem(VARIABLE_PLUS)
+    item.setEditable(False)
+    type_model.appendRow(item)
 
     type_model.setHeaderData(0, Qt.Horizontal, "더블클릭해서 배치할 수 있습니다.", Qt.DisplayRole)
 

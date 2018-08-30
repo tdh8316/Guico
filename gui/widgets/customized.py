@@ -57,13 +57,11 @@ class VariableNameEdit(QLineEdit):
 
     def focusInEvent(self, event):
         super().focusInEvent(event)
-        self.setFixedSize(90, 30)
 
     def focusOutEvent(self, event):
         # self.parentWidget().setEditingFlag(False)
         super().focusOutEvent(event)
         self.setText(self.text().replace(" ", "_"))
-        self.setFixedSize(60, 30)
 
     def textToVariableName(self):
         return self.text().replace(" ", "_")
