@@ -105,13 +105,14 @@ class QDMNodeContentWidget(QWidget, Serializable):
         elif self.type == DRAW_TEXT:
             self.textbox.setText(data["str"])
             self.position.setText(data["pos"])
+        elif self.type == DRAW_IMAGE:
+            self.image_path.setPath(data["path"])
+            self.position.setText(data["pos"])
         elif self.type == WINDOW_NEW:
             self._win_size.setText(data["size"])
         elif self.type == KEY_INPUT:
             self.key.setCurrentText(data["key"])
             self.node.title = f"[{data['key']}] {KEY_INPUT}"
-        elif self.type == DRAW_IMAGE:
-            self.image_path.setPath(data["path"])
         elif self.type == VARIABLE_CHANGE:
             self.var_name.setVariableNameFromText(data["name"])
             self.var_value.setText(data["value"])

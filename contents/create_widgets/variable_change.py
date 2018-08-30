@@ -35,7 +35,7 @@ def content_VARIABLE_PLUS(self):
 
     self.layout.setContentsMargins(0, 0, 0, 0)
     self.setLayout(self.layout)
-    self.layout.addWidget(self.var_name, 0, 0)
-    self.layout.addWidget(QLabel("에"), 0, 1)
+    self.layout.addWidget(self.var_name, 0, 0, 1, 0)
+    self.layout.addWidget(QLabel("에"), 0, 1, Qt.AlignRight)
     self.layout.addWidget(self.var_value, 1, 0)
-    self.layout.addWidget(QLabel("더하기"), 1, 1)
+    self.layout.addWidget(QLabel("만큼 더하기"), 1, 1)
