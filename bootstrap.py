@@ -1,19 +1,29 @@
+print("01. Importing core libraries")
+
+import pip
+import sys
 import json
 import atexit
-import subprocess
 import argparse
-import sys
 import traceback
+import subprocess
+from core.config import *
 
+try:
+    import PyQt5
+except ImportError:
+    if hasattr(pip, "main"):
+        pip.main(["install", "PyQt5"])
+    else:
+        pip._internal.main(["install", "PyQt5"])
+
+print(f"02. Importing {NAME} libraries")
 from PyQt5.QtGui import QFontDatabase, QFont, QIcon
 from PyQt5.QtWidgets import QApplication, QMessageBox
-
-from core.config import *
-from core.exception_handler import report_unhandled_exception
-# from build_tools.compiler import interpreter
-from core.user.environment import Composition
 from gui import styles
 from gui.window import MainForm
+from core.user.environment import Composition
+from core.exception_handler import report_unhandled_exception
 
 sys.path.append("./Engine")
 # Back up the reference to the exceptionhook
@@ -21,6 +31,15 @@ sys._excepthook = sys.excepthook
 
 # Set the exception hook to our wrapping function
 sys.excepthook = report_unhandled_exception
+print("03. Installed exception hook")
+
+try:
+    import pygame
+except ImportError:
+    if hasattr(pip, "main"):
+        pip.main(["install", "pygame"])
+    else:
+        pip._internal.main(["install", "pygame"])
 
 
 def launch_window():
@@ -52,7 +71,7 @@ def launch_window():
     app.setFont(QFont("나눔바른펜", 11))
     try:
         root = MainForm()
-    # splash.finish(root)
+        # splash.finish(root)
         root.show()
         app.exec_()
     except:
@@ -69,6 +88,7 @@ def main():
 
     # if not os.path.isfile(os.environ['PYTHON']):
     # sys.exit("PYTHON NOT FOUND.")
+    print("04. Detecting Python [", end=str())
     if RELEASE:
         if os.path.isfile(PREF_FILE):
             os.environ["PYTHON"] = json.loads(open(PREF_FILE).read())["python"]
@@ -91,7 +111,10 @@ def main():
                 p.write(json.dumps({"python": os.environ["PYTHON"]}, indent=4))
     else:
         os.environ["PYTHON"] = "python"
+    print(os.environ["PYTHON"] + "]")
 
+    print(f"05. Running {NAME}")
+    print(f"{NAME} {VERSION} [{TEAM} | {AUTHOR}]")
     launch_window()
 
 
@@ -102,6 +125,5 @@ if __name__ == "__main__":
     if args.use_white_theme:
         CONF["THEME"] = "WHITE"
     app = QApplication(sys.argv)
-    print(f"{NAME} ver.{VERSION} [{TEAM} | {AUTHOR}]")
 
     main()
