@@ -89,7 +89,9 @@ class QDMNodeContentWidget(QWidget, Serializable):
             return OrderedDict([
                 ("key", self.key.currentText())])
         elif self.type == DRAW_IMAGE:
-            return OrderedDict([("path", self.image_path.WhereIsImage())])
+            return OrderedDict([
+                ("path", self.image_path.WhereIsImage()),
+                ("pos", self.position.text())])
         elif self.type == VARIABLE_CHANGE:
             return OrderedDict([
                 ("name", self.var_name.textToVariableName()),

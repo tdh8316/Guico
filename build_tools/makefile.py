@@ -84,9 +84,9 @@ class MakeTokenIntoPyCode:
         elif _type == SCREEN_CLEAR:
             self.append_code(generator.SCREEN_CLEAR)
         elif _type == DRAW_IMAGE:
-            # TODO: 이미지 포지션 조정
             self.append_code(generator.DRAW_IMAGE.format(contents["path"],
-                                                         "0", "0"))
+                                                         contents["pos"].split(",")[0],
+                                                         contents["pos"].split(",")[1]))
         elif _type == VARIABLE_CHANGE:
             try:
                 int(contents["value"])
