@@ -7,6 +7,13 @@ from PyQt5.QtWidgets import *
 from core import script_variables
 from core.config import CONF
 
+app = None
+
+
+def initialize(p):
+    global app
+    app = p
+
 
 def NotImplementationWidget(self):
     self.layout = QVBoxLayout()
@@ -27,6 +34,10 @@ class QDMTextEdit(QPlainTextEdit):
         self.parentWidget().setEditingFlag(False)
         super().focusOutEvent(event)
 
+    def keyPressEvent(self, *args, **kwargs):
+        super().keyPressEvent(*args, **kwargs)
+        app.signal_change_editor(True)
+
 
 class QDMLineEdit(QLineEdit):
     def focusInEvent(self, event):
@@ -36,6 +47,10 @@ class QDMLineEdit(QLineEdit):
     def focusOutEvent(self, event):
         self.parentWidget().setEditingFlag(False)
         super().focusOutEvent(event)
+
+    def keyPressEvent(self, *args, **kwargs):
+        super().keyPressEvent(*args, **kwargs)
+        app.signal_change_editor(True)
 
 
 class Completer(QCompleter):
@@ -64,6 +79,7 @@ class VariableNameEdit(QLineEdit):
         else:
             self.color_palette.setColor(QPalette.Text, Qt.white)
         self.setPalette(self.color_palette)
+        app.signal_change_editor(True)
 
     def focusInEvent(self, event):
         super().focusInEvent(event)
@@ -111,3 +127,7 @@ class ImagePathLineEdit(QLineEdit):
 
     def enterEvent(self, *args, **kwargs):
         self.setToolTip(self.image_path)
+
+    def keyPressEvent(self, *args, **kwargs):
+        super().keyPressEvent(*args, **kwargs)
+        app.signal_change_editor(True)

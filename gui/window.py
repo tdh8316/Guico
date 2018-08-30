@@ -10,6 +10,7 @@ from gui.node.editor_widget import NodeEditorWidget
 import build_tools
 from core.config import *
 from core import actions
+from gui.widgets import customized
 from gui.widgets.script_widget import ScriptWidget, TabScriptWidget
 from gui.widgets.attr_widget import AttributesTableWidget
 from contents.create_widgets.window_new import define_parent_window
@@ -41,6 +42,7 @@ class MainForm(QMainWindow):
         actions.initialize(self)
         build_tools.initialize(self)
         dialogs.initialize(self)
+        customized.initialize(self)
 
         self.create_menu()
         # self.status_mouse_pos = QLabel("Unknown Mouse Pos")
@@ -186,7 +188,7 @@ class MainForm(QMainWindow):
                                   f"현재 파일 ["
                                   f"{CONF['FILE_PATH'] if CONF['FILE_PATH'] is not None else '제목 없음'}"
                                   f"]이 수정되었습니다.\n"
-                                  f"Do you want to save your changes?",
+                                  f"변경 사항을 저장하시겠습니까?",
                                   QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel
                                   )
 
