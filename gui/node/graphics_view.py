@@ -35,7 +35,7 @@ class QDMGraphicsView(QGraphicsView):
         self.editingFlag = False
         self.rubberBandDraggingRectangle = False
 
-        self.zoomInFactor = 1.25
+        self.zoomInFactor = 1.05
         self.zoomClamp = True
         self.zoom = 1
         self.zoomStep = 1

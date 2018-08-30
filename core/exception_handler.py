@@ -15,7 +15,7 @@ def get_system_info():
     return 'OS: %s\nPython: %r' % (sys.platform, sys.version_info)
 
 
-def report_unhandled_exception(exctype, value, traceback):
+def report_unhandled_exception(exctype=None, value=None, traceback=None):
     # Call the normal Exception hook after
     sys._excepthook(exctype, value, traceback)
     print(f"현재 {NAME} 내부에 발생한 오류 전문입니다.")
@@ -24,6 +24,10 @@ def report_unhandled_exception(exctype, value, traceback):
                                                           "\n문제가 계속해서 발상한다면 오류를 제보해 주세요.\n"
                                                           "이 오류를 제보하시겠습니까?",
                                 QMessageBox.Yes | QMessageBox.No)) == 16384:
+        if traceback is None:
+            QMessageBox.critical(None, f"{NAME} 예외 처리 체계",
+                                 f"죄송합니다. {NAME} 에 처리할 수 없는 내부 오류가 발생했습니다.\n")
+            sys.exit(-1)
         # configure backends
         qcrash.install_backend(qcrash.backends.GithubBackend(
             GITHUB_OWNER, GITHUB_REPO))

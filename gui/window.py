@@ -69,10 +69,17 @@ class MainForm(QMainWindow):
 
         # self.addDockWidget(Qt.RightDockWidgetArea, self.dock_editor)
         self.addDockWidget(Qt.BottomDockWidgetArea, self.dock_log)
+        self.addDockWidget(Qt.LeftDockWidgetArea, self.dock_attribute)
         self.addDockWidget(Qt.LeftDockWidgetArea, self.dock_leaf)
-        self.addDockWidget(Qt.RightDockWidgetArea, self.dock_attribute)
+        self.tabifyDockWidget(self.dock_leaf, self.dock_attribute)
+        self.dock_leaf.raise_()
+        self.setDockOptions(
+            QMainWindow.AllowNestedDocks |
+            QMainWindow.AnimatedDocks |
+            QMainWindow.AllowTabbedDocks)
 
         self.set_pos_widget()
+        self.dock_pos.hide()
 
         self.showMaximized()
         self.log.appendPlainText(f"{str(datetime.datetime.now()).split('.')[0]} 에 {NAME} 초기화 성공")

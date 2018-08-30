@@ -239,9 +239,10 @@ def create_editor_menu(p, QContextMenuEvent):
     '''menu.addAction(QAction("이 위치(%s,%s)에 새 잎 만들기" %
                            (CONF["MOUSE_X"], CONF["MOUSE_Y"]), p, shortcut="Ctrl+L",
                            triggered=lambda: on_new_leaf(CONF["MOUSE_X"], CONF["MOUSE_Y"])))'''
-    menu.addAction(QAction("선택한 잎 복사", parent, triggered=lambda: QApplication.instance().clipboard().setText(
+    menu.addAction(QAction("선택한 잎 복사", p, triggered=lambda: QApplication.instance().clipboard().setText(
         json.dumps(parent.editor.scene.clipboard.serializeSelected(delete=False), indent=4))))
+    menu.addAction(QAction("선택한 잎 제거", p, triggered=lambda: parent.editor.scene.grScene.views()[0].deleteSelected()))
     menu.addAction(QAction("붙여넣기", p, triggered=lambda: _paste()))
-    menu.addAction(QAction("실행 취소", parent, triggered=lambda: parent.editor.scene.history.undo()))
-    menu.addAction(QAction("마지막 작업 다시 실행", parent, triggered=lambda: parent.editor.scene.history.redo()))
+    menu.addAction(QAction("실행 취소", p, triggered=lambda: parent.editor.scene.history.undo()))
+    menu.addAction(QAction("마지막 작업 다시 실행", p, triggered=lambda: parent.editor.scene.history.redo()))
     menu.exec_(QContextMenuEvent.globalPos())

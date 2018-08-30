@@ -12,11 +12,11 @@ NODE_UI: dict = {
 
     # TYPE : LOOKS
     WINDOW_NEW: ("Window Initializer", "#498DEB", 200, 100),
-    DRAW_TEXT: ("화면에 글쓰기", "#498DEB"),
-    SCREEN_CLEAR: (SCREEN_CLEAR, "#498DEB"),
+    DRAW_TEXT: ("화면에 글쓰기", "#EC4466"),
+    SCREEN_CLEAR: (SCREEN_CLEAR, "#EC4566"),
     DRAW_IMAGE: ("화면에 사진 추가", "#EC4466"),  # , 180, 76)
 
     # TYPE : STANDARD
-    VARIABLE_CHANGE: (VARIABLE_CHANGE, "#CC7337", ),
-    VARIABLE_PLUS: (VARIABLE_PLUS, "#CC7337",),
+    VARIABLE_CHANGE: (VARIABLE_CHANGE, "#E456DC", ),
+    VARIABLE_PLUS: (VARIABLE_PLUS, "#E456DC",),
 }
