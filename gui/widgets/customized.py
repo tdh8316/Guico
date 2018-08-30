@@ -51,9 +51,19 @@ class VariableNameEdit(QLineEdit):
         self.setFont(QFont("맑은 고딕", 9))
         self._completer = QCompleter(list(script_variables.globals.keys()), self)
         self.setCompleter(self._completer)
+        self.color_palette = QPalette()
         # self.completer = QCompleter(list(script_variables.globals.keys()), self)
         # self.completer.setCompletionMode(QCompleter.InlineCompletion)
         # self.setFixedSize(100, 30)
+
+    def keyPressEvent(self, event):
+        super().keyPressEvent(event)
+        if self.text() not in tuple(script_variables.globals.keys()):
+            self.setToolTip(f"{self.text()} 그런 이름의 변수가 없습니다.")
+            self.color_palette.setColor(QPalette.Text, Qt.red)
+        else:
+            self.color_palette.setColor(QPalette.Text, Qt.white)
+        self.setPalette(self.color_palette)
 
     def focusInEvent(self, event):
         super().focusInEvent(event)
