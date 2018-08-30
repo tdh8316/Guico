@@ -196,6 +196,7 @@ class MainForm(QMainWindow):
             if _name == '':
                 return False
             CONF["FILE_PATH"] = _name
+        _backup = open(CONF["FILE_PATH"], "r", encoding="utf8").read()
         try:
             with open(CONF["FILE_PATH"], "w") as file:
                 file.write(json.dumps(self.editor.scene.serialize(), indent=4))
@@ -203,7 +204,10 @@ class MainForm(QMainWindow):
                 file.write(f"Below are the variables.{json.dumps(self.attribute_widget.getGlobals(), indent=4)}")
             self.editor.scene.has_been_modified = False
         except:
-            QMessageBox.critical(None, "저장 실패!", sys.exc_info())
+            with open(CONF["FILE_PATH"], "w") as file:
+                file.write(_backup)
+            del _backup
+            QMessageBox.critical(None, "저장 실패!", "죄송ㅠ")
         else:
             self.signal_change_editor(true=False)
             self.renewal()
