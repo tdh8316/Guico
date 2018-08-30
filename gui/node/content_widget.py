@@ -19,22 +19,16 @@ class QDMNodeContentWidget(QWidget, Serializable):
         self.title = title
         self.type: str = title
 
-        # print(f"QDMNodeContentWidget::title={title}")
+        self.layout = None
+        self.wdg_label = None
+        self.textbox = None
+        self.position = None
+        self._win_size = None
+        self.image_path = None
+        self.key = None
+        self.var_name = None
+        self.var_value = None
 
-        '''if self.type == IF:
-            pass
-        elif self.type == INPUT:
-            self.content_input()
-        elif self.type == PRINT:
-            self.content_print()
-        elif self.type == DRAW_TEXT:
-            self.content_drawtext()
-        elif self.type == ENTRY_POINT:
-            content_entry(self)
-        elif self.type == WINDOW_NEW:
-            self.content_wininit()'''
-        # TODO : How to get its name of variable with string?
-        # exec(f"self.content_{GetNameFromStr[self.type]}()")
         try:
             exec(f"self.content_{GetNameFromStr[self.type]}()")
         except AttributeError:
@@ -103,7 +97,9 @@ class QDMNodeContentWidget(QWidget, Serializable):
 
         return OrderedDict([])
 
-    def deserialize(self, data, hashmap={}):
+    def deserialize(self, data, hashmap=None):
+        if hashmap is None:
+            hashmap = {}
         if self.type == PRINT:
             self.textbox.setPlainText(data["str"])
         elif self.type == DRAW_TEXT:
@@ -119,6 +115,7 @@ class QDMNodeContentWidget(QWidget, Serializable):
         elif self.type == VARIABLE_CHANGE:
             self.var_name.setVariableNameFromText(data["name"])
             self.var_value.setText(data["value"])
+            self.position.setText(data["pos"])
         elif self.type == VARIABLE_PLUS:
             self.var_name.setVariableNameFromText(data["name"])
             self.var_value.setText(data["value"])
