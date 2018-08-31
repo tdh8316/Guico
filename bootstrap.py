@@ -114,7 +114,7 @@ def main():
     print(os.environ["PYTHON"] + "]")
 
     print(f"05. Running {NAME}")
-    print(f"{NAME} {VERSION} [{TEAM} | {AUTHOR}]")
+    print(f"Revision {VERSION} {EDITION} edition [{TEAM} | {AUTHOR}]")
     launch_window()
 
 
@@ -127,3 +127,4 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
 
     main()
+    print("06. Terminated all process")

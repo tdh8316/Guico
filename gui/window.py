@@ -193,7 +193,7 @@ class MainForm(QMainWindow):
                                   )
 
         if res == QMessageBox.Save:
-            return actions.on_file_save()
+            return self.save()
         elif res == QMessageBox.Cancel:
             return False
 

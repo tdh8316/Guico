@@ -3,7 +3,8 @@ import os
 NAME = "Guico"
 AUTHOR = "tdh8316@naver.com"
 TEAM = "TakturStudio"
-VERSION = "Saucy Stone 2.37"
+VERSION = "242"
+EDITION = "Saucy Stone"
 TMP_PATH = os.path.join(os.path.expanduser("~"), f".{NAME}")
 PREF_FILE = os.path.join(TMP_PATH, ".pref")
 PERSON_IMAGE = (os.path.join(os.getcwd(), "gui", "resources", "person.png")
