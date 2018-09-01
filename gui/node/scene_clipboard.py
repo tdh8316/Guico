@@ -18,7 +18,7 @@ class SceneClipboard():
 
         # 선택된 아이템이 있는지 확인
         if not self.scene.grScene.selectedItems():
-            QMessageBox.critical(None, "유효하지 않은 요청", "선택된 아이템의 리턴값이 False 이므로 복사할 아이템이 없습니다.")
+            QMessageBox.critical(None, "유효하지 않은 요청", "Serialize 할 수 있는 개체가 없습니다.")
 
         sel_nodes, sel_edges, sel_sockets = [], [], {}
 

@@ -248,6 +248,8 @@ class QDMGraphicsView(QGraphicsView):
         self.grScene.scene.history.storeHistory("Delete cut edges", setModified=True)
 
     def deleteSelected(self):
+        if not self.grScene.selectedItems:
+            return False
         for item in self.grScene.selectedItems():
             if isinstance(item, QDMGraphicsEdge):
                 item.edge.remove()
