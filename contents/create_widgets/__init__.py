@@ -4,3 +4,5 @@ from contents.create_widgets.key_input import content_KEY_INPUT
 from contents.create_widgets.draw_image import content_DRAW_IMAGE
 from contents.create_widgets.variable_change import (content_VARIABLE_CHANGE,
                                                      content_VARIABLE_PLUS)
+
+NODE_CONTENTS = None
