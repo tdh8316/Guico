@@ -1,11 +1,14 @@
 import datetime
 import json
+import signal
+import subprocess
 import sys
 
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 
+from core.execute import Execute, execute_manager
 from gui.node.editor_widget import NodeEditorWidget
 import build_tools
 from core.config import *
@@ -150,8 +153,22 @@ class MainForm(QMainWindow):
         # menu_edit.addAction(actions.new_leaf())
 
     def signal_change_editor(self, true=True):
-        # print(self.focusWidget())
         CONF["MODIFIED"] = True if true else False
+
+        if execute_manager.is_process_running() and true:
+            if QMessageBox.warning(None, "Your program is running",
+                                   "이 스크립트가 아직 실행 중 입니다."
+                                   "실행 중인 프로세스를 끝내고 수정을 계속하시겠습니까?",
+                                   QMessageBox.Yes | QMessageBox.No) == QMessageBox.No:
+                # 수정 사항 롤백
+                self.editor.scene.history.undo()
+                CONF["MODIFIED"] = False
+            else:
+                # https://stackoverflow.com/questions/4789837/how-to-terminate-a-python-subprocess-launched-with-shell-true/4791612#4791612
+                execute_manager.process: subprocess.Popen
+                subprocess.Popen(f"taskkill /F /PID {execute_manager.process.pid} /T")
+        # print(self.focusWidget())
+
         self.renewal()
 
     def pos_widget_pos_change(self, x, y):
@@ -195,7 +212,8 @@ class MainForm(QMainWindow):
                                   )
 
         if res == QMessageBox.Save:
-            return self.save()
+            self.save()
+            return True
         elif res == QMessageBox.Cancel:
             return False
 
@@ -248,6 +266,8 @@ class MainForm(QMainWindow):
     def closeEvent(self, event):
         if self.maybe_save():
             self.deleteLater()
+            if execute_manager.is_process_running():
+                subprocess.Popen(f"taskkill /F /PID {execute_manager.process.pid} /T")
             event.accept()
         else:
             event.ignore()

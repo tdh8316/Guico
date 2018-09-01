@@ -125,6 +125,9 @@ if __name__ == "__main__":
     if args.use_white_theme:
         CONF["THEME"] = "WHITE"
     app = QApplication(sys.argv)
+    app.setApplicationDisplayName(NAME)
+    app.setApplicationName(NAME)
+    app.setApplicationVersion(VERSION)
 
     main()
     print("06. Terminated all process")

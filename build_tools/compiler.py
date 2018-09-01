@@ -19,6 +19,7 @@ from build_tools.parser.combiner import Combiner, CombinerTest
 from core.config import *
 from build_tools.makefile import MakeTokenIntoPyCode, GuicoBuildError
 from build_tools import makefile, packager
+from core.execute import Execute, execute_manager
 
 parent = None
 
@@ -108,9 +109,7 @@ def build(target, mode=None, run=False, test=False):
             QApplication.restoreOverrideCursor()
             # sys.path.append("\\".join(list(CONF["FILE_PATH"].split("/")[:-1])))
             if run:
-                subprocess.Popen(
-                    f"cd {os.path.dirname(CONF['SOURCE_PATH'])} && {os.environ['PYTHON']} \"{CONF['SOURCE_PATH']}\"",
-                    shell=True, start_new_session=True)
+                execute_manager.precess_start()
 
             if test:
                 print(array)

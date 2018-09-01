@@ -1,9 +1,12 @@
 import math
+import subprocess
+
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 
 from core.config import *
+from core.execute import execute_manager
 
 
 class QDMGraphicsScene(QGraphicsScene):
@@ -70,3 +73,19 @@ class QDMGraphicsScene(QGraphicsScene):
 
         painter.setPen(self._pen_dark)
         painter.drawLines(*lines_dark)
+
+    def mouseReleaseEvent(self, QGraphicsSceneMouseEvent):
+        if execute_manager.is_process_running():
+            if QMessageBox.warning(None, "Your program is running",
+                                   "이 스크립트가 아직 실행 중 입니다."
+                                   "실행 중인 프로세스를 끝내고 수정을 계속하시겠습니까?",
+                                   QMessageBox.Yes | QMessageBox.No) == QMessageBox.No:
+                # 수정 사항 롤백
+                self.scene.history.undo()
+                CONF["MODIFIED"] = False
+            else:
+                # https://stackoverflow.com/questions/4789837/how-to-terminate-a-python-subprocess-launched-with-shell-true/4791612#4791612
+                execute_manager.process: subprocess.Popen
+                subprocess.Popen(f"taskkill /F /PID {execute_manager.process.pid} /T")
+
+        super().mouseReleaseEvent(QGraphicsSceneMouseEvent)
