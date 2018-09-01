@@ -130,4 +130,4 @@ if __name__ == "__main__":
     app.setApplicationVersion(VERSION)
 
     main()
-    print("06. Terminated all process")
+    print("06. Terminating all process")
