@@ -134,7 +134,7 @@ class MainForm(QMainWindow):
             "출력 창 보이기(&O)", self, shortcut="Alt+1", triggered=lambda: self.dock_log.show()))
         menu_view.addAction(QAction(
             "윈도우 에뮬레이팅 보기(&W)", self, shortcut="Alt+2", triggered=self._showEmulateWindow, checkable=True,
-            checked=True))
+            checked=False))
         menu_view.addAction(QAction(
             "전체 화면으로 보기(&S)", self, shortcut="F11", triggered=self._showFullScreen, checkable=True))
         menu_run = menu_bar.addMenu("실행(&R)")
@@ -168,7 +168,9 @@ class MainForm(QMainWindow):
                                 else f"{TEAM} {NAME} {VERSION} - 제목 없음*")
 
     def _showFullScreen(self, checked):
-        self.showFullScreen() if checked else self.showNormal()
+        self.showFullScreen() \
+            if checked \
+            else self.showNormal()
 
     def _showEmulateWindow(self, checked):
         if self.dock_pos.isHidden():

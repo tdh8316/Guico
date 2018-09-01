@@ -234,6 +234,7 @@ def new_leaf():
 
 
 def create_editor_menu(p, QContextMenuEvent):
+    # TODO: 노드가 선택되어 있을 때만 복사/붙여넣기 메뉴 제공되어야 함.
     menu = QMenu(p)
     # menu.setFont(QFont("나눔바른펜", 10))
     '''menu.addAction(QAction("이 위치(%s,%s)에 새 잎 만들기" %
