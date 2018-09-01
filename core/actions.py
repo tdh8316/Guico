@@ -14,6 +14,7 @@ from gui.dialogs import OpenSourceLicense, setLeafType
 from build_tools.compiler import build
 from build_tools.packager import *
 from core.config import *
+from gui.utils.icons import get_icon
 
 parent: QInputDialog = None
 editor = None
@@ -48,32 +49,38 @@ def on_file_save():
 
 
 def file_new():
-    return QAction("새 파일 (&N)", parent, shortcut="Ctrl+N", triggered=lambda:
+    return QAction(get_icon("filenew"),
+                   "새 파일 (&N)", parent, shortcut="Ctrl+N", triggered=lambda:
     QMessageBox.information(None, "0", "0"))
 
 
 def file_open():
-    return QAction("열기 (&O)", parent, shortcut="Ctrl+O", triggered=lambda:
+    return QAction(get_icon("fileopen"),
+                   "열기 (&O)", parent, shortcut="Ctrl+O", triggered=lambda:
     parent.load())
 
 
 def file_save():
-    return QAction("저장 (&A)", parent, shortcut="Ctrl+S", triggered=lambda:
+    return QAction(get_icon("filesave"),
+                   "저장 (&A)", parent, shortcut="Ctrl+S", triggered=lambda:
     parent.save())
 
 
 def file_save_as():
-    return QAction("다른 이름으로 저장 (&A)...", parent, shortcut="Ctrl+Shift+S", triggered=lambda:
+    return QAction(get_icon("filesaveas"),
+                   "다른 이름으로 저장 (&A)...", parent, shortcut="Ctrl+Shift+S", triggered=lambda:
     parent.save_as())
 
 
 def undo():
-    return QAction("실행 취소 (&U)", parent, shortcut="Ctrl+Z", triggered=lambda:
+    return QAction(get_icon("undo"),
+                   "실행 취소 (&U)", parent, shortcut="Ctrl+Z", triggered=lambda:
     parent.editor.scene.history.undo())
 
 
 def redo():
-    return QAction("다시 실행 (&R)", parent, shortcut="Ctrl+Shift+Z", triggered=lambda:
+    return QAction(get_icon("redo"),
+                   "다시 실행 (&R)", parent, shortcut="Ctrl+Shift+Z", triggered=lambda:
     parent.editor.scene.history.redo())
 
 
@@ -82,12 +89,14 @@ def cut():
         data = parent.editor.scene.clipboard.serializeSelected(delete=True)
         QApplication.instance().clipboard().setText(json.dumps(data, indent=4))
 
-    return QAction("잘라내기 (&U)", parent, shortcut="Ctrl+X", triggered=lambda:
+    return QAction(get_icon("cut"),
+                   "잘라내기 (&U)", parent, shortcut="Ctrl+X", triggered=lambda:
     _cut())
 
 
 def copy():
-    return QAction("복사 (&C)", parent, shortcut="Ctrl+C",
+    return QAction(get_icon("copy"),
+                   "복사 (&C)", parent, shortcut="Ctrl+C",
                    triggered=lambda: QApplication.instance().clipboard().setText(
                        json.dumps(parent.editor.scene.clipboard.serializeSelected(delete=False), indent=4)))
 
@@ -96,23 +105,26 @@ def _paste():
     try:
         data = json.loads(QApplication.instance().clipboard().text())
     except Exception as e:
-        QMessageBox.critical(None, "올바른 데이터 구조가 아닙니다.", "붙여넣기에 올바른 데이터가 아닙니다.")
+        QMessageBox.warning(None, "올바른 JSON 자료가 아닙니다.", "JSON 에서 인식할 수 없는 자료 형식입니다.\n"
+                                                        f"{e}")
         return False
 
     # check if the json data are correct
     if 'nodes' not in data or data['nodes'] == []:
-        QMessageBox.critical(None, "올바른 데이터 구조가 아닙니다.", "붙여넣기에 올바른 데이터가 아닙니다.")
+        QMessageBox.warning(None, "올바른 자료 구조가 아닙니다.", f"{NAME} 에서 인식할 수 없는 자료 형식입니다.")
         return False
     parent.editor.scene.clipboard.deserializeFromClipboard(data)
 
 
 def paste():
-    return QAction("붙여넣기 (&P)", parent, shortcut="Ctrl+V", triggered=lambda:
+    return QAction(get_icon("paste"),
+                   "붙여넣기 (&P)", parent, shortcut="Ctrl+V", triggered=lambda:
     _paste())
 
 
 def delete():
-    return QAction("지우기 (&D)", parent, shortcut="Del", triggered=lambda:
+    return QAction(get_icon("delete"),
+                   "지우기 (&D)", parent, shortcut="Del", triggered=lambda:
     parent.editor.scene.grScene.views()[0].deleteSelected())
 
 
@@ -138,7 +150,8 @@ def run_as_python():
         parent.save()
         build(f if f is not None else CONF["FILE_PATH"], mode="py", run=True)
 
-    return QAction("컴파일 후 실행(&U)", parent, shortcut="F5", triggered=lambda:
+    return QAction(get_icon("run"),
+                   "컴파일 후 실행(&U)", parent, shortcut="F5", triggered=lambda:
     _save_and_run(CONF["FILE_PATH"]))
 
 
@@ -234,18 +247,19 @@ def new_leaf():
 
 
 def create_editor_menu(p, QContextMenuEvent):
-    # TODO: 노드가 선택되어 있을 때만 복사/붙여넣기 메뉴 제공되어야 함.
     menu = QMenu(p)
     # menu.setFont(QFont("나눔바른펜", 10))
     '''menu.addAction(QAction("이 위치(%s,%s)에 새 잎 만들기" %
                            (CONF["MOUSE_X"], CONF["MOUSE_Y"]), p, shortcut="Ctrl+L",
                            triggered=lambda: on_new_leaf(CONF["MOUSE_X"], CONF["MOUSE_Y"])))'''
-    menu.addAction(QAction("선택한 잎 복사", p, triggered=lambda: QApplication.instance().clipboard().setText(
-        json.dumps(parent.editor.scene.clipboard.serializeSelected(delete=False), indent=4))))
-    menu.addAction(QAction("선택한 잎 제거", p, triggered=lambda: parent.editor.scene.grScene.views()[0].deleteSelected()))
-    menu.addAction(QAction("선택한 잎 잘라내기", p, triggered=lambda: QApplication.instance().clipboard().setText(
-        json.dumps(parent.editor.scene.clipboard.serializeSelected(delete=True), indent=4))))
-    menu.addAction(QAction("붙여넣기", p, triggered=lambda: _paste()))
-    menu.addAction(QAction("실행 취소", p, triggered=lambda: parent.editor.scene.history.undo()))
-    menu.addAction(QAction("마지막 작업 다시 실행", p, triggered=lambda: parent.editor.scene.history.redo()))
+    if parent.editor.scene.clipboard.itemSelected():
+        menu.addAction(QAction("선택한 잎 복사", p, triggered=lambda: QApplication.instance().clipboard().setText(
+            json.dumps(parent.editor.scene.clipboard.serializeSelected(delete=False), indent=4))))
+        menu.addAction(QAction("선택한 잎 제거", p, triggered=lambda: parent.editor.scene.grScene.views()[0].deleteSelected()))
+        menu.addAction(QAction("선택한 잎 잘라내기", p, triggered=lambda: QApplication.instance().clipboard().setText(
+            json.dumps(parent.editor.scene.clipboard.serializeSelected(delete=True), indent=4))))
+    else:
+        menu.addAction(QAction("붙여넣기", p, triggered=lambda: _paste()))
+        menu.addAction(QAction("실행 취소", p, triggered=lambda: parent.editor.scene.history.undo()))
+        menu.addAction(QAction("마지막 작업 다시 실행", p, triggered=lambda: parent.editor.scene.history.redo()))
     menu.exec_(QContextMenuEvent.globalPos())

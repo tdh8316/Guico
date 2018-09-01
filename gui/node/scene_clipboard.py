@@ -112,3 +112,6 @@ class SceneClipboard():
 
         # store history
         self.scene.history.storeHistory("Pasted elements in scene", setModified=True)
+
+    def itemSelected(self) -> bool:
+        return bool(self.scene.grScene.selectedItems())

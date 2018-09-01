@@ -20,7 +20,7 @@ except ImportError:
 print(f"02. Importing {NAME} libraries")
 from PyQt5.QtGui import QFontDatabase, QFont, QIcon
 from PyQt5.QtWidgets import QApplication, QMessageBox
-from gui import styles
+from gui.utils import styles
 from gui.window import MainForm
 from core.user.environment import Composition
 from core.exception_handler import report_unhandled_exception
