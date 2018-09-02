@@ -44,7 +44,6 @@ except ImportError:
 
 def launch_window():
     QFontDatabase().addApplicationFont(r"font.ttf")
-    # QFontDatabase().addApplicationFont(r"gui\resources\godoRounded L.ttf")
 
     '''splash = MovieSplashScreen(QMovie("gui/resources/splash.gif"
                                       if os.path.isfile("gui/resources/splash.gif")

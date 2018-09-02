@@ -7,9 +7,7 @@ VERSION = "249"
 EDITION = "Saucy Stone"
 TMP_PATH = os.path.join(os.path.expanduser("~"), f".{NAME}")
 PREF_FILE = os.path.join(TMP_PATH, ".pref")
-PERSON_IMAGE = (os.path.join(os.getcwd(), "gui", "resources", "person.png")
-                if os.path.isdir(os.path.join("gui", "resources"))
-                else os.path.join(os.getcwd(), "resources", "person.png"))
+PERSON_IMAGE = (os.path.join(os.getcwd(), "images", "person.png"))
 MAX_VAR = 99
 
 FILE_TYPES = f"{NAME} script files (*.gvs);;" \
