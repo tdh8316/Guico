@@ -15,6 +15,7 @@ from build_tools.compiler import build
 from build_tools.packager import *
 from core.config import *
 from gui.utils.icons import get_icon
+from gui.utils.image import save_node_as_image
 
 parent: QInputDialog = None
 editor = None
@@ -70,6 +71,11 @@ def file_save_as():
     return QAction(get_icon("filesaveas"),
                    "다른 이름으로 저장 (&A)...", parent, shortcut="Ctrl+Shift+S", triggered=lambda:
     parent.save_as())
+
+
+def file_save_as_image():
+    return QAction("파일을 사진으로 저장", parent, shortcut="Ctrl+I", triggered=lambda:
+    save_node_as_image(target=parent.editor, parent=parent))
 
 
 def undo():
@@ -262,4 +268,5 @@ def create_editor_menu(p, QContextMenuEvent):
         menu.addAction(QAction("붙여넣기", p, triggered=lambda: _paste()))
         menu.addAction(QAction("실행 취소", p, triggered=lambda: parent.editor.scene.history.undo()))
         menu.addAction(QAction("마지막 작업 다시 실행", p, triggered=lambda: parent.editor.scene.history.redo()))
+        menu.addAction(file_save_as_image())
     menu.exec_(QContextMenuEvent.globalPos())
