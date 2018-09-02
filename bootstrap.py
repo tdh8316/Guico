@@ -95,20 +95,17 @@ def main():
         os.environ["PYTHON"] = "python"
     print(os.environ["PYTHON"] + "]")
 
+    print("05. Checking dependency [", end=str())
+
     try:
-        print("04-1. Checking dependency")
-        pygame_installed = subprocess.check_output("python -c \"import pygame\"", shell=True) == b""
-        print()
+        subprocess.check_output("python -c \"import pygame\"", shell=True) == b""
+        print("Done]")
     except subprocess.CalledProcessError:
-        print("04-2. Installing pygame")
-        subprocess.Popen([os.environ["PYTHON"], "-m", "pip", "install", "pygame"]).wait()
-        pygame_installed = True
-
-    if not pygame_installed:
-        print("04-2. Installing pygame")
+        print()
+        print("05-1. Installing pygame")
         subprocess.Popen([os.environ["PYTHON"], "-m", "pip", "install", "pygame"]).wait()
 
-    print(f"05. Running {NAME}")
+    print(f"06. Running {NAME}")
     print(f"Revision {VERSION} {EDITION} edition [{TEAM} | {AUTHOR}]")
     launch_window()
 
@@ -124,4 +121,4 @@ if __name__ == "__main__":
     app.setApplicationVersion(VERSION)
 
     main()
-    print("06. Terminating all process")
+    print("07. Terminating all process")
