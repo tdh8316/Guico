@@ -150,6 +150,12 @@ class MainForm(QMainWindow):
         menu_help.addAction(actions.license_dialog())
         menu_help.addAction(QAction(
             "&Qt 에 대해서...", self, triggered=qApp.aboutQt))
+        menu_help.addSeparator()
+        menu_help.addAction(QAction(
+            f"{NAME} 정보(&A)", self, triggered=lambda:
+            QMessageBox.about(None, f"{NAME} 정보",
+                              "Copyright 2018 {TEAM}\n{NAME} {EDITION}\nBuild {VERSION}"
+                              .format(TEAM=TEAM, NAME=NAME, EDITION=EDITION, VERSION=VERSION))))
         # menu_edit.addAction(actions.new_leaf())
 
     def signal_change_editor(self, true=True):
