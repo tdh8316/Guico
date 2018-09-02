@@ -153,12 +153,12 @@ class NodeEditorWindow(QMainWindow):
         try:
             data = json.loads(raw_data)
         except ValueError as e:
-            print("Pasting of not valid json data!", e)
+            # print("Pasting of not valid json data!", e)
             return
 
         # check if the json data are correct
         if 'nodes' not in data:
-            print("JSON does not contain any nodes!")
+            # print("JSON does not contain any nodes!")
             return
 
         self.centralWidget().scene.clipboard.deserializeFromClipboard(data)

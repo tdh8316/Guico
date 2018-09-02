@@ -26,7 +26,7 @@ class Node(Serializable):
         try:
             ui_info = NODE_UI[self.type]
         except KeyError:
-            print("Nonexistent leaf")
+            # print("Nonexistent leaf")
             sys.exit(1)
 
         try:

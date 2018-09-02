@@ -95,7 +95,7 @@ class MakeTokenIntoPyCode:
                 self.append_code("\t\t{} = fr\"{}\"".format(contents["name"], contents["value"]))
 
         elif _type == VARIABLE_PLUS:
-            print(script_variables.globals[contents["name"]])
+            # print(script_variables.globals[contents["name"]])
             try:
                 int(contents["value"])
             except ValueError:
