@@ -1,6 +1,5 @@
 print("01. Importing core libraries")
 
-import pip
 import sys
 import json
 import atexit
@@ -8,14 +7,6 @@ import argparse
 import traceback
 import subprocess
 from core.config import *
-
-try:
-    import PyQt5
-except ImportError:
-    if hasattr(pip, "main"):
-        pip.main(["install", "PyQt5"])
-    else:
-        pip._internal.main(["install", "PyQt5"])
 
 print(f"02. Importing {NAME} libraries")
 from PyQt5.QtGui import QFontDatabase, QFont, QIcon
@@ -32,14 +23,6 @@ sys._excepthook = sys.excepthook
 # Set the exception hook to our wrapping function
 sys.excepthook = report_unhandled_exception
 print("03. Installed exception hook")
-
-try:
-    import pygame
-except ImportError:
-    if hasattr(pip, "main"):
-        pip.main(["install", "pygame"])
-    else:
-        pip._internal.main(["install", "pygame"])
 
 
 def launch_window():
@@ -112,6 +95,19 @@ def main():
         os.environ["PYTHON"] = "python"
     print(os.environ["PYTHON"] + "]")
 
+    try:
+        print("04-1. Checking dependency")
+        pygame_installed = subprocess.check_output("python -c \"import pygame\"", shell=True) == b""
+        print()
+    except subprocess.CalledProcessError:
+        print("04-2. Installing pygame")
+        subprocess.Popen([os.environ["PYTHON"], "-m", "pip", "install", "pygame"]).wait()
+        pygame_installed = True
+
+    if not pygame_installed:
+        print("04-2. Installing pygame")
+        subprocess.Popen([os.environ["PYTHON"], "-m", "pip", "install", "pygame"]).wait()
+
     print(f"05. Running {NAME}")
     print(f"Revision {VERSION} {EDITION} edition [{TEAM} | {AUTHOR}]")
     launch_window()
@@ -124,7 +120,6 @@ if __name__ == "__main__":
     if args.use_white_theme:
         CONF["THEME"] = "WHITE"
     app = QApplication(sys.argv)
-    app.setApplicationDisplayName(NAME)
     app.setApplicationName(NAME)
     app.setApplicationVersion(VERSION)
 
