@@ -1,3 +1,4 @@
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import *
 
 from core.constants import ALL_KEYS
@@ -16,6 +17,17 @@ def content_KEY_INPUT(self):
 
     self.layout.setContentsMargins(0, 0, 0, 0)
     self.layout.addWidget(self.key)
+    self.setLayout(self.layout)
+
+
+def content_KEY_NOT_INPUT(self):
+    self.layout = QVBoxLayout()
+    self.wdg_label = QLabel("키 입력이 없을 때")
+    self.wdg_label.setAlignment(Qt.AlignCenter)
+    self.setToolTip("이 시작점에 연결된 잎들은 눌려진 키가 있다면 실행되지 않습니다.")
+
+    self.layout.setContentsMargins(0, 0, 0, 0)
+    self.layout.addWidget(self.wdg_label)
     self.setLayout(self.layout)
 
 

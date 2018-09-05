@@ -9,6 +9,7 @@ NODE_UI: dict = {
     # TYPE : EVENT
     ENTRY_POINT: ("EntryPoint", "#4CAF50", 180, 61),
     KEY_INPUT: ("[a]{}".format(KEY_INPUT), "#4CAF50", 180, 76),
+    KEY_NOT_INPUT: (KEY_NOT_INPUT, "#4CAF50", 180, 61),
 
     # TYPE : LOOKS
     WINDOW_NEW: ("Window Initializer", "#498DEB", 200, 100),

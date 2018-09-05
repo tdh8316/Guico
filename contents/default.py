@@ -9,6 +9,7 @@ SCREEN_CLEAR = "화면 지우기"
 DRAW_IMAGE = "새 이미지"
 
 KEY_INPUT = "키가 눌려있을 때"
+KEY_NOT_INPUT = "키가 눌려있지 않을 때"
 ENTRY_POINT = "시작했을 때"
 
 VARIABLE_NEW = "새 변수"

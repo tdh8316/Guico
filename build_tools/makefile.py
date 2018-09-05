@@ -29,12 +29,18 @@ class GuicoBuildError(Exception):
 
 
 class MakeTokenIntoPyCode:
-    def __init__(self, intercode):
+    def __init__(self, intercode, options=None):
+        if options is None:
+            options = {}
+        self.options = options
         self.original_array = intercode
 
         self.main_code = []
         self.class_code = []
         self.python_main_code = ["\n"]
+
+        self.force_use__if__key_input = False
+        self.use_key_input = False
 
         for code in self.original_array:
             self.putting_code(code)
@@ -80,7 +86,17 @@ class MakeTokenIntoPyCode:
                 var += "{}, ".format(var_item) if list(script_variables.globals.keys())[-1] != var_item else var_item
             self.main_code.append(generator.DEF_MAIN if var == str() else generator.DEF_MAIN_VAR.format(var))
         elif _type == KEY_INPUT:
-            self.main_code.append(generator.KEY_PRESSED.format(contents["key"]))
+            if not self.force_use__if__key_input:
+                self.main_code.append(generator.KEY_PRESSED.format(contents["key"],
+                                                                   else_if="if"
+                                                                   if not self.use_key_input
+                                                                   else "elif"))
+            else:
+                self.main_code.append(generator.KEY_PRESSED.format(contents["key"], else_if="if"))
+            if not self.use_key_input:
+                self.use_key_input = True
+        elif _type == KEY_NOT_INPUT:
+            self.main_code.append(generator.KEY_PRESS_FALSE)
         elif _type == DRAW_TEXT:
             self.append_code(generator.DRAW_TEXT.format(contents["str"],
                                                         contents["pos"].split(",")[0],

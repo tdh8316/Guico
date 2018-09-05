@@ -14,7 +14,8 @@ DEF_MAIN = "def main():\n" \
            "\t\t\tEngine.Event(event)\n" \
            "\t\twindow.display.fill((255, 255, 255))\n"
 
-KEY_PRESSED = "\t\tif Engine.is_key_pressed(\"{}\"):"
+KEY_PRESSED = "\t\t{else_if} Engine.is_key_pressed(\"{}\"):"
+KEY_PRESS_FALSE = "\t\telse:"
 
 DRAW_TEXT = "\t\tEngine.draw_text(window, f\"{}\", {}, {})"
 DRAW_IMAGE = "\t\tEngine.draw_image(window, fr\"{}\", {}, {})"
