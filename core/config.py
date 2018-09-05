@@ -3,8 +3,15 @@ import os
 NAME = "Guico"
 AUTHOR = "tdh8316@naver.com"
 TEAM = "TakturStudio"
-VERSION = "260"
+VERSION = "261"
 EDITION = "Saucy Stone"
+
+
+if os.name != "nt":
+    print(f"{NAME} is not supported *nix systems.")
+    input("Press Enter to continue (with error) or Ctrl+C to abort...")
+
+
 TMP_PATH = os.path.join(os.path.expanduser("~"), f".{NAME}")
 PREF_FILE = os.path.join(TMP_PATH, ".pref")
 PERSON_IMAGE = (os.path.join(os.getcwd(), "images", "person.png"))
