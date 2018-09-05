@@ -67,7 +67,7 @@ class Serial(object):
         elif self.type == VARIABLE_CHANGE:
             self.var_name.setVariableNameFromText(data["name"])
             self.var_value.setText(data["value"])
-            self.position.setText(data["pos"])
+            # self.position.setText(data["pos"])
         elif self.type == VARIABLE_PLUS:
             self.var_name.setVariableNameFromText(data["name"])
             self.var_value.setText(data["value"])

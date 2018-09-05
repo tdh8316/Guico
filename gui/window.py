@@ -168,8 +168,6 @@ class MainForm(QMainWindow):
                                    "이 스크립트가 아직 실행 중 입니다."
                                    "실행 중인 프로세스를 끝내고 수정을 계속하시겠습니까?",
                                    QMessageBox.Yes | QMessageBox.No) == QMessageBox.No:
-                # 수정 사항 롤백
-                self.editor.scene.history.undo()
                 CONF["MODIFIED"] = False
             else:
                 # https://stackoverflow.com/questions/4789837/how-to-terminate-a-python-subprocess-launched-with-shell-true/4791612#4791612

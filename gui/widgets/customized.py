@@ -52,6 +52,10 @@ class QDMLineEdit(QLineEdit):
         super().keyPressEvent(*args, **kwargs)
         app.signal_change_editor(True)
 
+    def enterEvent(self, *args, **kwargs):
+        super().enterEvent(*args, **kwargs)
+        self.setToolTip(self.text())
+
 
 class Completer(QCompleter):
 
@@ -73,11 +77,21 @@ class VariableNameEdit(QLineEdit):
 
     def keyPressEvent(self, event):
         super().keyPressEvent(event)
-        if self.text() not in tuple(script_variables.globals.keys()):
-            self.setToolTip(f"{self.text()} 그런 이름의 변수가 없습니다.")
-            self.color_palette.setColor(QPalette.Text, Qt.red)
+        if "[" in self.text() or "]" in self.text():
+            if "[" in self.text() and "]" in self.text():
+                self.setToolTip("")
+                self.color_palette.setColor(QPalette.Text, Qt.white)
+            else:
+                self.setToolTip(f"{self.text()} : 변수 규칙에 맞는 이름이 아닙니다.")
+                self.color_palette.setColor(QPalette.Text, Qt.red)
         else:
-            self.color_palette.setColor(QPalette.Text, Qt.white)
+            if self.text() not in tuple(script_variables.globals.keys()):
+                self.setToolTip(f"<{self.text()}> 이라는 이름의 변수가 없습니다.")
+                self.color_palette.setColor(QPalette.Text, Qt.red)
+            else:
+                self.setToolTip("")
+                self.color_palette.setColor(QPalette.Text, Qt.white)
+
         self.setPalette(self.color_palette)
         app.signal_change_editor(True)
 
