@@ -30,17 +30,21 @@ class GuicoBuildError(Exception):
 
 class MakeTokenIntoPyCode:
     def __init__(self, intercode):
-        self.original_code = intercode
-        self.converted_code = []
+        self.original_array = intercode
+
+        self.main_code = []
+        self.class_code = []
         self.python_main_code = ["\n"]
 
-        for code in self.original_code:
+        for code in self.original_array:
             self.putting_code(code)
         self.putting_variables()
 
         mod_ext = "/".join(CONF["FILE_PATH"].replace("\\", "/").split("/")[0:-1]) + "/Engine.dll"
-        self.converted_code.insert(0, f"import sys\nsys.path.append(\"{mod_ext}\")\nimport Engine\n\n")
-        self.converted_code.append(f"\n{indent(2)}Engine.display.update()")
+        self.main_code.insert(0, "import os\nimport sys\n"
+                                 f"sys.path.append(\"{mod_ext}\")\nimport Engine\n\n"
+                                 "os.environ['SDL_VIDEO_CENTERED'] = \"1\"\n\n")
+        self.main_code.append(f"\n{indent(2)}Engine.display.update()")
 
     def putting_variables(self):
         for name in script_variables.globals.keys():
@@ -58,7 +62,7 @@ class MakeTokenIntoPyCode:
                 py_code = "{0} = {1}".format(name, script_variables.globals[name])
             finally:
                 # noinspection PyUnboundLocalVariable
-                self.converted_code.insert(0, py_code)
+                self.main_code.insert(0, py_code)
 
     def putting_code(self, original):
         _type = original[0]
@@ -74,9 +78,9 @@ class MakeTokenIntoPyCode:
             var = str()
             for var_item in list(script_variables.globals.keys()):
                 var += "{}, ".format(var_item) if list(script_variables.globals.keys())[-1] != var_item else var_item
-            self.converted_code.append(generator.DEF_MAIN if var == str() else generator.DEF_MAIN_VAR.format(var))
+            self.main_code.append(generator.DEF_MAIN if var == str() else generator.DEF_MAIN_VAR.format(var))
         elif _type == KEY_INPUT:
-            self.converted_code.append(generator.KEY_PRESSED.format(contents["key"]))
+            self.main_code.append(generator.KEY_PRESSED.format(contents["key"]))
         elif _type == DRAW_TEXT:
             self.append_code(generator.DRAW_TEXT.format(contents["str"],
                                                         contents["pos"].split(",")[0],
@@ -109,18 +113,18 @@ class MakeTokenIntoPyCode:
                 self.append_code("\t\t{0} = {0} + {1}".format(contents["name"], contents["value"]))
 
     def get_code(self) -> str:
-        return autopep8.fix_code("\n".join(self.converted_code + self.python_main_code))
+        return autopep8.fix_code("\n".join(self.main_code + self.python_main_code))
 
     def append_code(self, item: str, syntax_indent: bool = True):
         if not syntax_indent:
-            self.converted_code.append(item)
+            self.main_code.append(item)
             return True
 
-        if self.converted_code[-1].endswith(":") or self.converted_code[-1].startswith("\t\t\t"):
-            self.converted_code.append(indent(1) + item)
+        if self.main_code[-1].endswith(":") or self.main_code[-1].startswith("\t\t\t"):
+            self.main_code.append(indent(1) + item)
 
         else:
-            self.converted_code.append(item)
+            self.main_code.append(item)
 
 
 class _MakeTokenIntoPyCode:
