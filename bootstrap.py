@@ -28,6 +28,7 @@ print("03. Installed exception hook")
 
 
 def launch_window():
+    print(f"Revision {VERSION} {EDITION} edition [{TEAM} | {AUTHOR}]")
     QFontDatabase().addApplicationFont(r"font.ttf")
 
     '''splash = MovieSplashScreen(QMovie("gui/resources/splash.gif"
@@ -103,12 +104,17 @@ def main():
         subprocess.check_output("python -c \"import pygame\"", shell=True) == b""
         print("Done]")
     except subprocess.CalledProcessError:
-        print()
-        print("05-1. Installing pygame")
+        print("ERROR]")
+        print("  05-1. Installing pygame")
         subprocess.Popen([os.environ["PYTHON"], "-m", "pip", "install", "pygame"]).wait()
 
-    print(f"06. Running {NAME} on {sys.platform}")
-    print(f"Revision {VERSION} {EDITION} edition [{TEAM} | {AUTHOR}]")
+    print("06. Checking plugins [", end=str())
+    if os.path.isdir(PLUGIN_DIR):
+        print("Done]")
+    else:
+        print("None]")
+
+    print(f"07. Running {NAME} on {sys.platform}")
     launch_window()
 
 

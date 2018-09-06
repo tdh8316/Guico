@@ -14,6 +14,7 @@ if os.name != "nt":
 
 TMP_PATH = os.path.join(os.path.expanduser("~"), f".{NAME}")
 PREF_FILE = os.path.join(TMP_PATH, ".pref")
+PLUGIN_DIR = "./plugins"
 PERSON_IMAGE = (os.path.join(os.getcwd(), "images", "person.png"))
 MAX_VAR = 99
 
