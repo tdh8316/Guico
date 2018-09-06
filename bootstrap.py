@@ -107,7 +107,7 @@ def main():
         print("05-1. Installing pygame")
         subprocess.Popen([os.environ["PYTHON"], "-m", "pip", "install", "pygame"]).wait()
 
-    print(f"06. Running {NAME}")
+    print(f"06. Running {NAME} on {sys.platform}")
     print(f"Revision {VERSION} {EDITION} edition [{TEAM} | {AUTHOR}]")
     launch_window()
 

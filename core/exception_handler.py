@@ -18,8 +18,8 @@ def get_system_info():
 def report_unhandled_exception(exctype=None, value=None, traceback=None):
     # Call the normal Exception hook after
     sys._excepthook(exctype, value, traceback)
-    print(f"현재 {NAME} 내부에 발생한 오류 전문입니다.\n위의 오류 원인을 복사해 제공하면 오류 해결에"
-          "큰 도움이 됩니다!")
+    print(f"현재 {NAME} 내부에 발생한 오류 전문입니다.\n위의 오류 원인을 제공하면 오류 해결에"
+          " 큰 도움이 됩니다!")
 
     if (QMessageBox.information(None, f"{NAME} 예외 처리 체계", f"죄송합니다. {NAME} 에 내부 오류가 발생했습니다.\n"
                                                           "\n문제가 계속해서 발상한다면 오류를 제보해 주세요.\n"

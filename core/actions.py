@@ -44,7 +44,7 @@ def on_file_save():
         CONF["FILE_PATH"] = _name
     parent.editor.scene.saveToFile(CONF["FILE_PATH"])
     parent.statusBar().showMessage("Successfully saved %s" % CONF["FILE_PATH"])
-    parent.signal_change_editor(true=False)
+    parent.signal_change_editor(False)
     parent.renewal()
     return True
 

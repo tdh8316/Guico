@@ -160,10 +160,10 @@ class MainForm(QMainWindow):
                               .format(TEAM=TEAM, NAME=NAME, EDITION=EDITION, VERSION=VERSION))))
         # menu_edit.addAction(actions.new_leaf())
 
-    def signal_change_editor(self, true=True):
-        CONF["MODIFIED"] = True if true else False
+    def signal_change_editor(self, changed=True):
+        CONF["MODIFIED"] = True if changed else False
 
-        if execute_manager.is_process_running() and true:
+        if execute_manager.is_process_running() and changed:
             if QMessageBox.warning(None, "Your program is running",
                                    "이 스크립트가 아직 실행 중 입니다."
                                    "실행 중인 프로세스를 끝내고 수정을 계속하시겠습니까?",
@@ -244,7 +244,7 @@ class MainForm(QMainWindow):
             del _backup
             QMessageBox.critical(None, "저장 실패!", "죄송ㅠ")
         else:
-            self.signal_change_editor(true=False)
+            self.signal_change_editor(False)
             self.renewal()
 
     def save_as(self):
