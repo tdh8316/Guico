@@ -142,6 +142,8 @@ class MainForm(QMainWindow):
             checked=False))
         menu_view.addAction(QAction(
             "전체 화면으로 보기(&S)", self, shortcut="F11", triggered=self._showFullScreen, checkable=True))
+        if USE_PLUGINS:
+            self.create_plugins_menu(menu_bar.addMenu("확장 기능(&P)"))
         menu_run = menu_bar.addMenu("실행(&R)")
         menu_run.addAction(actions.run_as_python())
         menu_run.addAction(actions.compile_to_python())
@@ -159,6 +161,18 @@ class MainForm(QMainWindow):
                               "Copyright 2018 {TEAM}\n{NAME} {EDITION}\nBuild {VERSION}"
                               .format(TEAM=TEAM, NAME=NAME, EDITION=EDITION, VERSION=VERSION))))
         # menu_edit.addAction(actions.new_leaf())
+
+    def create_plugins_menu(self, _):
+        if RELEASE:
+            sys.path.append(os.path.join(os.path.dirname(os.getcwd()), PLUGIN_DIR))
+            # noinspection PyUnresolvedReferences
+            import plugin
+        else:
+            sys.path.append(os.path.join(os.getcwd(), PLUGIN_DIR))
+            from plugins import plugin
+        for module in plugin.__modules__:
+            _.addAction(QAction(plugin.__description__[module], self, triggered=lambda:
+                        __import__("plugins." + module)))
 
     def signal_change_editor(self, changed=True):
         CONF["MODIFIED"] = True if changed else False

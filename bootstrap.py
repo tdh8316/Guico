@@ -14,7 +14,6 @@ print(f"02. Importing {NAME} libraries")
 from PyQt5.QtGui import QFontDatabase, QFont, QIcon
 from PyQt5.QtWidgets import QApplication, QMessageBox
 from gui.utils import styles
-from gui.window import MainForm
 from core.user.environment import Composition
 from core.exception_handler import report_unhandled_exception
 
@@ -55,12 +54,14 @@ def launch_window():
     styles.apply(app)
     app.setFont(QFont("나눔바른펜", 11))
     try:
+        from gui.window import MainForm
         root = MainForm()
         # splash.finish(root)
         root.show()
         app.exec_()
-    except:
+    except Exception as e:
         atexit.register(report_unhandled_exception, traceback.format_exc())
+        print(e)
 
 
 def main():
@@ -108,11 +109,12 @@ def main():
         print("  05-1. Installing pygame")
         subprocess.Popen([os.environ["PYTHON"], "-m", "pip", "install", "pygame"]).wait()
 
-    print("06. Checking plugins [", end=str())
-    if os.path.isdir(PLUGIN_DIR):
-        print("Done]")
-    else:
-        print("None]")
+    print("06. Using plugins [", end=str())
+    from core import config
+    config.USE_PLUGINS = os.path.isdir(PLUGIN_DIR) == True
+    print(f"{config.USE_PLUGINS}]")
+
+    del config
 
     print(f"07. Running {NAME} on {sys.platform}")
     launch_window()
