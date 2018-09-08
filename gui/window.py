@@ -291,6 +291,8 @@ class MainForm(QMainWindow):
         CONF["CLASS_PATH"] = os.path.join("/".join(list(CONF["FILE_PATH"].split("/")[:-1])),
                                           (CONF["FILE_PATH"].split("/")[-1].split(".")[0] + ".class"))
 
+        self.script_editor.save()
+
         self.save()
 
     def load(self):
@@ -306,6 +308,7 @@ class MainForm(QMainWindow):
                                                ".class")).replace("\\", "/")
             data = open(_name).read()
             self.editor.scene.load(json.loads(data.split("Below are the variables.")[0], encoding='utf-8'))
+            self.script_editor.load()
             self.signal_change_editor(False)
             self.renewal()
 
