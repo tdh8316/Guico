@@ -19,6 +19,7 @@ from gui.widgets.attr_widget import AttributesTableWidget
 from contents.create_widgets.window_new import define_parent_window
 from gui.widgets.pos_widget import *
 from gui import dialogs
+from gui.widgets.sprite_class import SpriteScriptEditor
 
 
 class MainForm(QMainWindow):
@@ -71,6 +72,13 @@ class MainForm(QMainWindow):
         self.dock_attribute.setWidget(self.attribute_widget)
         self.dock_attribute.showMaximized()
         self.dock_attribute.setFeatures(QDockWidget.DockWidgetFloatable | QDockWidget.DockWidgetMovable)
+
+        self.script_editor = SpriteScriptEditor(self)
+        self.dock_script = QDockWidget("스프라이트 클래스 편집기", self)
+        self.dock_script.setWidget(self.script_editor)
+        self.dock_script.setFloating(True)
+        self.dock_script.resize(640, 480)
+        self.dock_script.hide()
 
         # self.addDockWidget(Qt.RightDockWidgetArea, self.dock_editor)
         self.addDockWidget(Qt.BottomDockWidgetArea, self.dock_log)
@@ -138,8 +146,11 @@ class MainForm(QMainWindow):
         menu_view.addAction(QAction(
             "출력 창 보이기(&O)", self, shortcut="Alt+1", triggered=lambda: self.dock_log.show()))
         menu_view.addAction(QAction(
-            "윈도우 에뮬레이팅 보기(&W)", self, shortcut="Alt+2", triggered=self._showEmulateWindow, checkable=True,
+            "스프라이트 클래스 편집기", self, shortcut="Alt+2", triggered=lambda: self.dock_script.show()))
+        menu_view.addAction(QAction(
+            "윈도우 에뮬레이팅 보기(&W)", self, shortcut="F10", triggered=self._showEmulateWindow, checkable=True,
             checked=False))
+        menu_view.addSeparator()
         menu_view.addAction(QAction(
             "전체 화면으로 보기(&S)", self, shortcut="F11", triggered=self._showFullScreen, checkable=True))
         if USE_PLUGINS:
@@ -171,8 +182,17 @@ class MainForm(QMainWindow):
             sys.path.append(os.path.join(os.getcwd(), PLUGIN_DIR))
             from plugins import plugin
         for module in plugin.__modules__:
+            dock = QDockWidget(plugin.__description__[module], self)
+            dock.setWidget(__import__(module).main(self, CONF))
             _.addAction(QAction(plugin.__description__[module], self, triggered=lambda:
-                        __import__("plugins." + module)))
+            self.show_pluginWidget(dock)))
+            dock.hide()
+
+    def show_pluginWidget(self, w):
+        w.setFloating(True)
+        w.resize(640, 480)
+        self.addDockWidget(Qt.RightDockWidgetArea, w)
+        w.show()
 
     def signal_change_editor(self, changed=True):
         CONF["MODIFIED"] = True if changed else False
@@ -266,6 +286,10 @@ class MainForm(QMainWindow):
         if _name == '':
             return False
         CONF["FILE_PATH"] = _name
+        CONF["SOURCE_PATH"] = os.path.join("/".join(list(CONF["FILE_PATH"].split("/")[:-1])),
+                                           (CONF["FILE_PATH"].split("/")[-1].split(".")[0] + ".py"))
+        CONF["CLASS_PATH"] = os.path.join("/".join(list(CONF["FILE_PATH"].split("/")[:-1])),
+                                          (CONF["FILE_PATH"].split("/")[-1].split(".")[0] + ".class"))
 
         self.save()
 
@@ -275,6 +299,11 @@ class MainForm(QMainWindow):
             return
         if os.path.isfile(_name):
             CONF["FILE_PATH"] = _name
+            CONF["SOURCE_PATH"] = os.path.join("/".join(list(CONF["FILE_PATH"].split("/")[:-1])),
+                                               (CONF["FILE_PATH"].split("/")[-1].split(".")[0] + ".py"))
+            CONF["CLASS_PATH"] = os.path.join("/".join(list(CONF["FILE_PATH"].split("/")[:-1])),
+                                              (CONF["FILE_PATH"].split("/")[-1].split(".")[0] +
+                                               ".class")).replace("\\", "/")
             data = open(_name).read()
             self.editor.scene.load(json.loads(data.split("Below are the variables.")[0], encoding='utf-8'))
             self.signal_change_editor(False)
@@ -282,6 +311,9 @@ class MainForm(QMainWindow):
 
             self.attribute_widget.buildVariablesGlobals(
                 json.loads(data.split("Below are the variables.")[1], encoding='utf-8'))
+
+            self.dock_script.setWindowTitle(
+                f"{NAME} {self.script_editor.__class__.__name__} - {CONF['FILE_PATH'] } [{CONF['CLASS_PATH']}]")
 
     def closeEvent(self, event):
         if self.maybe_save():

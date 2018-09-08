@@ -71,18 +71,15 @@ def build(target, mode=None, run=False, test=False):
             python_code: str = MakeTokenIntoPyCode(array).get_code()
             if test:
                 print("Created code:\n", python_code)
-            CONF[
-                "SOURCE_PATH"
-            ] = os.path.join(
-                "/".join(
-                    list(CONF["FILE_PATH"].split("/")[:-1])),
-                (CONF["FILE_PATH"].split("/")[-1].split(".")[0] + ".py"))
+
             with open(CONF["SOURCE_PATH"], "w", encoding="utf-8") as _source:
                 _source.write(python_code)
+
             os.system(f"copy font.ttf " + "\"" + "\\".join(
                 list(CONF["FILE_PATH"].split("/")[:-1])) + "\"") \
                 if not os.path.isfile("\\".join(list(CONF["FILE_PATH"].split("/")[:-1])) + r'\font.ttf') \
                 else None
+
             # Copy Guico Game Engine
             '''if not os.path.isdir("/".join(CONF["SOURCE_PATH"].replace("\\", "/").split("/")[0:-1]) + "/Engine/"):
                 shutil.copytree("./Engine/",
@@ -113,5 +110,7 @@ def build(target, mode=None, run=False, test=False):
 
             if test:
                 print(array)
+
+        del start_time
 
         # os.system(f"start /B start cmd @cmd /k python {CONF['SOURCE_PATH']}")

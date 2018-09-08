@@ -111,7 +111,11 @@ def main():
 
     print("06. Using plugins [", end=str())
     from core import config
-    config.USE_PLUGINS = os.path.isdir(PLUGIN_DIR) == True
+    if os.path.isdir(PLUGIN_DIR):
+        config.USE_PLUGINS = True
+
+    # Disable plugins
+    config.USE_PLUGINS = False
     print(f"{config.USE_PLUGINS}]")
 
     del config

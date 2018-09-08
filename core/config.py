@@ -25,6 +25,7 @@ FILE_TYPES = f"{NAME} script files (*.gvs);;" \
 CONF = {
     "FILE_PATH": None,
     "SOURCE_PATH": None,
+    "CLASS_PATH": None,
     "MODIFIED": False,
     "MOUSE_X": int(),
     "MOUSE_Y": int(),
