@@ -34,7 +34,7 @@ class Serial(object):
             return OrderedDict([
                 ("path", self.image_path.WhereIsImage()),
                 ("pos", self.position.text())])
-        elif self.type == VARIABLE_CHANGE:
+        elif self.type == VARIABLE_DEFINE:
             return OrderedDict([
                 ("name", self.var_name.textToVariableName()),
                 ("value", self.var_value.text())])
@@ -42,6 +42,17 @@ class Serial(object):
             return OrderedDict([
                 ("name", self.var_name.textToVariableName()),
                 ("value", self.var_value.text())])
+        elif self.type == ADD_GROUP:
+            return OrderedDict([
+                ("name", self.sprite_name.text()),
+                ("group", self.group_name.text())])
+        elif self.type == DETECT_COLLISION:
+            return OrderedDict([
+                ("1", self.group1.text()),
+                ("2", self.group2.text())])
+        elif self.type == DRAW_SPRITE:
+            return OrderedDict([
+                ("name", self.sprite_name.text())])
 
         return OrderedDict([])
 
@@ -64,10 +75,18 @@ class Serial(object):
         elif self.type == KEY_INPUT:
             self.key.setCurrentText(data["key"])
             self.node.title = f"[{data['key']}] {KEY_INPUT}"
-        elif self.type == VARIABLE_CHANGE:
+        elif self.type == VARIABLE_DEFINE:
             self.var_name.setVariableNameFromText(data["name"])
             self.var_value.setText(data["value"])
             # self.position.setText(data["pos"])
         elif self.type == VARIABLE_PLUS:
             self.var_name.setVariableNameFromText(data["name"])
             self.var_value.setText(data["value"])
+        elif self.type == ADD_GROUP:
+            self.sprite_name.setText(data["name"])
+            self.group_name.setText(data["group"])
+        elif self.type == DETECT_COLLISION:
+            self.group1.setText(data["1"])
+            self.group2.setText(data["2"])
+        elif self.type == DRAW_SPRITE:
+            self.sprite_name.setText(data["name"])

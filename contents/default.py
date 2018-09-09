@@ -6,15 +6,19 @@ WINDOW_NEW = "창 만들기"
 # WINDOW_DESTROY = "Destroy Window"
 DRAW_TEXT = "화면에 글쓰기"
 SCREEN_CLEAR = "화면 지우기"
-DRAW_IMAGE = "새 이미지"
+DRAW_IMAGE = "단일 이미지 그리기"
+DRAW_SPRITE = "스프라이트 그룹 그리기"
 
 KEY_INPUT = "키가 눌려있을 때"
 KEY_NOT_INPUT = "키가 눌려있지 않을 때"
 ENTRY_POINT = "시작했을 때"
+DETECT_COLLISION = "스프라이트 충돌 때"
 
 VARIABLE_NEW = "새 변수"
-VARIABLE_CHANGE = "변수 값 정하기"
+VARIABLE_DEFINE = "변수 값 정하기"
 VARIABLE_PLUS = "변수 값 바꾸기"
+ADD_GROUP = "스프라이트 묶음"
+DEFINE_CHARACTER = "오브젝트 정의하기"
 
 # ================================================================================================== #
 

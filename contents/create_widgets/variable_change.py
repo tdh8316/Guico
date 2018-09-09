@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QGridLayout, QLabel, QVBoxLayout
 from gui.widgets.customized import *
 
 
-def content_VARIABLE_CHANGE(self):
+def content_VARIABLE_DEFINE(self):
     self.layout = QGridLayout()
     self.var_name = VariableNameEdit("")  # 그 텍스트박스 그거임
     self.var_name.setPlaceholderText("변수")

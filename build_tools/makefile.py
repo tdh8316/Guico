@@ -56,17 +56,23 @@ class MakeTokenIntoPyCode:
     def putting_variables(self):
         self.main_code.insert(0, self.class_code)
         for name in script_variables.globals.keys():
-            code = "{0} = {1}".format(name, script_variables.globals[name])
-            try:
-                exec((script_variables.globals[name]))
-            except SyntaxError:
-                code = "{0} = '''{1}'''".format(name, script_variables.globals[name])
-            # noinspection PyUnboundLocalVariable
-            self.main_code.insert(0, code)
+            self.main_code.insert(0, self.get_variable_define_code(name, script_variables.globals[name]))
+
+    @staticmethod
+    def get_variable_define_code(n, v) -> str:
+        code = "{0} = {1}".format(n, v)
+        try:
+            exec(v)
+        except SyntaxError:
+            code = "{0} = '''{1}'''".format(n, v)
+        except NameError:
+            pass
+        return code
 
     def putting_code(self, original):
         _type = original[0]
         contents = original[1]
+        # print(contents)
 
         if _type == ENTRY_POINT:
             self.python_main_code.append(generator.PYTHON_MAIN)
@@ -101,13 +107,9 @@ class MakeTokenIntoPyCode:
             self.append_code(generator.DRAW_IMAGE.format(contents["path"],
                                                          contents["pos"].split(",")[0],
                                                          contents["pos"].split(",")[1]))
-        elif _type == VARIABLE_CHANGE:
-            try:
-                int(contents["value"])
-                self.append_code("\t\t{} = {}".format(contents["name"], contents["value"]))
-            except:
-                self.append_code("\t\t{} = fr\"{}\"".format(contents["name"], contents["value"]))
-
+        elif _type == VARIABLE_DEFINE:
+            self.append_code("\t\t{}".format(
+                self.get_variable_define_code(contents["name"], contents["value"])))
         elif _type == VARIABLE_PLUS:
             # print(script_variables.globals[contents["name"]])
             try:
@@ -116,11 +118,18 @@ class MakeTokenIntoPyCode:
                 try:
                     float(contents["value"])
                 except ValueError:
-                    raise GuicoBuildError("변수 값 바꾸기의 피연산자는 실수여야 합니다.")
+                    raise GuicoBuildError(f"{_type} : 피연산자는 실수여야 합니다.")
                 else:
                     self.append_code("\t\t{0} = {0} + {1}".format(contents["name"], contents["value"]))
             else:
                 self.append_code("\t\t{0} = {0} + {1}".format(contents["name"], contents["value"]))
+        elif _type == ADD_GROUP:
+            self.append_code(generator.ADD_GROUP.format(contents["group"], contents["name"]))
+        elif _type == DRAW_SPRITE:
+            self.append_code(generator.DRAW_GROUP.format(contents["name"]))
+        elif _type == DETECT_COLLISION:
+            self.append_code(generator.DETECT_COLLISION.format(contents["1"], contents["2"]),
+                             syntax_indent=False)
 
     def get_code(self) -> str:
         return autopep8.fix_code("\n".join(self.main_code + self.python_main_code))

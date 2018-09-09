@@ -21,3 +21,9 @@ DRAW_TEXT = "\t\tEngine.draw_text(window, f\"{}\", {}, {})"
 DRAW_IMAGE = "\t\tEngine.draw_image(window, fr\"{}\", {}, {})"
 
 SCREEN_CLEAR = "\t\twindow.display.fill((255, 255, 255))"
+
+ADD_GROUP = "\t\t{} = Engine.sprite.Group({})"
+
+DRAW_GROUP = "\t\t{}.draw(window.display)"
+
+DETECT_COLLISION = "\t\tif Engine.sprite.spritecollide({}, {}, False):"

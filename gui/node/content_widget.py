@@ -29,6 +29,10 @@ class QDMNodeContentWidget(QWidget, Serializable):
         self.key = None
         self.var_name = None
         self.var_value = None
+        self.sprite_name = None
+        self.group_name = None
+        self.group1 = None
+        self.group2 = None
         self.serial_communication = Serial(self)
 
         try:
