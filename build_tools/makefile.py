@@ -36,7 +36,7 @@ class MakeTokenIntoPyCode:
         self.original_array = intercode
 
         self.main_code = []
-        self.class_code = []
+        self.class_code = open(CONF["CLASS_PATH"], "r", encoding="utf8").read()
         self.python_main_code = ["\n"]
 
         self.force_use__if__key_input = False
@@ -44,15 +44,17 @@ class MakeTokenIntoPyCode:
 
         for code in self.original_array:
             self.putting_code(code)
-        self.putting_variables()
 
         mod_ext = "/".join(CONF["FILE_PATH"].replace("\\", "/").split("/")[0:-1]) + "/Engine.dll"
         self.main_code.insert(0, "import os\nimport sys\n"
                                  f"sys.path.append(\"{mod_ext}\")\nimport Engine\n\n"
                                  "os.environ['SDL_VIDEO_CENTERED'] = \"1\"\n\n")
+        self.putting_variables()
+
         self.main_code.append(f"\n{indent(2)}Engine.display.update()")
 
     def putting_variables(self):
+        self.main_code.insert(0, self.class_code)
         for name in script_variables.globals.keys():
             code = "{0} = {1}".format(name, script_variables.globals[name])
             try:

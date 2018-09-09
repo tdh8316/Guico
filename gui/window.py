@@ -265,7 +265,14 @@ class MainForm(QMainWindow):
             if _name == '':
                 return False
             CONF["FILE_PATH"] = _name
-        _backup = open(CONF["FILE_PATH"], "r", encoding="utf8").read()
+            CONF["SOURCE_PATH"] = os.path.join("/".join(list(CONF["FILE_PATH"].split("/")[:-1])),
+                                               (CONF["FILE_PATH"].split("/")[-1].split(".")[0] + ".py"))
+            CONF["CLASS_PATH"] = os.path.join("/".join(list(CONF["FILE_PATH"].split("/")[:-1])),
+                                              (CONF["FILE_PATH"].split("/")[-1].split(".")[0] + ".class"))
+        if os.path.isfile(CONF["FILE_PATH"]):
+            _backup = open(CONF["FILE_PATH"], "r", encoding="utf8").read()
+        else:
+            _backup = None
         try:
             with open(CONF["FILE_PATH"], "w") as file:
                 file.write(json.dumps(self.editor.scene.serialize(), indent=4))
@@ -274,7 +281,8 @@ class MainForm(QMainWindow):
             self.editor.scene.has_been_modified = False
         except:
             with open(CONF["FILE_PATH"], "w") as file:
-                file.write(_backup)
+                if _backup is not None:
+                    file.write(_backup)
             del _backup
             QMessageBox.critical(None, "저장 실패!", "죄송ㅠ")
         else:
