@@ -39,7 +39,7 @@ class MakeTokenIntoPyCode:
         self.class_code = open(CONF["CLASS_PATH"], "r", encoding="utf8").read()
         self.python_main_code = ["\n"]
 
-        self.force_use__if__key_input = False
+        self.force_use__if__key_input = True
         self.use_key_input = False
 
         for code in self.original_array:
@@ -125,7 +125,7 @@ class MakeTokenIntoPyCode:
                 self.append_code("\t\t{0} = {0} + {1}".format(contents["name"], contents["value"]))
         elif _type == ADD_GROUP:
             self.append_code(generator.ADD_GROUP.format(contents["group"], contents["name"]))
-        elif _type == DRAW_SPRITE:
+        elif _type == DRAW_GROUP:
             self.append_code(generator.DRAW_GROUP.format(contents["name"]))
         elif _type == DETECT_COLLISION:
             self.append_code(generator.DETECT_COLLISION.format(contents["1"], contents["2"]),

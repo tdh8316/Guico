@@ -50,7 +50,7 @@ class Serial(object):
             return OrderedDict([
                 ("1", self.group1.text()),
                 ("2", self.group2.text())])
-        elif self.type == DRAW_SPRITE:
+        elif self.type == DRAW_GROUP:
             return OrderedDict([
                 ("name", self.sprite_name.text())])
 
@@ -88,5 +88,5 @@ class Serial(object):
         elif self.type == DETECT_COLLISION:
             self.group1.setText(data["1"])
             self.group2.setText(data["2"])
-        elif self.type == DRAW_SPRITE:
+        elif self.type == DRAW_GROUP:
             self.sprite_name.setText(data["name"])

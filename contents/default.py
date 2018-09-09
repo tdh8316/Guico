@@ -7,7 +7,7 @@ WINDOW_NEW = "창 만들기"
 DRAW_TEXT = "화면에 글쓰기"
 SCREEN_CLEAR = "화면 지우기"
 DRAW_IMAGE = "단일 이미지 그리기"
-DRAW_SPRITE = "스프라이트 그룹 그리기"
+DRAW_GROUP = "스프라이트 그룹 그리기"
 
 KEY_INPUT = "키가 눌려있을 때"
 KEY_NOT_INPUT = "키가 눌려있지 않을 때"

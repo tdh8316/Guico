@@ -17,7 +17,7 @@ NODE_UI: dict = {
     DRAW_TEXT: ("화면에 글쓰기", "#EC4466"),
     SCREEN_CLEAR: (SCREEN_CLEAR, "#EC4566"),
     DRAW_IMAGE: ("화면에 사진 추가", "#EC4466"),  # , 180, 76)
-    DRAW_SPRITE: (DRAW_SPRITE, "#EC4466", 180, 76),
+    DRAW_GROUP: (DRAW_GROUP, "#EC4466", 180, 76),
 
     # TYPE : STANDARD
     VARIABLE_DEFINE: (VARIABLE_DEFINE, "#E456DC",),

@@ -25,7 +25,7 @@ def content_ADD_GROUP(self):
     self.layout.addWidget(QLabel("에 추가"), 1, 1)
 
 
-def content_DRAW_SPRITE(self):
+def content_DRAW_GROUP(self):
     self.layout = QGridLayout()
     self.sprite_name = QDMLineEdit("")  # 그 텍스트박스 그거임
     self.sprite_name.setPlaceholderText("스프라이트 그룹명")
@@ -40,10 +40,10 @@ def content_DRAW_SPRITE(self):
 def content_DETECT_COLLISION(self):
     self.layout = QGridLayout()
     self.group1 = QDMLineEdit("")  # 그 텍스트박스 그거임
-    self.group1.setPlaceholderText("그룹1")
+    self.group1.setPlaceholderText("스프라이트")
     self.group1.setFont(QFont("맑은 고딕", 9))
     self.group2 = QDMLineEdit("")  # 그 텍스트박스 그거임
-    self.group2.setPlaceholderText("그룹2")
+    self.group2.setPlaceholderText("그룹")
     self.group2.setFont(QFont("맑은 고딕", 9))
 
     self.layout.setContentsMargins(0, 0, 0, 0)

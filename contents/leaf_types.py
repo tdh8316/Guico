@@ -44,7 +44,7 @@ def getLooksLeafTypeModel():
     item = QStandardItem(DRAW_IMAGE)
     item.setEditable(False)
     type_model.appendRow(item)
-    item = QStandardItem(DRAW_SPRITE)
+    item = QStandardItem(DRAW_GROUP)
     item.setEditable(False)
     type_model.appendRow(item)
     item = QStandardItem(SCREEN_CLEAR)
