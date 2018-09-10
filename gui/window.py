@@ -19,7 +19,7 @@ from gui.widgets.attr_widget import AttributesTableWidget
 from contents.create_widgets.window_new import define_parent_window
 from gui.widgets.pos_widget import *
 from gui import dialogs
-from gui.widgets.sprite_class import SpriteScriptEditor
+from gui.widgets.sprite_class_edit import SpriteScriptEditor
 
 
 class MainForm(QMainWindow):

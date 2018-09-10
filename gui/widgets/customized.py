@@ -3,6 +3,10 @@ import os
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
+from pyqode.core import backend, modes
+from pyqode.core.api import CodeEdit, ColorScheme, IndentFoldDetector
+from pyqode.core.modes import PygmentsSH
+from pyqode.core.panels import FoldingPanel
 
 from core import script_variables
 from core.config import CONF
@@ -23,6 +27,27 @@ def NotImplementationWidget(self):
     self.layout.setContentsMargins(0, 0, 0, 0)
     self.layout.addWidget(self.wdg_label)
     self.setLayout(self.layout)
+
+
+class CodeEditWithDisableError(CodeEdit):
+
+    def __init__(self, parent=None):
+        super(CodeEditWithDisableError, self).__init__(parent)
+
+        # self.backend.start(backend.server.__file__)
+        self.modes.append(modes.AutoCompleteMode())
+        self.modes.append(modes.AutoIndentMode())
+        self.modes.append(modes.CaretLineHighlighterMode())
+        self.modes.append(modes.PygmentsSyntaxHighlighter(self.document()))
+        self.modes.append(modes.CaseConverterMode())
+        self.modes.append(modes.ExtendedSelectionMode())
+        self.modes.append(modes.IndenterMode())
+        self.modes.append(modes.SmartBackSpaceMode())
+        self.modes.append(modes.SymbolMatcherMode())
+        sh = self.modes.append(PygmentsSH(self.document()))
+        sh.color_scheme = ColorScheme('darcula')
+        sh.fold_detector = IndentFoldDetector()
+        self.panels.append(FoldingPanel())
 
 
 class QDMTextEdit(QPlainTextEdit):

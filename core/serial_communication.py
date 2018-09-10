@@ -53,6 +53,8 @@ class Serial(object):
         elif self.type == DRAW_GROUP:
             return OrderedDict([
                 ("name", self.sprite_name.text())])
+        elif self.type == PYTHON_NATIVE:
+            return OrderedDict([("str", self.textbox.toPlainText())])
 
         return OrderedDict([])
 
@@ -90,3 +92,5 @@ class Serial(object):
             self.group2.setText(data["2"])
         elif self.type == DRAW_GROUP:
             self.sprite_name.setText(data["name"])
+        elif self.type == PYTHON_NATIVE:
+            self.textbox.appendPlainText(data["str"])

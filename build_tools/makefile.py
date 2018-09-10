@@ -130,6 +130,9 @@ class MakeTokenIntoPyCode:
         elif _type == DETECT_COLLISION:
             self.append_code(generator.DETECT_COLLISION.format(contents["1"], contents["2"]),
                              syntax_indent=False)
+        elif _type == PYTHON_NATIVE:
+            for line in contents["str"].split("\n"):
+                self.append_code("\t\t{line}".format(line=line))
 
     def get_code(self) -> str:
         return autopep8.fix_code("\n".join(self.main_code + self.python_main_code))
