@@ -108,6 +108,13 @@ def main():
         print("ERROR]")
         print("  05-1. Installing pygame")
         subprocess.Popen([os.environ["PYTHON"], "-m", "pip", "install", "pygame"]).wait()
+    except:
+        try:
+            print("FAILED]")
+            print("  05-1. Installing pygame")
+            subprocess.Popen([os.environ["PYTHON"], "-m", "pip", "install", "pygame"]).wait()
+        except:
+            input("UNKNOWN ERROR]\n\nPress Enter to terminate.")
 
     print("06. Using plugins [", end=str())
     from core import config
