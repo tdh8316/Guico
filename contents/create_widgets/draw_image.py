@@ -11,7 +11,7 @@ from core.config import PERSON_IMAGE
 def content_DRAW_IMAGE(self):
     self.layout = QGridLayout()
     self.image_path = ImagePathLineEdit()
-    self.image_path.setReadOnly(True)
+    # self.image_path.setReadOnly(True)
     self.image_path.setFont(QFont("맑은 고딕", 9))
     self.image_path.setPath(PERSON_IMAGE)
 

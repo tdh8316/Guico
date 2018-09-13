@@ -23,5 +23,5 @@ NODE_UI: dict = {
     VARIABLE_DEFINE: (VARIABLE_DEFINE, "#E456DC",),
     VARIABLE_PLUS: ("변수에 연산하기", "#E456DC",),
     ADD_GROUP: (ADD_GROUP, "#E456DC",),
-    PYTHON_NATIVE: ("사용자 지정 스크립트", "#123456", 180, 151),
+    PYTHON_NATIVE: ("사용자 지정 스크립트", "#123456", 180, 61),
 }

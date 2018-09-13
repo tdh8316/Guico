@@ -29,10 +29,10 @@ def NotImplementationWidget(self):
     self.setLayout(self.layout)
 
 
-class CodeEditWithDisableError(CodeEdit):
+class CodeEditWithDisabledError(CodeEdit):
 
     def __init__(self, parent=None):
-        super(CodeEditWithDisableError, self).__init__(parent)
+        super(CodeEditWithDisabledError, self).__init__(parent)
 
         # self.backend.start(backend.server.__file__)
         self.modes.append(modes.AutoCompleteMode())
