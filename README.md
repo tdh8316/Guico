@@ -4,11 +4,6 @@ This is Guico Saucy Stone alpha 0
 ## Get started
 [Documents](https://guico.readthedocs.io)
 
-[Sample Video](https://youtu.be/ZhbTVylEdys)
-
-[Download latest release]() > Not available
-
-
 # Acknowledgments
 Its node editor based on the original Pavel Křupala's 
 [Node editor in Python using PyQt5](https://gitlab.com/pavel.krupala/pyqt-node-editor-tutorials)
