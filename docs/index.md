@@ -1,6 +1,5 @@
 What is Guico?
 ==============
-**G**uico is **U**nique and **I**nteresting **C**oding **O**ne
 
 Guico 를 이용하면 코딩에 전문적인 지식이 없더라도
 쉽고 간단하게 코드를 작성하고 온라인에서 작품을 공유할 수 있습니다.
