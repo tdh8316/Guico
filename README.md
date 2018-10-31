@@ -4,7 +4,6 @@ This is Guico Saucy Stone alpha 0
 ![screenshot](./screenshot.png)
 
 ## Get started
-[Documents](https://guico.readthedocs.io)
 
 # Acknowledgments
 Its node editor based on the original Pavel Křupala's 
