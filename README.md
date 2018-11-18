@@ -1,5 +1,6 @@
 # Overview
-This is Guico Saucy Stone alpha 0
+I started this project when I was 14.
+But now I'm 16, so It's hard to maintain this project any longer.
 
 ![screenshot](./screenshot.png)
 
