@@ -2,6 +2,8 @@
 I started this project when I was 14.
 But now I'm 16, so It's hard to maintain this project any longer.
 
+This is the result of what I have worked for about a year.
+
 ![screenshot](./screenshot.png)
 
 ## Get started
