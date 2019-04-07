@@ -1,6 +1,6 @@
 # Overview
 
-![screenshot](./screenshot.png)
+![screenshot](./images/guico.png)
 
 ## Get started
 
