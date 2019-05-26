@@ -1,5 +1,8 @@
 # Overview
 
+![License](https://img.shields.io/badge/license-GPL_v3-orange.svg)
+![Python](https://img.shields.io/badge/Python-%3E%3D%203.4-blue.svg)
+
 ![screenshot](./images/guico.png)
 
 ## Get started
