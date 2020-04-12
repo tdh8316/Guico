@@ -30,7 +30,7 @@ def launch_window():
     print(f"Revision {VERSION} {EDITION} edition [{TEAM} | {AUTHOR}]")
     QFontDatabase().addApplicationFont(r"font.ttf")
 
-    '''splash = MovieSplashScreen(QMovie("gui/resources/splash.gif"
+    """splash = MovieSplashScreen(QMovie("gui/resources/splash.gif"
                                       if os.path.isfile("gui/resources/splash.gif")
                                       else "splash.gif"))
     splash.setWindowFlags(Qt.WindowStaysOnTopHint | Qt.FramelessWindowHint)
@@ -49,12 +49,13 @@ def launch_window():
         while time.time() < t + 0.1:
             app.processEvents()
 
-        # Simulate something that takes time'''
+        # Simulate something that takes time"""
 
     styles.apply(app)
     app.setFont(QFont("나눔바른펜", 11))
     try:
         from gui.window import MainForm
+
         root = MainForm()
         # splash.finish(root)
         root.show()
@@ -68,9 +69,13 @@ def main():
     # TODO: unstable exit with unknown error with 0xC0000409:
     # see https://stackoverflow.com/questions/12827305/pyqt-application-close-with-error
 
-    app.setWindowIcon(QIcon(r"gui\resources\icon.ico"
-                            if os.path.isfile(r"gui\resources\icon.ico")
-                            else r"icon.ico"))
+    app.setWindowIcon(
+        QIcon(
+            r"gui\resources\icon.ico"
+            if os.path.isfile(r"gui\resources\icon.ico")
+            else r"icon.ico"
+        )
+    )
 
     # if not os.path.isfile(os.environ['PYTHON']):
     # sys.exit("PYTHON NOT FOUND.")
@@ -80,7 +85,9 @@ def main():
             os.environ["PYTHON"] = json.loads(open(PREF_FILE).read())["python"]
         else:
             try:
-                os.environ["PYTHON"] = "".join(list(subprocess.check_output("where python").decode("utf8"))[0:-2])
+                os.environ["PYTHON"] = "".join(
+                    list(subprocess.check_output("where python").decode("utf8"))[0:-2]
+                )
             except:
                 pass
             Composition.launch()
@@ -88,8 +95,9 @@ def main():
             try:
                 os.environ["PYTHON"]
             except KeyError:
-                QMessageBox.information(None, f"{NAME} 실행 거부됨",
-                                        f"{NAME} 실행에 필요한 필수 구성이 완료되지 않았습니다.")
+                QMessageBox.information(
+                    None, f"{NAME} 실행 거부됨", f"{NAME} 실행에 필요한 필수 구성이 완료되지 않았습니다."
+                )
                 sys.exit(-1)
 
             os.mkdir(TMP_PATH)
@@ -102,22 +110,27 @@ def main():
     print("05. Checking dependency [", end=str())
 
     try:
-        subprocess.check_output("python -c \"import pygame\"", shell=True) == b""
+        subprocess.check_output('python -c "import pygame"', shell=True) == b""
         print("Done]")
     except subprocess.CalledProcessError:
         print("ERROR]")
         print("  05-1. Installing pygame")
-        subprocess.Popen([os.environ["PYTHON"], "-m", "pip", "install", "pygame"]).wait()
+        subprocess.Popen(
+            [os.environ["PYTHON"], "-m", "pip", "install", "pygame"]
+        ).wait()
     except:
         try:
             print("FAILED]")
             print("  05-1. Installing pygame")
-            subprocess.Popen([os.environ["PYTHON"], "-m", "pip", "install", "pygame"]).wait()
+            subprocess.Popen(
+                [os.environ["PYTHON"], "-m", "pip", "install", "pygame"]
+            ).wait()
         except:
             input("UNKNOWN ERROR]\n\nPress Enter to terminate.")
 
     print("06. Using plugins [", end=str())
     from core import config
+
     if os.path.isdir(PLUGIN_DIR):
         config.USE_PLUGINS = True
 
@@ -133,7 +146,9 @@ def main():
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("-w", "--use-white-theme", help="프로그램 색상을 흰색으로 변경합니다.", action="store_true")
+    parser.add_argument(
+        "-w", "--use-white-theme", help="프로그램 색상을 흰색으로 변경합니다.", action="store_true"
+    )
     args = parser.parse_args()
     if args.use_white_theme:
         CONF["THEME"] = "WHITE"

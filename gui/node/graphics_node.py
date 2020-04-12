@@ -71,12 +71,7 @@ class QDMGraphicsNode(QGraphicsItem):
         self.title_item.setPlainText(self._title)
 
     def boundingRect(self):
-        return QRectF(
-            0,
-            0,
-            self.width,
-            self.height
-        ).normalized()
+        return QRectF(0, 0, self.width, self.height).normalized()
 
     def initUI(self):
         self.setFlag(QGraphicsItem.ItemIsSelectable)
@@ -92,8 +87,12 @@ class QDMGraphicsNode(QGraphicsItem):
 
     def initContent(self):
         self.grContent = QGraphicsProxyWidget(self)
-        self.content.setGeometry(self.edge_size, self.title_height + self.edge_size,
-                                 self.width - 2 * self.edge_size, self.height - 2 * self.edge_size - self.title_height)
+        self.content.setGeometry(
+            self.edge_size,
+            self.title_height + self.edge_size,
+            self.width - 2 * self.edge_size,
+            self.height - 2 * self.edge_size - self.title_height,
+        )
         self.grContent.setWidget(self.content)
 
     def initSockets(self):
@@ -103,10 +102,18 @@ class QDMGraphicsNode(QGraphicsItem):
         # title
         path_title = QPainterPath()
         path_title.setFillRule(Qt.WindingFill)
-        path_title.addRoundedRect(0, 0, self.width, self.title_height, self.edge_size, self.edge_size)
-        path_title.addRect(0, self.title_height - self.edge_size, self.edge_size, self.edge_size)
-        path_title.addRect(self.width - self.edge_size, self.title_height - self.edge_size, self.edge_size,
-                           self.edge_size)
+        path_title.addRoundedRect(
+            0, 0, self.width, self.title_height, self.edge_size, self.edge_size
+        )
+        path_title.addRect(
+            0, self.title_height - self.edge_size, self.edge_size, self.edge_size
+        )
+        path_title.addRect(
+            self.width - self.edge_size,
+            self.title_height - self.edge_size,
+            self.edge_size,
+            self.edge_size,
+        )
         painter.setPen(Qt.NoPen)
         painter.setBrush(self._brush_title)
         painter.drawPath(path_title.simplified())
@@ -114,17 +121,32 @@ class QDMGraphicsNode(QGraphicsItem):
         # content
         path_content = QPainterPath()
         path_content.setFillRule(Qt.WindingFill)
-        path_content.addRoundedRect(0, self.title_height, self.width, self.height - self.title_height, self.edge_size,
-                                    self.edge_size)
+        path_content.addRoundedRect(
+            0,
+            self.title_height,
+            self.width,
+            self.height - self.title_height,
+            self.edge_size,
+            self.edge_size,
+        )
         path_content.addRect(0, self.title_height, self.edge_size, self.edge_size)
-        path_content.addRect(self.width - self.edge_size, self.title_height, self.edge_size, self.edge_size)
+        path_content.addRect(
+            self.width - self.edge_size,
+            self.title_height,
+            self.edge_size,
+            self.edge_size,
+        )
         painter.setPen(Qt.NoPen)
         painter.setBrush(self._brush_background)
         painter.drawPath(path_content.simplified())
 
         # outline
         path_outline = QPainterPath()
-        path_outline.addRoundedRect(0, 0, self.width, self.height, self.edge_size, self.edge_size)
-        painter.setPen(self._pen_default if not self.isSelected() else self._pen_selected)
+        path_outline.addRoundedRect(
+            0, 0, self.width, self.height, self.edge_size, self.edge_size
+        )
+        painter.setPen(
+            self._pen_default if not self.isSelected() else self._pen_selected
+        )
         painter.setBrush(Qt.NoBrush)
         painter.drawPath(path_outline.simplified())

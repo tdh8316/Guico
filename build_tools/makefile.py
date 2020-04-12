@@ -20,7 +20,6 @@ def initialize(_parent):
 
 
 class GuicoBuildError(Exception):
-
     def __init__(self, value):
         self.value = value
 
@@ -45,10 +44,16 @@ class MakeTokenIntoPyCode:
         for code in self.original_array:
             self.putting_code(code)
 
-        mod_ext = "/".join(CONF["FILE_PATH"].replace("\\", "/").split("/")[0:-1]) + "/Engine.dll"
-        self.main_code.insert(0, "import os\nimport sys\n"
-                                 f"sys.path.append(\"{mod_ext}\")\nimport Engine\n\n"
-                                 "os.environ['SDL_VIDEO_CENTERED'] = \"1\"\n\n")
+        mod_ext = (
+            "/".join(CONF["FILE_PATH"].replace("\\", "/").split("/")[0:-1])
+            + "/Engine.dll"
+        )
+        self.main_code.insert(
+            0,
+            "import os\nimport sys\n"
+            f'sys.path.append("{mod_ext}")\nimport Engine\n\n'
+            "os.environ['SDL_VIDEO_CENTERED'] = \"1\"\n\n",
+        )
         self.putting_variables()
 
         self.main_code.append(f"\n{indent(2)}Engine.display.update()")
@@ -56,7 +61,9 @@ class MakeTokenIntoPyCode:
     def putting_variables(self):
         self.main_code.insert(0, self.class_code)
         for name in script_variables.globals.keys():
-            self.main_code.insert(0, self.get_variable_define_code(name, script_variables.globals[name]))
+            self.main_code.insert(
+                0, self.get_variable_define_code(name, script_variables.globals[name])
+            )
 
     @staticmethod
     def get_variable_define_code(n, v) -> str:
@@ -77,39 +84,67 @@ class MakeTokenIntoPyCode:
         if _type == ENTRY_POINT:
             self.python_main_code.append(generator.PYTHON_MAIN)
         elif _type == WINDOW_NEW:
-            self.python_main_code.append(indent(1) + generator.WINDOW_NEW.format(int(contents["size"].split(",")[0]),
-                                                                                 int(contents["size"].split(",")[1]),
-                                                                                 "Guico Display (pygame)"))
+            self.python_main_code.append(
+                indent(1)
+                + generator.WINDOW_NEW.format(
+                    int(contents["size"].split(",")[0]),
+                    int(contents["size"].split(",")[1]),
+                    "Guico Display (pygame)",
+                )
+            )
             self.python_main_code.append(indent(1) + "main()")
             var = str()
             for var_item in list(script_variables.globals.keys()):
-                var += "{}, ".format(var_item) if list(script_variables.globals.keys())[-1] != var_item else var_item
-            self.main_code.append(generator.DEF_MAIN if var == str() else generator.DEF_MAIN_VAR.format(var))
+                var += (
+                    "{}, ".format(var_item)
+                    if list(script_variables.globals.keys())[-1] != var_item
+                    else var_item
+                )
+            self.main_code.append(
+                generator.DEF_MAIN
+                if var == str()
+                else generator.DEF_MAIN_VAR.format(var)
+            )
         elif _type == KEY_INPUT:
             if not self.force_use__if__key_input:
-                self.main_code.append(generator.KEY_PRESSED.format(contents["key"],
-                                                                   else_if="if"
-                                                                   if not self.use_key_input
-                                                                   else "elif"))
+                self.main_code.append(
+                    generator.KEY_PRESSED.format(
+                        contents["key"],
+                        else_if="if" if not self.use_key_input else "elif",
+                    )
+                )
             else:
-                self.main_code.append(generator.KEY_PRESSED.format(contents["key"], else_if="if"))
+                self.main_code.append(
+                    generator.KEY_PRESSED.format(contents["key"], else_if="if")
+                )
             if not self.use_key_input:
                 self.use_key_input = True
         elif _type == KEY_NOT_INPUT:
             self.main_code.append(generator.KEY_PRESS_FALSE)
         elif _type == DRAW_TEXT:
-            self.append_code(generator.DRAW_TEXT.format(contents["str"],
-                                                        contents["pos"].split(",")[0],
-                                                        contents["pos"].split(",")[1]))
+            self.append_code(
+                generator.DRAW_TEXT.format(
+                    contents["str"],
+                    contents["pos"].split(",")[0],
+                    contents["pos"].split(",")[1],
+                )
+            )
         elif _type == SCREEN_CLEAR:
             self.append_code(generator.SCREEN_CLEAR)
         elif _type == DRAW_IMAGE:
-            self.append_code(generator.DRAW_IMAGE.format(contents["path"],
-                                                         contents["pos"].split(",")[0],
-                                                         contents["pos"].split(",")[1]))
+            self.append_code(
+                generator.DRAW_IMAGE.format(
+                    contents["path"],
+                    contents["pos"].split(",")[0],
+                    contents["pos"].split(",")[1],
+                )
+            )
         elif _type == VARIABLE_DEFINE:
-            self.append_code("\t\t{}".format(
-                self.get_variable_define_code(contents["name"], contents["value"])))
+            self.append_code(
+                "\t\t{}".format(
+                    self.get_variable_define_code(contents["name"], contents["value"])
+                )
+            )
         elif _type == VARIABLE_PLUS:
             # print(script_variables.globals[contents["name"]])
             try:
@@ -120,16 +155,26 @@ class MakeTokenIntoPyCode:
                 except ValueError:
                     raise GuicoBuildError(f"{_type} : 피연산자는 실수여야 합니다.")
                 else:
-                    self.append_code("\t\t{0} = {0} + {1}".format(contents["name"], contents["value"]))
+                    self.append_code(
+                        "\t\t{0} = {0} + {1}".format(
+                            contents["name"], contents["value"]
+                        )
+                    )
             else:
-                self.append_code("\t\t{0} = {0} + {1}".format(contents["name"], contents["value"]))
+                self.append_code(
+                    "\t\t{0} = {0} + {1}".format(contents["name"], contents["value"])
+                )
         elif _type == ADD_GROUP:
-            self.append_code(generator.ADD_GROUP.format(contents["group"], contents["name"]))
+            self.append_code(
+                generator.ADD_GROUP.format(contents["group"], contents["name"])
+            )
         elif _type == DRAW_GROUP:
             self.append_code(generator.DRAW_GROUP.format(contents["name"]))
         elif _type == DETECT_COLLISION:
-            self.append_code(generator.DETECT_COLLISION.format(contents["1"], contents["2"]),
-                             syntax_indent=False)
+            self.append_code(
+                generator.DETECT_COLLISION.format(contents["1"], contents["2"]),
+                syntax_indent=False,
+            )
         elif _type == PYTHON_NATIVE:
             for line in contents["str"].split("\n"):
                 self.append_code("\t\t{line}".format(line=line))
@@ -150,7 +195,6 @@ class MakeTokenIntoPyCode:
 
 
 class _MakeTokenIntoPyCode:
-
     def __init__(self, code):
         # print(f"{NAME}Build::Python:{build_tools}")
         self.code = code
@@ -178,7 +222,9 @@ class _MakeTokenIntoPyCode:
                 parent.log.appendPlainText(e)
                 raise GuicoBuildError(e)
         else:
-            self.output.append(f"{indent()}pygame.display.update()\n{indent()}fps.tick(60)")
+            self.output.append(
+                f"{indent()}pygame.display.update()\n{indent()}fps.tick(60)"
+            )
 
         for _ in range(len(self.output)):
             if self.output[_] == "# define point":
@@ -198,13 +244,19 @@ class _MakeTokenIntoPyCode:
                 self.add_to_code(self.print(leaf_content["str"]))
             elif code_type == WINDOW_NEW:
                 self.is_window_init = True
-                self.add_to_code(pygame.WINDOW(display_width=leaf_content["size"].split(',')[0],
-                                               display_height=leaf_content["size"].split(',')[1]))
+                self.add_to_code(
+                    pygame.WINDOW(
+                        display_width=leaf_content["size"].split(",")[0],
+                        display_height=leaf_content["size"].split(",")[1],
+                    )
+                )
             elif code_type == DRAW_TEXT:
                 self.used_label = True
-                self.add_to_code(f"{indent(1)}message_display(\"{contents['str']}\", "
-                                 f"{int(contents['pos'].split(',')[0])}, "
-                                 f"{int(contents['pos'].split(',')[1])})")
+                self.add_to_code(
+                    f"{indent(1)}message_display(\"{contents['str']}\", "
+                    f"{int(contents['pos'].split(',')[0])}, "
+                    f"{int(contents['pos'].split(',')[1])})"
+                )
 
     def add_to_code(self, line):
         self.output.append(line)
@@ -214,6 +266,6 @@ class _MakeTokenIntoPyCode:
         try:
             int(eval(str_1))
         except ValueError and NameError and SyntaxError:
-            return "print(\"" + str_1 + "\", " + f"end=\"{option}\")"
+            return 'print("' + str_1 + '", ' + f'end="{option}")'
         else:
-            return f"print({str_1}, end=\"{option}\")"
+            return f'print({str_1}, end="{option}")'

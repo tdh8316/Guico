@@ -23,15 +23,14 @@ from gui.widgets.sprite_class_edit import SpriteScriptEditor
 
 
 class MainForm(QMainWindow):
-
     def __init__(self):
         super(MainForm, self).__init__()
         self.setWindowTitle(f"{TEAM} {NAME} {VERSION}")
 
-        if hasattr(Qt, 'AA_EnableHighDpiScaling'):
+        if hasattr(Qt, "AA_EnableHighDpiScaling"):
             QApplication.instance().setAttribute(Qt.AA_EnableHighDpiScaling, True)
 
-        if hasattr(Qt, 'AA_UseHighDpiPixmaps'):
+        if hasattr(Qt, "AA_UseHighDpiPixmaps"):
             QApplication.instance().setAttribute(Qt.AA_UseHighDpiPixmaps, True)
 
         self.pos_widget = None
@@ -53,7 +52,9 @@ class MainForm(QMainWindow):
         # self.statusBar().addPermanentWidget(self.status_mouse_pos)
 
         self.editor = NodeEditorWidget(self)
-        self.editor.scene.addHasBeenModifiedListener(lambda: self.signal_change_editor())
+        self.editor.scene.addHasBeenModifiedListener(
+            lambda: self.signal_change_editor()
+        )
         self.editor.view.scenePosChanged.connect(actions.on_scene_pos_changed)
 
         # self.dock_editor = QDockWidget("편집 환경", self)
@@ -65,13 +66,17 @@ class MainForm(QMainWindow):
 
         self.dock_leaf = QDockWidget("스크립트", self)
         self.dock_leaf.setWidget(self.leaf_widget)
-        self.dock_leaf.setFeatures(QDockWidget.DockWidgetFloatable | QDockWidget.DockWidgetMovable)
+        self.dock_leaf.setFeatures(
+            QDockWidget.DockWidgetFloatable | QDockWidget.DockWidgetMovable
+        )
 
         self.attribute_widget = AttributesTableWidget()
         self.dock_attribute = QDockWidget("Attributes", self)
         self.dock_attribute.setWidget(self.attribute_widget)
         self.dock_attribute.showMaximized()
-        self.dock_attribute.setFeatures(QDockWidget.DockWidgetFloatable | QDockWidget.DockWidgetMovable)
+        self.dock_attribute.setFeatures(
+            QDockWidget.DockWidgetFloatable | QDockWidget.DockWidgetMovable
+        )
 
         self.script_editor = SpriteScriptEditor(self)
         self.dock_script = QDockWidget("스프라이트 클래스 편집기", self)
@@ -87,15 +92,18 @@ class MainForm(QMainWindow):
         self.tabifyDockWidget(self.dock_leaf, self.dock_attribute)
         self.dock_leaf.raise_()
         self.setDockOptions(
-            QMainWindow.AllowNestedDocks |
-            QMainWindow.AnimatedDocks |
-            QMainWindow.AllowTabbedDocks)
+            QMainWindow.AllowNestedDocks
+            | QMainWindow.AnimatedDocks
+            | QMainWindow.AllowTabbedDocks
+        )
 
         self.set_pos_widget()
         self.dock_pos.hide()
 
         self.showMaximized()
-        self.log.appendPlainText(f"{str(datetime.datetime.now()).split('.')[0]} 에 {NAME} 초기화 성공")
+        self.log.appendPlainText(
+            f"{str(datetime.datetime.now()).split('.')[0]} 에 {NAME} 초기화 성공"
+        )
         # self.showFullScreen()
 
     def set_pos_widget(self):
@@ -132,7 +140,14 @@ class MainForm(QMainWindow):
         menu_file.addSeparator()
         menu_file.addAction(actions.file_save_as_image())
         menu_file.addSeparator()
-        menu_file.addAction(QAction(f"{NAME} 종료(&X)", self, shortcut="Alt+F4", triggered=lambda: self.close()))
+        menu_file.addAction(
+            QAction(
+                f"{NAME} 종료(&X)",
+                self,
+                shortcut="Alt+F4",
+                triggered=lambda: self.close(),
+            )
+        )
         menu_edit = menu_bar.addMenu("편집(&E)")
         menu_edit.addAction(actions.undo())
         menu_edit.addAction(actions.redo())
@@ -143,16 +158,42 @@ class MainForm(QMainWindow):
         menu_edit.addAction(actions.delete())
         menu_edit.addSeparator()
         menu_view = menu_bar.addMenu("보기(&V)")
-        menu_view.addAction(QAction(
-            "출력 창 보이기(&O)", self, shortcut="Alt+1", triggered=lambda: self.dock_log.show()))
-        menu_view.addAction(QAction(
-            "스프라이트 클래스 편집기", self, shortcut="Alt+2", triggered=lambda: self.dock_script.show()))
-        menu_view.addAction(QAction(
-            "윈도우 에뮬레이팅 보기(&W)", self, shortcut="F10", triggered=self._showEmulateWindow, checkable=True,
-            checked=False))
+        menu_view.addAction(
+            QAction(
+                "출력 창 보이기(&O)",
+                self,
+                shortcut="Alt+1",
+                triggered=lambda: self.dock_log.show(),
+            )
+        )
+        menu_view.addAction(
+            QAction(
+                "스프라이트 클래스 편집기",
+                self,
+                shortcut="Alt+2",
+                triggered=lambda: self.dock_script.show(),
+            )
+        )
+        menu_view.addAction(
+            QAction(
+                "윈도우 에뮬레이팅 보기(&W)",
+                self,
+                shortcut="F10",
+                triggered=self._showEmulateWindow,
+                checkable=True,
+                checked=False,
+            )
+        )
         menu_view.addSeparator()
-        menu_view.addAction(QAction(
-            "전체 화면으로 보기(&S)", self, shortcut="F11", triggered=self._showFullScreen, checkable=True))
+        menu_view.addAction(
+            QAction(
+                "전체 화면으로 보기(&S)",
+                self,
+                shortcut="F11",
+                triggered=self._showFullScreen,
+                checkable=True,
+            )
+        )
         if USE_PLUGINS:
             self.create_plugins_menu(menu_bar.addMenu("확장 기능(&P)"))
         menu_run = menu_bar.addMenu("실행(&R)")
@@ -163,14 +204,21 @@ class MainForm(QMainWindow):
         menu_run.addAction(actions.packaging())
         menu_help = menu_bar.addMenu("도움말(&H)")
         menu_help.addAction(actions.license_dialog())
-        menu_help.addAction(QAction(
-            "&Qt 에 대해서...", self, triggered=qApp.aboutQt))
+        menu_help.addAction(QAction("&Qt 에 대해서...", self, triggered=qApp.aboutQt))
         menu_help.addSeparator()
-        menu_help.addAction(QAction(
-            f"{NAME} 정보(&A)", self, triggered=lambda:
-            QMessageBox.about(None, f"{NAME} 정보",
-                              "Copyright 2018 {TEAM}\n{NAME} {EDITION}\nBuild {VERSION}"
-                              .format(TEAM=TEAM, NAME=NAME, EDITION=EDITION, VERSION=VERSION))))
+        menu_help.addAction(
+            QAction(
+                f"{NAME} 정보(&A)",
+                self,
+                triggered=lambda: QMessageBox.about(
+                    None,
+                    f"{NAME} 정보",
+                    "Copyright 2018 {TEAM}\n{NAME} {EDITION}\nBuild {VERSION}".format(
+                        TEAM=TEAM, NAME=NAME, EDITION=EDITION, VERSION=VERSION
+                    ),
+                ),
+            )
+        )
         # menu_edit.addAction(actions.new_leaf())
 
     def create_plugins_menu(self, _):
@@ -184,8 +232,13 @@ class MainForm(QMainWindow):
         for module in plugin.__modules__:
             dock = QDockWidget(plugin.__description__[module], self)
             dock.setWidget(__import__(module).main(self, CONF))
-            _.addAction(QAction(plugin.__description__[module], self, triggered=lambda:
-            self.show_pluginWidget(dock)))
+            _.addAction(
+                QAction(
+                    plugin.__description__[module],
+                    self,
+                    triggered=lambda: self.show_pluginWidget(dock),
+                )
+            )
             dock.hide()
 
     def show_pluginWidget(self, w):
@@ -198,10 +251,15 @@ class MainForm(QMainWindow):
         CONF["MODIFIED"] = True if changed else False
 
         if execute_manager.is_process_running() and changed:
-            if QMessageBox.warning(None, "Your program is running",
-                                   "이 스크립트가 아직 실행 중 입니다."
-                                   "실행 중인 프로세스를 끝내고 수정을 계속하시겠습니까?",
-                                   QMessageBox.Yes | QMessageBox.No) == QMessageBox.No:
+            if (
+                QMessageBox.warning(
+                    None,
+                    "Your program is running",
+                    "이 스크립트가 아직 실행 중 입니다." "실행 중인 프로세스를 끝내고 수정을 계속하시겠습니까?",
+                    QMessageBox.Yes | QMessageBox.No,
+                )
+                == QMessageBox.No
+            ):
                 CONF["MODIFIED"] = False
             else:
                 # https://stackoverflow.com/questions/4789837/how-to-terminate-a-python-subprocess-launched-with-shell-true/4791612#4791612
@@ -216,18 +274,20 @@ class MainForm(QMainWindow):
 
     def renewal(self):
         if not CONF["MODIFIED"]:
-            self.setWindowTitle(f"{TEAM} {NAME} {VERSION} [{CONF['FILE_PATH']}]"
-                                if CONF['FILE_PATH'] is not None
-                                else f"{TEAM} {NAME} {VERSION} - 빈 파일")
+            self.setWindowTitle(
+                f"{TEAM} {NAME} {VERSION} [{CONF['FILE_PATH']}]"
+                if CONF["FILE_PATH"] is not None
+                else f"{TEAM} {NAME} {VERSION} - 빈 파일"
+            )
         elif CONF["MODIFIED"]:
-            self.setWindowTitle(f"{TEAM} {NAME} {VERSION} [{CONF['FILE_PATH']}]*"
-                                if CONF['FILE_PATH'] is not None
-                                else f"{TEAM} {NAME} {VERSION} - 제목 없음*")
+            self.setWindowTitle(
+                f"{TEAM} {NAME} {VERSION} [{CONF['FILE_PATH']}]*"
+                if CONF["FILE_PATH"] is not None
+                else f"{TEAM} {NAME} {VERSION} - 제목 없음*"
+            )
 
     def _showFullScreen(self, checked):
-        self.showFullScreen() \
-            if checked \
-            else self.showNormal()
+        self.showFullScreen() if checked else self.showNormal()
 
     def _showEmulateWindow(self, checked):
         if self.dock_pos.isHidden():
@@ -243,13 +303,15 @@ class MainForm(QMainWindow):
         if not (self.is_modified() or CONF["MODIFIED"]):
             return True
 
-        res = QMessageBox.warning(None, f"{NAME} - 현재 파일이 변경됨",
-                                  f"현재 파일 ["
-                                  f"{CONF['FILE_PATH'] if CONF['FILE_PATH'] is not None else '제목 없음'}"
-                                  f"]이 수정되었습니다.\n"
-                                  f"변경 사항을 저장하시겠습니까?",
-                                  QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel
-                                  )
+        res = QMessageBox.warning(
+            None,
+            f"{NAME} - 현재 파일이 변경됨",
+            f"현재 파일 ["
+            f"{CONF['FILE_PATH'] if CONF['FILE_PATH'] is not None else '제목 없음'}"
+            f"]이 수정되었습니다.\n"
+            f"변경 사항을 저장하시겠습니까?",
+            QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel,
+        )
 
         if res == QMessageBox.Save:
             self.save()
@@ -261,14 +323,20 @@ class MainForm(QMainWindow):
 
     def save(self):
         if CONF["FILE_PATH"] is None:
-            _name, _filter = QFileDialog.getSaveFileName(None, f'{NAME} - 저장', '', FILE_TYPES)
-            if _name == '':
+            _name, _filter = QFileDialog.getSaveFileName(
+                None, f"{NAME} - 저장", "", FILE_TYPES
+            )
+            if _name == "":
                 return False
             CONF["FILE_PATH"] = _name
-            CONF["SOURCE_PATH"] = os.path.join("/".join(list(CONF["FILE_PATH"].split("/")[:-1])),
-                                               (CONF["FILE_PATH"].split("/")[-1].split(".")[0] + ".py"))
-            CONF["CLASS_PATH"] = os.path.join("/".join(list(CONF["FILE_PATH"].split("/")[:-1])),
-                                              (CONF["FILE_PATH"].split("/")[-1].split(".")[0] + ".class"))
+            CONF["SOURCE_PATH"] = os.path.join(
+                "/".join(list(CONF["FILE_PATH"].split("/")[:-1])),
+                (CONF["FILE_PATH"].split("/")[-1].split(".")[0] + ".py"),
+            )
+            CONF["CLASS_PATH"] = os.path.join(
+                "/".join(list(CONF["FILE_PATH"].split("/")[:-1])),
+                (CONF["FILE_PATH"].split("/")[-1].split(".")[0] + ".class"),
+            )
         if os.path.isfile(CONF["FILE_PATH"]):
             _backup = open(CONF["FILE_PATH"], "r", encoding="utf8").read()
         else:
@@ -277,7 +345,9 @@ class MainForm(QMainWindow):
             with open(CONF["FILE_PATH"], "w") as file:
                 file.write(json.dumps(self.editor.scene.serialize(), indent=4))
             with open(CONF["FILE_PATH"], "a") as file:
-                file.write(f"Below are the variables.{json.dumps(self.attribute_widget.getGlobals(), indent=4)}")
+                file.write(
+                    f"Below are the variables.{json.dumps(self.attribute_widget.getGlobals(), indent=4)}"
+                )
             self.editor.scene.has_been_modified = False
         except:
             with open(CONF["FILE_PATH"], "w") as file:
@@ -290,41 +360,56 @@ class MainForm(QMainWindow):
             self.renewal()
 
     def save_as(self):
-        _name, _filter = QFileDialog.getSaveFileName(None, f'{NAME} - 저장', '', FILE_TYPES)
-        if _name == '':
+        _name, _filter = QFileDialog.getSaveFileName(
+            None, f"{NAME} - 저장", "", FILE_TYPES
+        )
+        if _name == "":
             return False
         CONF["FILE_PATH"] = _name
-        CONF["SOURCE_PATH"] = os.path.join("/".join(list(CONF["FILE_PATH"].split("/")[:-1])),
-                                           (CONF["FILE_PATH"].split("/")[-1].split(".")[0] + ".py"))
-        CONF["CLASS_PATH"] = os.path.join("/".join(list(CONF["FILE_PATH"].split("/")[:-1])),
-                                          (CONF["FILE_PATH"].split("/")[-1].split(".")[0] + ".class"))
+        CONF["SOURCE_PATH"] = os.path.join(
+            "/".join(list(CONF["FILE_PATH"].split("/")[:-1])),
+            (CONF["FILE_PATH"].split("/")[-1].split(".")[0] + ".py"),
+        )
+        CONF["CLASS_PATH"] = os.path.join(
+            "/".join(list(CONF["FILE_PATH"].split("/")[:-1])),
+            (CONF["FILE_PATH"].split("/")[-1].split(".")[0] + ".class"),
+        )
 
         self.script_editor.save()
 
         self.save()
 
     def load(self):
-        _name, _filter = QFileDialog.getOpenFileName(None, f'{NAME} - 열기', '', FILE_TYPES)
-        if _name == '':
+        _name, _filter = QFileDialog.getOpenFileName(
+            None, f"{NAME} - 열기", "", FILE_TYPES
+        )
+        if _name == "":
             return
         if os.path.isfile(_name):
             CONF["FILE_PATH"] = _name
-            CONF["SOURCE_PATH"] = os.path.join("/".join(list(CONF["FILE_PATH"].split("/")[:-1])),
-                                               (CONF["FILE_PATH"].split("/")[-1].split(".")[0] + ".py"))
-            CONF["CLASS_PATH"] = os.path.join("/".join(list(CONF["FILE_PATH"].split("/")[:-1])),
-                                              (CONF["FILE_PATH"].split("/")[-1].split(".")[0] +
-                                               ".class")).replace("\\", "/")
+            CONF["SOURCE_PATH"] = os.path.join(
+                "/".join(list(CONF["FILE_PATH"].split("/")[:-1])),
+                (CONF["FILE_PATH"].split("/")[-1].split(".")[0] + ".py"),
+            )
+            CONF["CLASS_PATH"] = os.path.join(
+                "/".join(list(CONF["FILE_PATH"].split("/")[:-1])),
+                (CONF["FILE_PATH"].split("/")[-1].split(".")[0] + ".class"),
+            ).replace("\\", "/")
             data = open(_name).read()
-            self.editor.scene.load(json.loads(data.split("Below are the variables.")[0], encoding='utf-8'))
+            self.editor.scene.load(
+                json.loads(data.split("Below are the variables.")[0], encoding="utf-8")
+            )
             self.script_editor.load()
             self.signal_change_editor(False)
             self.renewal()
 
             self.attribute_widget.buildVariablesGlobals(
-                json.loads(data.split("Below are the variables.")[1], encoding='utf-8'))
+                json.loads(data.split("Below are the variables.")[1], encoding="utf-8")
+            )
 
             self.dock_script.setWindowTitle(
-                f"{NAME} {self.script_editor.__class__.__name__} - {CONF['FILE_PATH'] } [{CONF['CLASS_PATH']}]")
+                f"{NAME} {self.script_editor.__class__.__name__} - {CONF['FILE_PATH'] } [{CONF['CLASS_PATH']}]"
+            )
 
     def closeEvent(self, event):
         if self.maybe_save():

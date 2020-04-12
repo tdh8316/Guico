@@ -21,8 +21,7 @@ def content_WINDOW_NEW(self):
     self._win_size = QDMLineEdit("640,480")
     self._win_size.setMaximumWidth(100)
     self._win_size.setFont(QFont("맑은 고딕", 9))
-    self._win_size.textChanged.connect(
-        lambda: resize_pos_widget(self))
+    self._win_size.textChanged.connect(lambda: resize_pos_widget(self))
 
     self.layout.setContentsMargins(0, 0, 0, 0)
     self.layout.addWidget(self.wdg_label, 0, 0, 1, 0)
@@ -35,4 +34,6 @@ def resize_pos_widget(self):
     if str(self._win_size.text()).endswith(","):
         return False
     if "," in self._win_size.text():
-        parent.reset_pos_widget(self._win_size.text().split(",")[0], self._win_size.text().split(",")[1])
+        parent.reset_pos_widget(
+            self._win_size.text().split(",")[0], self._win_size.text().split(",")[1]
+        )

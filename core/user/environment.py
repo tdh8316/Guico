@@ -11,7 +11,6 @@ from core.config import *
 
 
 class Composition(QWizard):
-
     def __init__(self, parent=None):
         super(Composition, self).__init__(parent)
         self.setOption(QWizard.NoCancelButton)
@@ -34,8 +33,9 @@ class Composition(QWizard):
         try:
             os.environ["PYTHON"]
         except KeyError:
-            QMessageBox.information(None, f"{NAME} 실행 거부됨",
-                                    f"{NAME} 실행에 필요한 필수 구성이 완료되지 않았습니다.")
+            QMessageBox.information(
+                None, f"{NAME} 실행 거부됨", f"{NAME} 실행에 필요한 필수 구성이 완료되지 않았습니다."
+            )
             sys.exit(-1)
 
         if not os.path.isfile(os.path.join(os.environ["PYTHON"])):
@@ -43,7 +43,6 @@ class Composition(QWizard):
 
 
 class PythonPage(QWizardPage):
-
     def __init__(self, parent=None):
         super(PythonPage, self).__init__(parent)
 
@@ -64,14 +63,23 @@ class PythonPage(QWizardPage):
         self.layout.addWidget(self.button_python, 0, 2)
 
     def setDefaultPython(self):
-        f, filt = QFileDialog.getOpenFileName(self, f"{NAME} choose default python", '', "Python (python.exe)")
+        f, filt = QFileDialog.getOpenFileName(
+            self, f"{NAME} choose default python", "", "Python (python.exe)"
+        )
         if f != "":
             if b"Python" in subprocess.check_output(f"{f} -V"):
-                py_res = (str(subprocess.check_output(f"{f} -V").decode("utf8")).split(" ")[1]).split(".")
+                py_res = (
+                    str(subprocess.check_output(f"{f} -V").decode("utf8")).split(" ")[1]
+                ).split(".")
                 py_res[-1] = list(py_res[-1])[0]
                 if int(py_res[0]) < 3 or int(py_res[1]) < 3:
-                    QMessageBox.information(None, "N/A", "Requires Python 3.4 or later.")
-                    self.label_python.setText("Requires Python 3.4 or later however your python is " + ".".join(py_res))
+                    QMessageBox.information(
+                        None, "N/A", "Requires Python 3.4 or later."
+                    )
+                    self.label_python.setText(
+                        "Requires Python 3.4 or later however your python is "
+                        + ".".join(py_res)
+                    )
                 else:
                     os.environ["PYTHON"] = f
                     self.label_python.setText(f + f'[{".".join(py_res)}]')

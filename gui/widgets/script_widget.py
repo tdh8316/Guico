@@ -12,7 +12,6 @@ from core.config import *
 
 
 class ScriptWidget(QWidget):
-
     def __init__(self, parent=None):
         super(ScriptWidget, self).__init__(parent=parent)
 
@@ -64,7 +63,11 @@ class ScriptWidget(QWidget):
                 self.x_count = 1
             elif self.y_count > 7:
                 self.y_count = 1
-                actions.on_new_leaf(x=self.x_count * 150, y=self.y_count * 50, defined=str(self.selectedType()))
+                actions.on_new_leaf(
+                    x=self.x_count * 150,
+                    y=self.y_count * 50,
+                    defined=str(self.selectedType()),
+                )
 
             self.x_count += 1
             self.y_count += 1
@@ -75,12 +78,10 @@ class ScriptWidget(QWidget):
 
 
 class TabScriptWidget(QWidget):
-
     def __init__(self, parent=None):
         super(TabScriptWidget, self).__init__(parent=parent)
 
-        self.latest_pos: dict = {"X": int,
-                                 "Y": int}
+        self.latest_pos: dict = {"X": int, "Y": int}
 
         self.tab = QTabWidget(self)
         self.tab_looks = QWidget()
@@ -144,26 +145,36 @@ class TabScriptWidget(QWidget):
         if self.selectedType() == VARIABLE_NEW:
             return self.newVariable()
         # if self.selectedType() in ALL_LEAF_TYPES:
-        if [self.latest_pos["X"], self.latest_pos["Y"]] != [CONF["MOUSE_X"], CONF["MOUSE_Y"]]:
-            actions.on_new_leaf(x=CONF["MOUSE_X"] + 255, y=CONF["MOUSE_Y"], defined=str(self.selectedType()))
+        if [self.latest_pos["X"], self.latest_pos["Y"]] != [
+            CONF["MOUSE_X"],
+            CONF["MOUSE_Y"],
+        ]:
+            actions.on_new_leaf(
+                x=CONF["MOUSE_X"] + 255,
+                y=CONF["MOUSE_Y"],
+                defined=str(self.selectedType()),
+            )
         else:
-            actions.on_new_leaf(x=CONF["MOUSE_X"] + random.randint(128, 512),
-                                y=CONF["MOUSE_Y"] - random.randint(64, 256),
-                                defined=str(self.selectedType()))
-            self.latest_pos["X"], self.latest_pos["Y"] = CONF["MOUSE_X"], CONF["MOUSE_Y"]
+            actions.on_new_leaf(
+                x=CONF["MOUSE_X"] + random.randint(128, 512),
+                y=CONF["MOUSE_Y"] - random.randint(64, 256),
+                defined=str(self.selectedType()),
+            )
+            self.latest_pos["X"], self.latest_pos["Y"] = (
+                CONF["MOUSE_X"],
+                CONF["MOUSE_Y"],
+            )
 
     def newVariable(self):
         NewVariable.setattr(self)
 
 
 class TabScriptWidget_Button(QWidget):
-
     def __init__(self, parent=None):
         super(TabScriptWidget_Button, self).__init__(parent=parent)
         self.setMinimumWidth(300)
 
-        self.latest_pos: dict = {"X": int,
-                                 "Y": int}
+        self.latest_pos: dict = {"X": int, "Y": int}
 
         self.tab = QTabWidget(self)
         self.tab_window = QWidget()
@@ -200,9 +211,22 @@ class TabScriptWidget_Button(QWidget):
 
     def itemClickEvent(self):
         if self.selectedType() in ALL_LEAF_TYPES:
-            if [self.latest_pos["X"], self.latest_pos["Y"]] != [CONF["MOUSE_X"], CONF["MOUSE_Y"]]:
-                on_new_leaf(x=CONF["MOUSE_X"] + 255, y=CONF["MOUSE_Y"], defined=str(self.selectedType()))
+            if [self.latest_pos["X"], self.latest_pos["Y"]] != [
+                CONF["MOUSE_X"],
+                CONF["MOUSE_Y"],
+            ]:
+                on_new_leaf(
+                    x=CONF["MOUSE_X"] + 255,
+                    y=CONF["MOUSE_Y"],
+                    defined=str(self.selectedType()),
+                )
             else:
-                on_new_leaf(x=CONF["MOUSE_X"] + random.randint(128, 512), y=CONF["MOUSE_Y"] - random.randint(64, 256),
-                            defined=str(self.selectedType()))
-            self.latest_pos["X"], self.latest_pos["Y"] = CONF["MOUSE_X"], CONF["MOUSE_Y"]
+                on_new_leaf(
+                    x=CONF["MOUSE_X"] + random.randint(128, 512),
+                    y=CONF["MOUSE_Y"] - random.randint(64, 256),
+                    defined=str(self.selectedType()),
+                )
+            self.latest_pos["X"], self.latest_pos["Y"] = (
+                CONF["MOUSE_X"],
+                CONF["MOUSE_Y"],
+            )

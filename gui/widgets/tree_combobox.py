@@ -41,7 +41,9 @@ class TreeComboBox(QComboBox):
     def eventFilter(self, object, event):
         if event.type() == QEvent.MouseButtonPress and object is self.view().viewport():
             index = self.view().indexAt(event.pos())
-            self.__skip_next_hide = not self.view().visualRect(index).contains(event.pos())
+            self.__skip_next_hide = (
+                not self.view().visualRect(index).contains(event.pos())
+            )
         return False
 
 
@@ -52,11 +54,11 @@ def test():
     combo.currentIndexChanged.connect(lambda: print(combo.currentText()))
     combo.resize(200, 30)
 
-    parent_item = QStandardItem('Item 1')
-    parent_item.appendRow(QStandardItem('Child'))
+    parent_item = QStandardItem("Item 1")
+    parent_item.appendRow(QStandardItem("Child"))
     model = QStandardItemModel()
     model.appendRow(parent_item)
-    model.appendRow(QStandardItem('Item 2'))
+    model.appendRow(QStandardItem("Item 2"))
     combo.setModel(model)
     model.setHeaderData(0, Qt.Horizontal, str(), Qt.DisplayRole)
 

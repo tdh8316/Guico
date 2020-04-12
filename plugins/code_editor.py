@@ -12,7 +12,6 @@ logging.basicConfig()
 
 
 class SpriteScriptEditor(PyCodeEdit):
-
     def __init__(self, parent=None, *args):
         super(SpriteScriptEditor, self).__init__(parent)
         self.backend.start(server.__file__)
@@ -24,6 +23,7 @@ class SpriteScriptEditor(PyCodeEdit):
 
 # if __name__ != "__main__":
 # SpriteScriptEditor().show()
+
 
 def main(parent, *args) -> SpriteScriptEditor:
     return SpriteScriptEditor(parent, *args)

@@ -1,4 +1,4 @@
-class Serializable():
+class Serializable:
     def __init__(self):
         self.id = id(self)
 

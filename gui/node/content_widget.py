@@ -12,7 +12,6 @@ NODE_CONTENTS
 
 
 class QDMNodeContentWidget(QWidget, Serializable):
-
     def __init__(self, node, title=None, parent=None):
         super().__init__(parent)
 
@@ -54,7 +53,7 @@ class QDMNodeContentWidget(QWidget, Serializable):
         self.setLayout(self.layout)
         # self.layout.addWidget(self.wdg_label)
 
-    '''def content_PRINT(self):
+    """def content_PRINT(self):
         self.layout = QVBoxLayout()
         self.textbox = QDMTextEdit("")  # 그 텍스트박스 그거임
         # self.wdg_label = QLabel(self.title)  # 그거 종류 그 뭐냐 하여튼 그거
@@ -72,7 +71,7 @@ class QDMNodeContentWidget(QWidget, Serializable):
         self.layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(self.layout)
         # self.layout.addWidget(self.wdg_label)
-        self.layout.addWidget(self.textbox)'''
+        self.layout.addWidget(self.textbox)"""
 
     def serialize(self):
         return self.serial_communication.serialize()

@@ -9,7 +9,9 @@ DEBUG = False
 
 
 class Edge(Serializable):
-    def __init__(self, scene, start_socket=None, end_socket=None, edge_type=EDGE_TYPE_DIRECT):
+    def __init__(
+        self, scene, start_socket=None, end_socket=None, edge_type=EDGE_TYPE_DIRECT
+    ):
         super().__init__()
         self.scene = scene
 
@@ -48,7 +50,7 @@ class Edge(Serializable):
 
     @edge_type.setter
     def edge_type(self, value):
-        if hasattr(self, 'grEdge') and self.grEdge is not None:
+        if hasattr(self, "grEdge") and self.grEdge is not None:
             self.scene.grScene.removeItem(self.grEdge)
 
         self._edge_type = value
@@ -87,29 +89,37 @@ class Edge(Serializable):
         self.start_socket = None
 
     def remove(self):
-        if DEBUG: print("# Removing Edge", self)
-        if DEBUG: print(" - remove edge from all sockets")
+        if DEBUG:
+            print("# Removing Edge", self)
+        if DEBUG:
+            print(" - remove edge from all sockets")
         self.remove_from_sockets()
-        if DEBUG: print(" - remove grEdge")
+        if DEBUG:
+            print(" - remove grEdge")
         self.scene.grScene.removeItem(self.grEdge)
         self.grEdge = None
-        if DEBUG: print(" - remove edge from scene")
+        if DEBUG:
+            print(" - remove edge from scene")
         try:
             self.scene.removeEdge(self)
         except ValueError as e:
             print("GUI::NODE::EDGE >", e)
-        if DEBUG: print(" - everything is done.")
+        if DEBUG:
+            print(" - everything is done.")
 
     def serialize(self):
-        return OrderedDict([
-            ('id', self.id),
-            ('edge_type', self.edge_type),
-            ('start', self.start_socket.id),
-            ('end', self.end_socket.id),
-        ])
+        return OrderedDict(
+            [
+                ("id", self.id),
+                ("edge_type", self.edge_type),
+                ("start", self.start_socket.id),
+                ("end", self.end_socket.id),
+            ]
+        )
 
     def deserialize(self, data, hashmap={}, restore_id=True):
-        if restore_id: self.id = data['id']
-        self.start_socket = hashmap[data['start']]
-        self.end_socket = hashmap[data['end']]
-        self.edge_type = data['edge_type']
+        if restore_id:
+            self.id = data["id"]
+        self.start_socket = hashmap[data["start"]]
+        self.end_socket = hashmap[data["end"]]
+        self.edge_type = data["edge_type"]

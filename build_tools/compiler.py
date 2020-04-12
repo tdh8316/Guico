@@ -42,7 +42,9 @@ def build(target, mode=None, run=False, test=False):
 
     if mode == "py":
         # if not test:
-        parent.log.appendPlainText(f"\n{str(datetime.datetime.now()).split('.')[0]} 에 빌드 시작.")
+        parent.log.appendPlainText(
+            f"\n{str(datetime.datetime.now()).split('.')[0]} 에 빌드 시작."
+        )
         try:
             lexer = Lexer(target)
         except IOError:
@@ -75,34 +77,52 @@ def build(target, mode=None, run=False, test=False):
             with open(CONF["SOURCE_PATH"], "w", encoding="utf-8") as _source:
                 _source.write(python_code)
 
-            os.system(f"copy font.ttf " + "\"" + "\\".join(
-                list(CONF["FILE_PATH"].split("/")[:-1])) + "\"") \
-                if not os.path.isfile("\\".join(list(CONF["FILE_PATH"].split("/")[:-1])) + r'\font.ttf') \
-                else None
+            os.system(
+                f"copy font.ttf "
+                + '"'
+                + "\\".join(list(CONF["FILE_PATH"].split("/")[:-1]))
+                + '"'
+            ) if not os.path.isfile(
+                "\\".join(list(CONF["FILE_PATH"].split("/")[:-1])) + r"\font.ttf"
+            ) else None
 
             # Copy Guico Game Engine
-            '''if not os.path.isdir("/".join(CONF["SOURCE_PATH"].replace("\\", "/").split("/")[0:-1]) + "/Engine/"):
+            """if not os.path.isdir("/".join(CONF["SOURCE_PATH"].replace("\\", "/").split("/")[0:-1]) + "/Engine/"):
                 shutil.copytree("./Engine/",
-                                "/".join(CONF["SOURCE_PATH"].replace("\\", "/").split("/")[0:-1]) + "/Engine/")'''
-            if not os.path.isfile(os.path.join(os.path.dirname(CONF["SOURCE_PATH"]), "Engine.dll")):
+                                "/".join(CONF["SOURCE_PATH"].replace("\\", "/").split("/")[0:-1]) + "/Engine/")"""
+            if not os.path.isfile(
+                os.path.join(os.path.dirname(CONF["SOURCE_PATH"]), "Engine.dll")
+            ):
                 if not os.path.isfile("./Engine.dll"):
                     build_engine_archive("Engine.dll", "./Engine/")
-                os.system(f"copy Engine.dll \"{os.path.join(os.path.dirname(CONF['SOURCE_PATH']), 'Engine.dll')}\"")
+                os.system(
+                    f"copy Engine.dll \"{os.path.join(os.path.dirname(CONF['SOURCE_PATH']), 'Engine.dll')}\""
+                )
         except IndexError:
             traceback.print_exc()
-            QMessageBox.information(None, f"{NAME} 컴파일 오류", f"{NAME} 규칙에 맞지 않는 부분이 있는 것 같습니다.")
-            parent.log.appendPlainText(f"{str(datetime.datetime.now()).split('.')[0]} 에 빌드 완료 [실패].")
+            QMessageBox.information(
+                None, f"{NAME} 컴파일 오류", f"{NAME} 규칙에 맞지 않는 부분이 있는 것 같습니다."
+            )
+            parent.log.appendPlainText(
+                f"{str(datetime.datetime.now()).split('.')[0]} 에 빌드 완료 [실패]."
+            )
             return False
         except Exception as e:
             traceback.print_exc()
             QMessageBox.critical(None, f"{NAME} - 처리되지 않은 예외", f"{e}\n{sys.exc_info()}")
             # if not test:
-            parent.log.appendPlainText(f"{str(datetime.datetime.now()).split('.')[0]} 에 빌드 완료 [실패].")
+            parent.log.appendPlainText(
+                f"{str(datetime.datetime.now()).split('.')[0]} 에 빌드 완료 [실패]."
+            )
             return False
         else:
             # if not test:
-            parent.log.appendPlainText(f"{str(datetime.datetime.now()).split('.')[0]} 에 빌드 완료 [성공].")
-            parent.log.appendPlainText("소요 시간: %0.3fs" % float(time.time() - start_time))
+            parent.log.appendPlainText(
+                f"{str(datetime.datetime.now()).split('.')[0]} 에 빌드 완료 [성공]."
+            )
+            parent.log.appendPlainText(
+                "소요 시간: %0.3fs" % float(time.time() - start_time)
+            )
             QApplication.restoreOverrideCursor()
             # sys.path.append("\\".join(list(CONF["FILE_PATH"].split("/")[:-1])))
             if run:

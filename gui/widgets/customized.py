@@ -30,7 +30,6 @@ def NotImplementationWidget(self):
 
 
 class CodeEditWithDisabledError(CodeEdit):
-
     def __init__(self, parent=None):
         super(CodeEditWithDisabledError, self).__init__(parent)
 
@@ -45,7 +44,7 @@ class CodeEditWithDisabledError(CodeEdit):
         self.modes.append(modes.SmartBackSpaceMode())
         self.modes.append(modes.SymbolMatcherMode())
         sh = self.modes.append(PygmentsSH(self.document()))
-        sh.color_scheme = ColorScheme('darcula')
+        sh.color_scheme = ColorScheme("darcula")
         sh.fold_detector = IndentFoldDetector()
         self.panels.append(FoldingPanel())
 
@@ -83,7 +82,6 @@ class QDMLineEdit(QLineEdit):
 
 
 class Completer(QCompleter):
-
     def __init__(self, *__args):
         super().__init__(*__args)
 

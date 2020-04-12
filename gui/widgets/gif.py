@@ -6,7 +6,6 @@ from core.config import *
 
 
 class MovieSplashScreen(QSplashScreen):
-
     def __init__(self, movie, parent=None):
         movie.jumpToFrame(0)
         pixmap = QPixmap(movie.frameRect().size())

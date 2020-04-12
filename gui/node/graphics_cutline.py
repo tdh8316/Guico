@@ -26,8 +26,8 @@ class QDMCutLine(QGraphicsItem):
             for pt in self.line_points[1:]:
                 path.lineTo(pt)
         else:
-            path = QPainterPath(QPointF(0,0))
-            path.lineTo(QPointF(1,1))
+            path = QPainterPath(QPointF(0, 0))
+            path.lineTo(QPointF(1, 1))
 
         return path
 

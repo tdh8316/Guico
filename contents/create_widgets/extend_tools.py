@@ -15,7 +15,7 @@ def content_PYTHON_NATIVE(self):
     self.btn_hide.setIcon(QIcon(QPixmap(get_icon_s("downarrow"))))
     self.btn_hide.setCheckable(True)
     self.btn_hide.toggle()
-    self.btn_hide.setFixedSize(60,20)
+    self.btn_hide.setFixedSize(60, 20)
     self.btn_hide.clicked.connect(lambda: hide_PYTHON_NATIVE(self))
     # self.wdg_label = QLabel(self.title)  # 그거 종류 그 뭐냐 하여튼 그거
 

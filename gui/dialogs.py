@@ -4,6 +4,7 @@ from PyQt5.QtCore import *
 # from gui.widgets.tree_combobox import TreeComboBox
 # from contents.leaf_types import getLeafTypeModel
 from gui.widgets.tree_selector import QBasedTreeSelector
+
 # from gui.widgets.script_widget import TabScriptWidget
 from gui.widgets.customized import VariableNameEdit
 from core import script_variables
@@ -18,7 +19,6 @@ def initialize(_parent):
 
 
 class OpenSourceLicense(QDialog):
-
     def __init__(self, parent=None):
         super(OpenSourceLicense, self).__init__(parent)
         self.setWindowFlags(Qt.Popup)
@@ -36,7 +36,6 @@ class OpenSourceLicense(QDialog):
 
 
 class ActivateKey(QDialog):
-
     def __init__(self, parent=None):
         super(ActivateKey, self).__init__(parent)
 
@@ -53,7 +52,6 @@ class ActivateKey(QDialog):
 
 
 class NewVariable(QDialog):
-
     def __init__(self, parent=None):
         super(NewVariable, self).__init__(parent)
         self.setWindowTitle(f"{NAME} - 새로운 변수")
@@ -63,8 +61,8 @@ class NewVariable(QDialog):
         self.var_name = VariableNameEdit()
         self.var_value = QLineEdit()
         self.buttons = QDialogButtonBox(
-            QDialogButtonBox.Ok | QDialogButtonBox.Cancel,
-            Qt.Horizontal, self)
+            QDialogButtonBox.Ok | QDialogButtonBox.Cancel, Qt.Horizontal, self
+        )
         self.buttons.accepted.connect(self.accept)
         self.buttons.rejected.connect(self.reject)
 
@@ -93,7 +91,6 @@ class NewVariable(QDialog):
 
 
 class setLeafType(QDialog):
-
     def __init__(self, parent):
         global isDoubleClicked
         QDialog.__init__(self, parent)
@@ -128,8 +125,8 @@ class setLeafType(QDialog):
         # self.types.click.connect(self.doubleClickEvent)
 
         self.buttons = QDialogButtonBox(
-            QDialogButtonBox.Ok | QDialogButtonBox.Cancel,
-            Qt.Horizontal, self)
+            QDialogButtonBox.Ok | QDialogButtonBox.Cancel, Qt.Horizontal, self
+        )
         self.buttons.accepted.connect(self.accept)
         self.buttons.rejected.connect(self.reject)
 

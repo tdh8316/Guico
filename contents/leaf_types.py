@@ -3,7 +3,7 @@ from PyQt5.QtGui import QStandardItem, QStandardItemModel
 
 from contents.default import *
 
-'''def getLeafTypeModel():
+"""def getLeafTypeModel():
     type_model = QStandardItemModel()
 
     entry_parent = QStandardItem(LEAF_TYPES["Entry"])
@@ -29,7 +29,7 @@ from contents.default import *
 
     type_model.setHeaderData(0, Qt.Horizontal, "잎의 유형을 선택하세요↓", Qt.DisplayRole)
 
-    return type_model'''
+    return type_model"""
 
 
 def getLooksLeafTypeModel():

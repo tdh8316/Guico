@@ -82,28 +82,32 @@ class Scene(Serializable):
             nodes.append(node.serialize())
         for edge in self.edges:
             edges.append(edge.serialize())
-        return OrderedDict([
-            ('id', self.id),
-            ('scene_width', self.scene_width),
-            ('scene_height', self.scene_height),
-            ('nodes', nodes),
-            ('edges', edges),
-        ])
+        return OrderedDict(
+            [
+                ("id", self.id),
+                ("scene_width", self.scene_width),
+                ("scene_height", self.scene_height),
+                ("nodes", nodes),
+                ("edges", edges),
+            ]
+        )
 
     def deserialize(self, data, hashmap={}, restore_id=True):
         self.clear()
         hashmap = {}
 
         if restore_id:
-            self.id = data['id']
+            self.id = data["id"]
 
         # create nodes
-        for node_data in data['nodes']:
+        for node_data in data["nodes"]:
             # print(node_data, hashmap, restore_id)
-            Node(self, types=node_data['type']).deserialize(node_data, hashmap, restore_id)
+            Node(self, types=node_data["type"]).deserialize(
+                node_data, hashmap, restore_id
+            )
 
         # create edges
-        for edge_data in data['edges']:
+        for edge_data in data["edges"]:
             Edge(self).deserialize(edge_data, hashmap, restore_id)
 
         return True

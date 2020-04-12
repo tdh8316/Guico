@@ -21,7 +21,9 @@ class _View(QGraphicsView):
     def mouseMoveEvent(self, event):
         super().mouseMoveEvent(event)
         last_scene_mouse_position = self.mapToScene(event.pos())
-        self.scenePosChanged.emit(int(last_scene_mouse_position.x()), int(last_scene_mouse_position.y()))
+        self.scenePosChanged.emit(
+            int(last_scene_mouse_position.x()), int(last_scene_mouse_position.y())
+        )
 
 
 class View(QWidget):

@@ -32,6 +32,8 @@ def content_DRAW_IMAGE(self):
 
 
 def setup_image(self):
-    fname, f = QFileDialog.getOpenFileName(caption="이미지 찾기", filter="이미지 파일 (*.png *.jpg *.gif *.bmp)")
+    fname, f = QFileDialog.getOpenFileName(
+        caption="이미지 찾기", filter="이미지 파일 (*.png *.jpg *.gif *.bmp)"
+    )
     if os.path.isfile(fname):
         self.image_path.setPath(fname)

@@ -16,11 +16,10 @@ TMP_PATH = os.path.join(os.path.expanduser("~"), f".{NAME}")
 PREF_FILE = os.path.join(TMP_PATH, ".pref")
 PLUGIN_DIR = "plugins"
 USE_PLUGINS = False
-PERSON_IMAGE = (os.path.join(os.getcwd(), "images", "person.png"))
+PERSON_IMAGE = os.path.join(os.getcwd(), "images", "person.png")
 MAX_VAR = 99
 
-FILE_TYPES = f"{NAME} script files (*.gvs);;" \
-             "모든 파일 (*.*)"
+FILE_TYPES = f"{NAME} script files (*.gvs);;" "모든 파일 (*.*)"
 
 CONF = {
     "FILE_PATH": None,
@@ -29,7 +28,7 @@ CONF = {
     "MODIFIED": False,
     "MOUSE_X": int(),
     "MOUSE_Y": int(),
-    "THEME": "BLACK"
+    "THEME": "BLACK",
 }
 
 INDEX = None

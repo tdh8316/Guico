@@ -19,9 +19,9 @@ class QDMGraphicsScene(QGraphicsScene):
         self.gridSize = 20
         self.gridSquares = 5
 
-        '''self._color_background = QColor("#EEEEEE")
+        """self._color_background = QColor("#EEEEEE")
         self._color_light = QColor("#FAFAFA")
-        self._color_dark = QColor("#F5F5F5")'''
+        self._color_dark = QColor("#F5F5F5")"""
         if CONF["THEME"] == "WHITE":
             self._color_background = QColor("#F5F5F5")  # F1F1F1
             self._color_light = QColor("#F1F1F1")  # black : 323232
@@ -76,10 +76,15 @@ class QDMGraphicsScene(QGraphicsScene):
 
     def mouseReleaseEvent(self, QGraphicsSceneMouseEvent):
         if execute_manager.is_process_running():
-            if QMessageBox.warning(None, "Your program is running",
-                                   "이 스크립트가 아직 실행 중 입니다."
-                                   "실행 중인 프로세스를 끝내고 수정을 계속하시겠습니까?",
-                                   QMessageBox.Yes | QMessageBox.No) == QMessageBox.No:
+            if (
+                QMessageBox.warning(
+                    None,
+                    "Your program is running",
+                    "이 스크립트가 아직 실행 중 입니다." "실행 중인 프로세스를 끝내고 수정을 계속하시겠습니까?",
+                    QMessageBox.Yes | QMessageBox.No,
+                )
+                == QMessageBox.No
+            ):
                 CONF["MODIFIED"] = False
             else:
                 # https://stackoverflow.com/questions/4789837/how-to-terminate-a-python-subprocess-launched-with-shell-true/4791612#4791612

@@ -2,7 +2,6 @@ from contents.default import *
 
 
 class GuicoBuildError(Exception):
-
     def __init__(self, value):
         self.value = value
 
@@ -11,10 +10,8 @@ class GuicoBuildError(Exception):
 
 
 class _Combiner:
-
     def __init__(self, code, conn):
-        self.code: dict = {"STARTS": [],
-                           "ENDS": []}
+        self.code: dict = {"STARTS": [], "ENDS": []}
         self.starts: list = []
         self.ends: list = []
         self.res: list = []
@@ -47,7 +44,6 @@ class _Combiner:
 
 # NOTE: UTC+9, 대한민국 표준시 기준, 2018년 7월 19일 오후 7시 01분
 class Combiner:
-
     def __init__(self, src, connect):
         self.src = src
         self.connect = connect
@@ -90,7 +86,6 @@ class Combiner:
 
 # NOTE: UTC+9, 대한민국 표준시 기준, 2018년 8월 11일 오후 7시 45분 된듯 근데 이게 왜되지?
 class CombinerTest:
-
     def __init__(self, src, connect):
         self.src = src
         # print("Here is gotten code :", self.src)
@@ -99,10 +94,10 @@ class CombinerTest:
         self.replacing: list = []
         self.result: list = []
 
-        '''all_connectors = []
+        """all_connectors = []
         for i in range(len(self.connect)):
             all_connectors.append(self.connect[i][0])
-            all_connectors.append(self.connect[i][1])'''
+            all_connectors.append(self.connect[i][1])"""
 
         self.src = src
         self.connect = connect

@@ -2,7 +2,6 @@ from contents.default import *
 
 
 class CheckValidity:
-
     def __init__(self, inter_code: list):
         self.inter_code = inter_code
 

@@ -29,12 +29,14 @@ class QDMGraphicsSocket(QGraphicsItem):
         # painting circle
         painter.setBrush(self._brush)
         painter.setPen(self._pen)
-        painter.drawEllipse(-self.radius, -self.radius, 2 * self.radius, 2 * self.radius)
+        painter.drawEllipse(
+            -self.radius, -self.radius, 2 * self.radius, 2 * self.radius
+        )
 
     def boundingRect(self):
         return QRectF(
-            - self.radius - self.outline_width,
-            - self.radius - self.outline_width,
+            -self.radius - self.outline_width,
+            -self.radius - self.outline_width,
             3 * (self.radius + self.outline_width),
             10 * (self.radius + self.outline_width),
         )
